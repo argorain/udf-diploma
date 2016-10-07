@@ -1,5 +1,25 @@
 \chapter{Souborové systémy OS Linux}
 \todo{Srovnani ext3, ext4, udf, fat, ntfs, ... a nastroju pro ně, soustředit se na fsck}
+\todo{Vysvětlit co to je souborový systém?}
+Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých souborových systémů stejně tak jako jich bylo mnoho implementováno z ostatních operačních systémů. Některé z nich jsou používány i v současnosti, některé byly opuštěny nebo nahrazeny.\\
+Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové systémy tyto:
+\begin{itemize}
+    \item minix -- nejstarší souborový systém OS Linux. Vzhledem k jeho stáří se dnes již aktivně nevyvýjí a nepoužívá. Mezi jeho hlavní omezení patří maximální velikost souborového systému, která je až 64~MB. Dalším významným omezením je délka názvů soborů, která je limitována na 30 znaků.
+    \item ext -- tento souborový systém, celým jménem Extended Filesystem, vznikl v roce 1992 speciálně pro potřeby kernelu OS Linux \cite{wiki-ext}. Jeho inspirací byl souborový systém UFS (Unix File System), ze kterého převzal strukturu metadat. Jeho limitací byla maximlní velikost 2~GB.
+    \item ext2 -- nástupce souborového systému ext. Byla navýšena maximální velikost na 32~TB a byl navržen podle stejných principů jako Berkeley Fast File System z projektu BSD \cite{wiki-ext2}. Dlouhou dobu byl tento souborový systém používán ve všech hlavních distribucích OS Linux. ext2 nebyl zpětně kompatibilní s původním ext.
+    \item ext3 -- již v pořadí třetí verze ext souborového systému. Nyní již byla zachována téměř plná zpětná kompatibilita s ext2. Oproti ext2 ovšem ext3 přineslo žurnálování, které pomohlo v obnově souborového systému při chybě systému \cite{wiki-ext3}. Zbytek parametrů zůstal shodný s ext2.
+    \item ext4 -- současná verze ext souborového systému \cite{wiki-ext4}. Opět je zpětně kompatibilní s ext3 a ext2 ale oproti nim byla navýšena maximální velikost na 1~EB, ale doporučené maximum je 16~TB. Původně byl ext4 pouze skupina rozšížení pro ext3, ale později se osamostatnil jako ext4. Dalším rozšířením je nyní již neomezený počet podsložek (ext3 mělo omezení na 32000 podsložek). Také bylo zlepšena odolnost žurnálu přidáním kontrolních součtů a celková výkonnost souborového systému.
+    \item vfat -- typický zástupce cizích souborových systémů. V tomto případě se jedná o MS FAT32, který je hojně používaný na USB flash discích.
+    \item iso9660 -- standardní souborový systém pro CD-ROM. 
+    \item udf -- souborový systém původně vyvynutý pro datové rozšíření CD-ROM. Posléze rozšířen pro DVD a BluRay. V současnosti je používán například v šifrovaných flash discích. 
+    \item smbfs -- síťový souborový systém Samba File Systém vyvynutý pro sdílení dat mezi počítači s MS Windows. Podporuje Windows Sharing Protocol.
+    \item ntfs -- v současnosti nejpoužívanější souborový systém v MS Windows.
+\end{itemize}
+
+\section{Nástroje kontroly integrity}
+V prostředí OS Linux je pro kontrolu integrity určen primárně nástroj \texttt{fsck} (Filesystem Consistency Check). V manuálové stránce k \texttt{fsck} \cite{man-fsck} se lze dočíst, že samotný \texttt{fsck} je pouze frontend, který volá specifické nástroje pro daný souborový systém. Skutečné nástroje určené pro kontrolu integrity, které jsou obvykle dodávány spolu s nástroji k vytvoření a práci s daným soborovým systémem se jmenují \texttt{fsck.fstype}, například \texttt{fsck.ext4}.\\
+Pro masivně používané souborové systémy tyto nástroje existují. Pro \textbf{ext} rodinu se jedná o nástroj \texttt{e2fsck}. Podporovány jsou i převzaté souborové systémy, například \texttt{fsck.fat} pro souborové systémy \textbf{vfat} a \textbf{msdos}. Ovšem pro například pro \textbf{iso9660} nástroje kontrolující integritu existují pouze jako nástroje vzniklé na základě pokusů při testování vadných disků. Takovým je i \texttt{isovfy} \cite{man-isovfy} ze skupiny nástrojů isoinfo, který ovšem pouze umožňuje kontrolu integrity, nikoli opravu chyb.\\
+Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt ve s názvem udftools \cite{udftool-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat. V roce 2007 byly integrovány poslední patche a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} a znovu byl započat vývoj, převážně opravy starých chyb. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a v současnosti z tohoto důvodu chybí v OS Linux.
 
 \chapter{Universal Disk Filesystem}
 \todo{Popsat filesystem, způsob uložení dat, ochrané mechanismy... UDF docs rulez!}
