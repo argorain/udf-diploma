@@ -26,6 +26,18 @@ Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Proje
 
 \chapter{Definice chyb na souborovém systému}
 \todo{Jak se to může pokazit? A co se s tím dá dělat?}
+Chyby na souborovém systému mohou vzniknout ze třech příčin. 
+\begin{enumerate}
+    \item Chybou ovladače souborového systému,
+    \item nekorektním odpojením souborového systému (například odpojení flash disku před ukončením všech transakcí),
+    \item fyzickým poškozením média (například stářím poškozené bloky flash paměti nebo poškrábané optické médium).
+\end{enumerate}
+První druh chyb se děje zřídka. Důvodem je skutečnost, že programy a kernelové moduly starající se o přístup k a práci se souborovými systémy bývají dobře odladěné a otestované. Koneckonců, právě data jsou to, co má v počíačích hodnotu.\\
+Druhý druh chyb se vyskytuje velice často. Odebrání disku ve spěchu bez korektního odpojení může způsobit poškození souborového systému skrz přerušení probíhající zápisové operace. Systém poté zůstane v nekonzistentním stavu, protože se tam nachází částečně zapsaný soubor. Případně může dojít k poškození metadat souboru. Do této kateogie spadají i chyby vzniklé pádem operačního systému.\\
+Třetí kategorií chyb jsou veškeré poruchy fyzického média. U optických disků se první vybaví škrábance a rýhy. Tyto chyby poté bývají shluknuty do clusterů poškozených dat. U magnetických disků může dojít k poškození kolizí čtecích hlav s plotnou nebo k poškozením opotřebením. V dnešní době se dá předejít obojímu. Vyšší řady disků určených pro notebooky mají integrovaný akcelerometr a v případě většího zrychlení dojde k nouzovému zaparkování čtecích hlav. Chybám z opotřebení lze předcházet pomocí integrovaného systému S.M.A.R.T. který se stará o sběr telemetrických dat o disku a na jejich základě lze předvídat jeho poruchu. S příchodem FLASH technologie se objevil druh chyb ve formě vadných paměťových buněk, ať už z výroby nebo opotřebením. V jistém malém procentu může dojít i k vytvoření chyby pomocí vysoce nabité částice, která změní napěťový potenciál v bitu.\\
+Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození. 
 
 \chapter{Realizace nástroje pro detekci chyb}
 \todo{Vlastní řešení.}
+
+
