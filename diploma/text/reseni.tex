@@ -1,6 +1,47 @@
 \chapter{Souborové systémy OS Linux}
 \todo{Srovnani ext3, ext4, udf, fat, ntfs, ... a nastroju pro ně, soustředit se na fsck}
 \todo{Vysvětlit co to je souborový systém?}
+
+\section{Fyzická úložná média}
+\todo{Ozdrojovat...}
+Fyzická úložná média představují nejnižší vrstvu  a zároveň základní kámen všech souborových systémů, protože právě na základě jejich vlastností byly vytvářeny.\\
+Z historického hlediska současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky přes magnetickým ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyly konstruovány pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata ale pouze data samotná a jejjich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket, které byly formátovány souborovým systémem \textbf{FAT12}. Posléze s rozšířením pevných disků se začaly vyvíjet nové souborové systémy odpovídající požadavkům.\\
+Z hlediska struktury disku lze mluvit o CHS (Cylinder Head Sector), které rozdělilo úložné médium ve třech rozměrech podle jednotlivých stop (Cylinder), čtecí hlavy (Head), kterých může být u pevných disků více, záleží na počtu jednotlivých disků a použitých stran a poslední rozměr je sektor (Sector), který určuje o kterou část stopy jde. Právě sektory dostály ve vývoji největších změn, protože původní dělení po úhlech od středu disku nebylo efektivní se vzrůstající vzdáleností od středu. Proto se později přešlo k dělení na jednotnou velikost sektoru, které se rozložily rovnoměrně po celém disku.\\
+Sektor je nejmenší zápisovou jednotkou na médiu, která je určená výrobcem média. Typicky se jedná o velikosti 512~B u pevných disků, 2048~B u CD-ROM a DVD-ROM. Nové pevné disky používají velikost bloku 4096~B. Důvodem pro členění po sektorech je zjednodušení přístupu k médiu za předpokladu, že uložená data jsou větší než velikost bloku. V opačném případě dochází k plýtvání místem, protože se vždy čte a zapisuje celý blok. Právě proti sektorům se obvykle navrhují bloky souborového systému, které se snaží využít sektory co nejefektivněji jak z hlediska úspory místa tak z hlediska přístupového a zápisového času.\\
+
+\section{Diskové oddíly}
+Diskové oddíly představují způsob, jak lze fyzické médium abstraktně rozdělit na více částí. Rozdělení na oddíly je uloženo v MBR (Master Boot Record) a jeden disk může obsahovat až 4 hlavní oddíly. V případě potřeby více oddílů lze použít rozšířený oddíl, který zapouzdřuije další dělení na oddíly, ovšem tentokrát již mimo MBR.\\
+Důvodem pro rozdělení na oddíly může být oddělení uživatelských dat od systémových, vyhrazení místa pro odkládací oddíl nebo jiné logické dělení. 
+
+\section{Logical Volume Manager (LVM)}
+\todo{https://wiki.archlinux.org/index.php/LVM}
+Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (\cite{https://wiki.archlinux.org/index.php/Software_RAID_and_LVM}).\\
+LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na následujícím obrázku:
+\begin{verbatim}
+Disk1 (/dev/sda):
+ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+|Partition1 50GB (Physical volume) |Partition2 80GB (Physical volume)     |
+|/dev/sda1                         |/dev/sda2                             |
+|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |
+                                                     
+Disk2 (/dev/sdb):
+ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+|Partition1 120GB (Physical volume)                 |
+|/dev/sdb1                                          |
+| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _|
+\end{verbatim}
+Jak je vidět, situace obsahuje dva disky, každý o jiné velikosti a formátu. Pokud bychom chtěli vytvořit diskový oddíl, museli bychom sáhnout po řešení RAID 0 a disky posléze naformátovat dle potřeby. V případě změny velikosti by bylo nutné uložiště přeformátovávat. Ovšem při použití LVM situace vypadá například takto:
+\begin{verbatim}
+Volume Group1 (/dev/MyStorage/ = /dev/sda1 + /dev/sda2 + /dev/sdb1):
+ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+|Logical volume1 15GB  |Logical volume2 35GB    |Logical volume3 200GB    |
+|/dev/MyStorage/rootvol|/dev/MyStorage/homevol  |/dev/MyStorage/mediavol  |
+|_ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _|
+\end{verbatim}
+Všechny oddíly byly sloučeny do jedné logické skupny s názvem \texttt{MyStorage} s velikostí 250~GB a to bylo následně pouze logicky rozděleno na oddíly jak je vidět na obrázku. Tyto logické oddíly posléze budou naformátovány libovolným souborovým systémem.\\
+Zásadní rozdíl oproti RAID 0 je v možnostech změny struktury úložiště. V případě RAID 0 se změna promítá do formátování RAID úložiště, v případě LVM se jedná o změnu velikosti logické jednotky pouze za předpokladu existence nějakého volného místa, nezávisle na jeho místě na disku. Tudíž není třeba přesouvat oddíly pro potřeby jejich zvětšení.
+
+\section{Srovnání souborových systémů}
 Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých souborových systémů stejně tak jako jich bylo mnoho implementováno z ostatních operačních systémů. Některé z nich jsou používány i v současnosti, některé byly opuštěny nebo nahrazeny.\\
 Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové systémy tyto:
 \begin{itemize}
