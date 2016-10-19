@@ -1,3 +1,100 @@
+\chapter{Elektronická komunikace s vývojáři UDF}
+\section{František Kluknavský} \label{kluknav}
+\section{Pali Rohár} \label{pali}
+\section{Scott Long \texttt{scott4long@yahoo.com}} \label{scott}
+\begin{verbatim}
+Hello Scott,
+
+Thanks a lot for reply. I tried to find something from NetBSD project,
+but without any luck. It seems they ot stuck at similar point as
+FreeBSD. Their status is "not yet finished, but will be added later",
+but it was in year 2008 and since then nothing new. I am going to write
+to them if they have something...
+
+I am quite wondering what happened between years 2004-2008, because it
+seems like UDF died at unix nearly from day to day, distribution to
+distribution.
+
+I actually found some open source implementation at OpenSolaris, but it
+is only available implementation since OSX's implementation is closed
+source same as Microsoft's.
+
+Have a nice day,
+Vojtech
+
+On 11.10.2016 01:18, Scott Long wrote:
+> Hello Vojtech,
+>
+> It's nice to hear from you.  Unfortunately I have not worked on UDF in more than 10 years, and I never made much progress on a fsck implementation for it.  You might look at the NetBSD project, I think that they carried the work further forward.  I know that they had talked about fsck_udf at one point, but I'm not sure if they finished it.
+>
+> Scott
+>
+>> On Friday, October 7, 2016 8:54 AM, Vojtěch Vladyka <xvlady00@stud.feec.vutbr.cz> wrote:
+>> Hello.
+>> My name is Vojtech Vladyka and I am master degree student at Faculty of
+>> Electrical Engineering and Communications at Brno University of
+>> Technology. I am working on fsck for UDF as part of my thesis.
+>> I found your homepage https://people.freebsd.org/~scottl/ and there I
+>> found you were working on UDF for BSD. I see fsck was between TODOs, but
+>> I am wondering if some work weren't done and you just didn't made a 
+>> patch.
+>> If you have some resources about fsck for UDF or pieces of sources,
+>> please let me know.
+>> Thanks a lot,
+>> Vojtech Vladyka
+\end{verbatim}
+
+\section{Reinoud Zandijk \texttt{reinoud@NetBSD.org}} \label{reinoud}
+\begin{verbatim}
+Hi Vojtech,
+
+On Wed, Oct 12, 2016 at 02:56:02PM +0200, Vojt?ch Vladyka wrote:
+> my name is Vojtech Vladyka and I am student at Brno University of
+> Technology, Faculty of Electrical Engineering and Communications. I am
+> working on my master degree thesis which is making fsck for udf for Linux.
+>
+> I found old NetBSD thread
+> (https://mail-index.netbsd.org/netbsd-announce/2008/05/15/msg000028.html)
+> where you are announcing some progress at udf project with note that
+> fsck_udf will be added later. At this moment I am gathering implementations
+> from other unixes and I haven't found any more info about fsck_udf here. I
+> am wondering if you have some unfinished implementation or something you can
+> provide to me.
+
+I've created two UDF implementations: UDFclient (www.13thmonkey.org/udfclient)
+and the NetBSD UDF implementation. UDFclient was a kind of study into UDF and
+far too elaborate to be useful for my FSCK implementation, it'll need to be
+pruned first.
+
+UDFclient can read and write rewritable media like CD-(M)RW, DVD*(M)RW, BD-RE
+and flash/harddisc up to UDF 2.50 where as the NetBSD UDF implementation can
+read and write recordable media too iupto UDF 2.50 and can be considered
+superior over UDFclient.
+
+As for fsck_udf, there is only one opensource version and thats the
+OpenSolaris one. Before you get too exited, its fairly limited and will only
+check older media and even then only deals with recovering free space and get
+the directory tree in-order. Important but limited.
+
+I've myself started an fsck_udf but its still in its embryonic stage but I
+still want to continue with it.
+
+> If you have some resources about fsck for UDF or pieces of sources, please
+> let me know.
+
+I presume you have the full UDF specification documents for UDF? I.e. the
+Ecma-167 and all the UDF documents for each version? You can download them at
+my stash at http://www.13thmonkey.org/documentation/UDF/. As for SCSI commands
+for the media, you'd need the SCSI-MMC documents which you can also download
+from my stash at http://www.13thmonkey.org/documentation/SCSI.
+
+Feel free to contact me if you have questions 
+
+With regards,
+Reinoud Zandijk
+(NetBSD developer)
+\end{verbatim}
+
 \chapter{Některé příkazy balíčku \texttt{thesis}}
 
 \section{Příkazy pro sazbu veličin a jednotek}
