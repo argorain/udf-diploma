@@ -66,6 +66,7 @@ Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Proje
 \chapter{Universal Disk Filesystem}
 \todo{Popsat filesystem, způsob uložení dat, ochrané mechanismy... UDF docs rulez!}
 Universal Disk Filesystem (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO 9660) ale není s ním kompatibilní. Jednou z výhod UDF oproti CDFS je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD. 
+
 \section{Struktura systému}
 %Po vzoru CDFS byla převzata struktura začátku souborového systému pro snadné a rychlé rozlišení CDFS a UDF. Oba totiž sdílejí výchozí velikost sektoru, která je 2048~B a pro boot sektor je vyhrazeno prvních 16 bloků. Poté u obou následují popisovače systému, které jsou zarovnané po 2048~B.\\ \todo{je to tak vzdy? nebo to je zarovnané na velikost sektoru?}
 Pro potřeby popisu struktury systému je potřeba zavést dvě číslování. Prvním je \textit{Logical Sector Number} (LSN) a druhým je \textit{Logical Block Number} (LBN). Ve většině případů bude jejich velikost shodná (a norma popisující UDF to i vyžadauje) ale může se stát že se velikosti neshodují. V tom případě se jejich umístění přestane překrývat a je třeba je začít rozlišovat.\\
@@ -73,19 +74,48 @@ Na začátku média nebo stopy je vyhrazeno 16 sektorů pro potřeby operačníh
 Po vzoru CDFS byla vytvořena úvodní část s názvem \textit{UDF Bridge Volume Recognition Sequence} (VRS) začínající na fixním sektoru 16, jejíž částí může být ISO9660 \textit{Primary Volume Descriptor} a \textit{Volume Descriptor Terminator} nebo \textit{Boot Volume Descriptor}. Poté následuje v případě že je přítomno UDF deskriptory \textit{Beginning Extended Area Descriptor}, \textit{NSR Descriptor} a \textit{Terminating Extended Area Descriptor}. Je to právě \textit{NSR Descriptor}, který určuje přítomnost UDF na médiu. Pro VRS je vyhrazena velikost 6 sektorů.\\
 Poté následuje rezervované místo pro potřeby ostatních deskriptorů UDF. Toto místo vyplňuje oblast od konce VRS až do druhého fixního sektoru 256, kde je umístěn \textit{Anchor Volume Descriptor Pointer} (AVDP). Tento deskriptor je výchozím bodem UDF. Právě z něj míří dva ukazatele na sektory obsahující \textit{Main Volume Descriptor Sequence} a \textit{Reserve Volume Descriptor Sequence}. Tyto oblasti mají obě fixní velikost 16 sektorů. Jak je vidět, volné místo mezi koncem VRS a AVDP je větší, zbytek tohoto místa by měl být vyplněn nulami. Samotné umístění deskriptorových sekvencí není striktně předepsáno ale bývá zarovnáno s sektorem 32.\\
 \textit{Main (Reserve) Volume Descriptor Sequence} obsahují duplicitní informace o samotném UDF. Jejich deskriptory budou popsány v následujících kapitolách. Již předešlu že uvnitř je uložena velikost logického bloku, který je používaný dále.\\
-Poslední oblastí, která je adresovaná podle sektorů je \textit{Path Table / Directory Record}, který začíná na sektoru 257 a končí na sektoru 257~+~65536 jak udává norma. Ovšem v tomto případě jsou známé problémy s dodržením tohoto limitu a může dojít i k překročení této velikosti. Není to situace pokrytá normou ale je potřeba ji mít na paměti. Tato oblast je popsána pomocí standardu ISO~9660 (ECMA-119) a obsahuje informace o všech kořenových adresářích.\\
-První popisovač je uložen v sektoru 16 a má stejnou strukturu jako první popisovač CDFS pro zachování kompatibility alespoň na úrovni rozlišení systémů. 
+Poslední oblastí, která je adresovaná podle sektorů je \textit{Path Table / Directory Record}, který začíná na sektoru 257 a končí na sektoru 257~+~65536 jak udává norma. Ovšem v tomto případě jsou známé problémy s dodržením tohoto limitu a může dojít i k překročení této velikosti. Není to situace pokrytá normou ale je potřeba ji mít na paměti. Tato oblast je popsána pomocí standardu ISO~9660 (ECMA-119) a obsahuje informace o všech kořenových adresářích.
+
+\subsection{UDF Bridge Recogniton Sequence}
+Tato sekce je určena k rozpoznání obsaženého souborového systému. Jak bylo předesláno v předchozí kapitole, může být velká až 6 sektorů a obsahuje deskriptor identifikující souborový systém. Jeho poloha je fixní na sektoru 16.\\
+Struktura deskriptorů je následující:
 \begin{center}
     \begin{tabular}{ | l | l | l | l | l | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline
-        0       & 1             & Typ           & int8          & Číslo typu popisovače \\ \hline
-        1       & 5             & Identifikátor & string        & Identifikátor typu souborového systému \\ \hline
-        6       & 1             & Verze         & int8          & Verze popisobače systému \\ \hline
-        7       & 2041          & ---           & ---           & Volné místo, záleží na typu popisovače \\ \hline
+        0       & 1             & Type           & int8          & Typ deskriptoru \\ \hline
+        1       & 5             & Identifier & string        & Identifikátor typu souborového systému \\ \hline
+        6       & 1             & Version         & int8          & Verze deskriptoru \\ \hline
+        7       & 2041          & ---           & ---           & Volné místo, záleží na typu deskriptoru \\ \hline
     \end{tabular}
 \end{center}
+Jak je vidět, deskriptor se skládá ze třech částí, pomineme-li poslední rezervovanou část obsahující volné místo. První položka \textit{Type} určuje typ deskriptoru. Výčet možných typů je uveden v tabulce \todo{Type Codes table}. Další položka s názvem \textit{Identifier} obsahuje řetězec o pěti znacích. Tato část určuje typ použitého souborového systému. Možné varianty jsou tyto:
+\begin{itemize}
+    \item \texttt{BOOT0} - Bootovací záznam
+    \item \texttt{CD001} - souborový systém ISO~9660
+    \item \texttt{CDW02} - TODO
+    \item \texttt{BEA01} - \textit{Beginning Extended Area Descriptor}, začátek UDF Bridge sekvence
+    \item \texttt{TEA01} - \textit{Terminating Extended Area Descriptor}, konec UDF Bridge sekvence
+    \item \texttt{NSR01} - UDF verze 1.0 a vyšší
+    \item \texttt{NSR02} - UDF verze 1.5 a vyšší
+    \item \texttt{NSR03} - UDF verze 2.0 a vyšší
+\end{itemize}
+Poslední položkou je \textit{Version} která obsahuje inforamci o verzi deskriptoru. Zde by měla být v těchto případech vždy 0x01.\\
+Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskriptor obsahující \textit{Identifier} s hodnotou \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. V opačném případě se nejedná o UDF.
 
+\subsection{Anchor Volume Descriptor Pointer}
+\todo{Primary a Secondary anchor point}
+
+\subsection{Volume Descriptor Sequence}
+\todo{Main a Reserve VDS}
+
+\subsection{Logical Volume Integrity Sequence}
+
+\subsection{ECMA-119 File Structure}
+
+\subsection{UDF File Structure}
+
+\subsection{File Data Structure}
 
 \chapter{Definice chyb na souborovém systému}
 \todo{Jak se to může pokazit? A co se s tím dá dělat?}
