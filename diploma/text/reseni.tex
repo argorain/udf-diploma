@@ -5,8 +5,8 @@
 \section{Fyzická úložná média}
 \todo{Ozdrojovat...}
 Fyzická úložná média představují nejnižší vrstvu  a zároveň základní kámen všech souborových systémů, protože právě na základě jejich vlastností byly vytvářeny.\\
-Z historického hlediska současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky přes magnetickým ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyly konstruovány pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata ale pouze data samotná a jejjich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket a pevných disků. \\
-První souborový systém v Unixu byl \textbf{S5FS} neboli System V File System (1974), často ovšem označovaný pouze jako \textbf{FS} (File System) nebo \textbf{UFS} (Unix File System). Tento souborový systém byl velice pomalý a také poměrně jednoduchý, ale právě jeho architektura posloužila jako vzor většiny následujících unixových souborových systémů. Dalším významným souborouvým systémem, který vznikl pro diskety byl \textbf{FAT12} (1977). Posléze s rozšířením pevných disků se začaly vyvíjet další nové souborové systémy odpovídající požadavkům.\\
+Z historického hlediska po současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky přes magnetické ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyly konstruovány pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata ale pouze data samotná a jejjich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket a pevných disků. \\
+První opravdový souborový systém v Unixu byl \textbf{S5FS} neboli System V File System (1974), často ovšem označovaný pouze jako \textbf{FS} (File System) nebo \textbf{UFS} (Unix File System) který byl implementován v UNIX System V běžící například na mainframech PDP-11. Tento souborový systém byl velice pomalý a také poměrně jednoduchý, ale právě jeho architektura posloužila jako vzor většiny následujících unixových souborových systémů. Tomu ovšem předcházel souborový systém pro mikropočítače s názvem \textbf{CP/M} (1973) neboli Control Program/Monitor a později Control Program for Microcomputer. Tento souborový systém byl určen narozdíl od S5FS pro mikropočítače od společnosti Intel. V době vzniku totiž začal Intel vyrábět první osmibitové procesory Intel 8008 a o rok později v roce 1974 vznikl Intel 8080 a právě s ním se rozšířil i CP/M. CP/M byl někde na pomezí mezi souborovým a operačním systémem. Na úložném médiu (v tomto případě disketě) byl BIOS, který poskytoval systémová volání na zápis a čtení, řízení klávesnice a monitoru. Poté bylo CP/M, které využívalo těchto volání a poskytovalo je spolu s dalšími shellu a uživatelskému programu. Systémová volání které přidalo CP/M se týkaly převážně přístupu k souborům, která CP/M uchovávalo. Dalším významným souborouvým systémem, který vznikl pro diskety byl \textbf{FAT12} (1977). Posléze s rozšířením pevných disků se začaly vyvíjet další nové souborové systémy odpovídající požadavkům.\\
 Z hlediska struktury disku lze mluvit o CHS (Cylinder Head Sector), které rozdělilo úložné médium ve třech rozměrech podle jednotlivých stop (Cylinder), čtecí hlavy (Head), kterých může být u pevných disků více, záleží na počtu jednotlivých disků a použitých stran a poslední rozměr je sektor (Sector), který určuje o kterou část stopy jde. Právě sektory dostály ve vývoji největších změn, protože původní dělení po úhlech od středu disku nebylo efektivní se vzrůstající vzdáleností od středu. Proto se později přešlo k dělení na jednotnou velikost sektoru, které se rozložily rovnoměrně po celém disku.\\
 Sektor je nejmenší zápisovou jednotkou na médiu, která je určená výrobcem média. Typicky se jedná o velikosti 512~B u pevných disků, 2048~B u CD-ROM a DVD-ROM. Nové pevné disky používají velikost bloku 4096~B. Důvodem pro členění po sektorech je zjednodušení přístupu k médiu za předpokladu, že uložená data jsou větší než velikost bloku. V opačném případě dochází k plýtvání místem, protože se vždy čte a zapisuje celý blok. Právě proti sektorům se obvykle navrhují bloky souborového systému, které se snaží využít sektory co nejefektivněji jak z hlediska úspory místa tak z hlediska přístupového a zápisového času.\\
 
@@ -140,8 +140,107 @@ Chyby na souborovém systému mohou vzniknout ze třech příčin.
 První druh chyb se děje zřídka. Důvodem je skutečnost, že programy a kernelové moduly starající se o přístup k a práci se souborovými systémy bývají dobře odladěné a otestované. Koneckonců, právě data jsou to, co má v počíačích hodnotu.\\
 Druhý druh chyb se vyskytuje velice často. Odebrání disku ve spěchu bez korektního odpojení může způsobit poškození souborového systému skrz přerušení probíhající zápisové operace. Systém poté zůstane v nekonzistentním stavu, protože se tam nachází částečně zapsaný soubor. Případně může dojít k poškození metadat souboru. Do této kateogie spadají i chyby vzniklé pádem operačního systému.\\
 Třetí kategorií chyb jsou veškeré poruchy fyzického média. U optických disků se první vybaví škrábance a rýhy. Tyto chyby poté bývají shluknuty do clusterů poškozených dat. U magnetických disků může dojít k poškození kolizí čtecích hlav s plotnou nebo k poškozením opotřebením. V dnešní době se dá předejít obojímu. Vyšší řady disků určených pro notebooky mají integrovaný akcelerometr a v případě většího zrychlení dojde k nouzovému zaparkování čtecích hlav. Chybám z opotřebení lze předcházet pomocí integrovaného systému S.M.A.R.T. který se stará o sběr telemetrických dat o disku a na jejich základě lze předvídat jeho poruchu. S příchodem FLASH technologie se objevil druh chyb ve formě vadných paměťových buněk, ať už z výroby nebo opotřebením. V jistém malém procentu může dojít i k vytvoření chyby pomocí vysoce nabité částice, která změní napěťový potenciál v bitu.\\
-Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození. 
+Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození.
 
+\section{Detekce chyb}
+Způsobů jak detekovat chyby v případě jejich nastání je celá řada a liší se požadavky na prostředky a čas. Za naivní přístup lze považovat například detekci porovnáním s referencí. Předpokládejme, že máme stejnou informaci uloženou dvakrát na různých místech (médiích) a v případě poruchy dat je možné data obnovit z referenčního média. Tento přístup představuje například RAID nebo také diferenciální vedení. Toto řešení je evidentně náročné na úložiště kvůli stoprocentní duplicitě dat. Výměnou za to poskytuje informaci nejen o přítomnosti chyby ale i o její poloze a původních datech. Dalším přístupem je vytváření kontrolních součtů. Tento přístup nám dává oproti předchozímu pouze informaci o přítomnosti chyby bez informace kde chyba je a jak ji opravit. V absurdním případě se můžou chyby dokonce navzájem vyrušit takže data nebudou konzistentní ale kontrolní součet bude stejný. I přes tyto nedostatky je kontrolní součet oblíbená metoda detekce chyb kvůli své jednoduchosti a nenáročnosti na paměť. Poněkud komplexnější variantou je CRC (Cyclic Redundancy Check). Tento mechanismus, který původně vznikl pro kabelové přenosy našel uplatnění všude, kde je potřeba mít možnost chyby nejen detekovat ale i opravovat a přitom není prostor pro kopii dat. Je výpočetně náročnější ale výsledek je opět několikabytové číslo. I zde může v extrémním případě dojít k poškození dat a nezměnění CRC, ale tato šance je řádově nižší než v případě kontrolního součtu.
+
+\subsection{Cyclic Redundancy Check}
+Cyclic Redundancy Check je narozdíl od ostatních metod poněkud složitější a proto si zaslouží vysvětlení. CRC se skládá z několika částí. Výchozí částí je generační polynom (GP), který určuje na jaké chyby bude naše CRC citlivé. Generační polynom je vytvořen jako sekvence jedniček a nul o stejné délce jako výsledné CRC. Pro polynom $GP=1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0$ odpovídá podle koeficientů GP 1010.\\
+Výchozí operací která je jádrem CRC je logická funkce XOR. Pro demonstraci výpočtu CRC si nadefinujeme řetězec dat, pro která je potřeba CRC spočítat.
+\begin{verbatim}
+Data: 0100 1011 0001 1111 1100
+\end{verbatim}
+K těmto datům je potřeba připojit tolik nul, kolik má být délka výsledného CRC, takže výsledek vypadá následovně.
+\begin{verbatim}
+Data: 0100 1011 0001 1111 1100 0000
+                               ----
+\end{verbatim}
+Nyní je potřeba spočítat samotné CRC. To se provádí postupným XORem nad daty a posléze mezivýsledky tak dlouho, dokud nedojdeme s generačním polynomem až na konec dat. Důležitá poznámka je, že generační polynom se vždy zarovnává s nejbližší jedničkou a až poté probíhá XOR. Poté to co zbylo je naše CRC a to se přidá k datům do vyhrazené oblasti, kterou jsme přidali v předchozím kroku.
+\begin{verbatim}
+     0100 1011 0001 1111 1100 0000
+XOR   101 0
+1.   -----------------------------
+     0001 1011 0001 1111 1100 0000
+XOR     1 010
+2.   -----------------------------
+     0000 1111 0001 1111 1100 0000
+XOR       1010
+3.   -----------------------------
+     0000 0101 0001 1111 1100 0000
+XOR        101 0
+4.   -----------------------------
+     0000 0000 0001 1111 1100 0000
+XOR               1 010
+5.   -----------------------------
+     0000 0000 0000 1011 1100 0000
+XOR                 1010 
+6.   -----------------------------
+     0000 0000 0000 0001 1100 0000
+XOR                    1 010
+7.   -----------------------------
+     0000 0000 0000 0000 1000 0000
+XOR                      1010
+8.   -----------------------------
+     0000 0000 0000 0000 0010 0000
+XOR                        10 10
+9.   -----------------------------
+     0000 0000 0000 0000 0000 1000
+                              ----
+\end{verbatim}
+Na tomto příkladu jsme demonstrovali výpočet 4-bitového CRC nad 20 bity dat. Výsledné CRC je 1000.\\
+Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrolního součtu prostým výpočtem CRC nad daty bez vlastního CRC a jejich porovnáním anebo hledáním chyby pomocí chybového vektoru. V případě, že jsou data správná, po operaci XOR nad celými daty včetně CRC musí vyjít chybový vektor 0. Ovšem pokud je na daném bitu chyba, v chybovém vektoru vyjde v tom místě jednička.\\
+\begin{verbatim}
+     0100 1011 0001 1111 1100 1000
+XOR   101 0
+1.   -----------------------------
+     0001 1011 0001 1111 1100 1000
+XOR     1 010
+2.   -----------------------------
+     0000 1111 0001 1111 1100 1000
+XOR       1010
+3.   -----------------------------
+     0000 0101 0001 1111 1100 1000
+XOR        101 0
+4.   -----------------------------
+     0000 0000 0001 1111 1100 1000
+XOR               1 010
+5.   -----------------------------
+     0000 0000 0000 1011 1100 1000
+XOR                 1010 
+6.   -----------------------------
+     0000 0000 0000 0001 1100 1000
+XOR                    1 010
+7.   -----------------------------
+     0000 0000 0000 0000 1000 1000
+XOR                      1010
+8.   -----------------------------
+     0000 0000 0000 0000 0010 1000
+XOR                        10 10
+9.   -----------------------------
+     0000 0000 0000 0000 0000 0000
+\end{verbatim}
+Nyní zkusme stejný výpočet, ovšem s zanesenou chybou v 11. bitu.
+\begin{verbatim}
+     0100 1011 0011 1111 1100 1000
+XOR              ^         10 10
+1.   -----------------------------
+     0100 1011 0011 1111 1110 0000
+XOR                      1010
+2.   -----------------------------
+     0100 1011 0011 1111 0100 0000
+XOR                    1 010
+3.   -----------------------------
+     0100 1011 0011 1110 0000 0000
+XOR                 1010
+4.   -----------------------------
+     0100 1011 0011 0100 0000 0000
+XOR               1 010
+5.   -----------------------------
+     0100 1011 0010 0000 0000 0000
+XOR            1010
+\end{verbatim}
+\todo{Co dělám blbě? Sice to vyjde nenulové, ale neukáže mi to kde je chyba...}
 \chapter{Realizace nástroje pro detekci chyb}
 \todo{Vlastní řešení.}
 \todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
