@@ -263,5 +263,20 @@ As for \texttt{fsck\_udf}, there is only one opensource version and thats the Op
 Implementace v projektu Open Solaris je tedy v současnosti jedinou dostupnou open source implementací \texttt{fsck}. Jejich kód je dostupný na serveru GitHub \cite{solaris-github}. Bohužel ani jejich implementace není kompletní a dokáže obnovit pouze volné místo a strom souborového systému ale bez dat. Dalším omezením je maximální verze UDF, která je omezena na verzi 2.00. Ovšem i toto je dobrý výchozí bod pro další práci.\\ \todo{Overit max verzi solaris udf}
 Co se týká OSX od společnosti Apple, ti mají nástroje pro kontrolu UDF implementovanou v nástroji \texttt{fsck\_udf} pro všechny exitující revize, ovšem zdrojové kódy nejsou veřejně dostupné, takže je možné jejich nástroje použít pouze jako referenční pro srovnání funkčnosti.\\
 Microsoft Windows má implementovaný checkdisk pro UDF ale jejich implementace trpí problémy s implementací samotného ovladače pro UDF, který není schopný načíst souborové systémy větší než 1~GB.\\
+\todo{Overit na windows problemy udf}
 
- 
+\section{Implementace nástroje \texttt{udffsck}}
+Nástroj \texttt{udffsck} z balíčku \texttt{udftools} navazuje na ostatní nástroje v balíčku, využívá sdílené hlavičky s definicemi UDF a jeho cílem je být plnohodnotným \texttt{fsck} nástrojem pro UDF.\\
+Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch co se týká opravování chyb.\\
+Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. 
+
+\subsection{Načtení média a jeho příprava na zpracování}
+Lorem ipsum
+
+\subsection{Detekce chyb na médiu}
+Lorem ipsum
+
+\subsection{Výstup a ovládání nástroje}
+Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu odpovídá i jeho ovládání a výstup.\\
+Jedná se o terminálový program bez jakéhokoli grafického uživatelského rozhraní nebo i textového uživatelského rozhraní. Běh programu je možné ovlivnit pouze jeho vstupními parametry, které jsou dodány při jeho spuštění spolu s médiem ke kontrole. Jeho výstupy jsou směrovány na standardní výstup \texttt{stdout} a chybový výstup \texttt{stderr}.
+
