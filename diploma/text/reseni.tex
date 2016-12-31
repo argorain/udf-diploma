@@ -68,14 +68,6 @@ Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Proje
 Universal Disk Filesystem (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO 9660) ale není s ním kompatibilní. Jednou z výhod UDF oproti CDFS je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD. 
 
 \section{Struktura systému}
-%Po vzoru CDFS byla převzata struktura začátku souborového systému pro snadné a rychlé rozlišení CDFS a UDF. Oba totiž sdílejí výchozí velikost sektoru, která je 2048~B a pro boot sektor je vyhrazeno prvních 16 bloků. Poté u obou následují popisovače systému, které jsou zarovnané po 2048~B.\\ \todo{je to tak vzdy? nebo to je zarovnané na velikost sektoru?}
-
-%Pro potřeby popisu struktury systému je potřeba zavést tři číslování. Prvním je \textit{Logical Sector Number} (LSN), druhým je \textit{Logical Block Number} (LBN) a třetím je LSN z ISO9660. Ve většině případů bude jejich velikost shodná (a norma popisující UDF to i vyžadauje) ale může se stát že se velikosti neshodují. Naopak v případě LSN převzatým z ISO9660 je velikost sektoru fixně 2~kB. V tom případě se jejich umístění přestane překrývat a je třeba je začít rozlišovat.\\
-%Na začátku média nebo stopy je vyhrazeno 16 sektorů o velikosti 2~kB (takže celkem 32~kB) pro potřeby operačního systému. Obvykle není tato část využita je vyplněna nulami.\\
-%Po vzoru CDFS byla vytvořena úvodní část s názvem \textit{UDF Bridge Volume Recognition Sequence} (VRS) začínající na fixním sektoru 16 (počítáno právě podle ISO9660), jejíž částí může být ISO9660 \textit{Primary Volume Descriptor} a \textit{Volume Descriptor Terminator} nebo \textit{Boot Volume Descriptor}. Poté následuje v případě že je přítomno UDF deskriptory \textit{Beginning Extended Area Descriptor}, \textit{NSR Descriptor} a \textit{Terminating Extended Area Descriptor}. Je to právě \textit{NSR Descriptor}, který určuje přítomnost UDF na médiu. Pro VRS je vyhrazena velikost 6 ISO9660 sektorů.\\
-%Poté následuje rezervované místo pro potřeby ostatních deskriptorů UDF. Toto místo vyplňuje oblast od konce VRS až do druhého fixního sektoru 256, kde je umístěn \textit{Anchor Volume Descriptor Pointer} (AVDP). Fyzicky je tato adresa počítána podle UDF LSN od začátku média (!) a nikoli od předchozích LSN, které jsou o velikosti podle ISO9660. AVDP je výchozím bodem UDF. Právě z něj míří dva ukazatele na sektory obsahující \textit{Main Volume Descriptor Sequence} a \textit{Reserve Volume Descriptor Sequence}. Tyto oblasti mají obě fixní velikost 16 sektorů. Jak je vidět, volné místo mezi koncem VRS a AVDP je větší, zbytek tohoto místa by měl být vyplněn nulami. Samotné umístění deskriptorových sekvencí není striktně předepsáno ale bývá zarovnáno s sektorem 32.\\
-%\textit{Main (Reserve) Volume Descriptor Sequence} obsahují duplicitní informace o samotném UDF. Jejich deskriptory budou popsány v následujících kapitolách. Již předešlu že uvnitř je uložena velikost logického bloku, který je používaný dále.\\
-%Poslední oblastí, která je adresovaná podle sektorů je \textit{Path Table / Directory Record}, který začíná na sektoru 257 a končí na sektoru 257~+~65536 jak udává norma. Ovšem v tomto případě jsou známé problémy s dodržením tohoto limitu a může dojít i k překročení této velikosti. Není to situace pokrytá normou ale je potřeba ji mít na paměti. Tato oblast je popsána pomocí standardu ISO9660 (ECMA-119) a obsahuje informace o všech kořenových adresářích.
 Norma popisující UDF popisuje dva druhy číslování. Prvním je \textit{Logical Sector Number} (LSN), které popisuje čísla jednotlivých sektorů. Je číslované od nuly a začíná na prvním fyzickém sektoru média. Jeho velikost by měla odpovídat fyzické velikosti sektoru. Jeho určením je fyzická navigace na médiu. Druhým je \textit{Logical Block Number} (LBN), které popisuje čísla jednotlivých logických bloků, které jsou mapovány na sektory. Jejich velikost by měla být stejná jako je velikost sektorů. Jsou číslované od nuly ale začínají až v oblasti dat. Jeho určením je na rozdíl od LSN navigace pouze v datech.\\
 Samotné médium je rozděleno do pěti částí. První je \textit{Volume Recognition Sequence} (VRS). Tato část je lokalizována na fixní adrese \texttt{0x10000}, což odpovídá sektoru 16 při velikosti sektoru 2~kB. Důvodem této fixní adresy je právě dodržení zpětné kompatibility se standardem ISO9660, který předpokládá použití pouze na optických médiích s velikostí sektoru 2~kB. Tato zpětná kompatiblita pokračuje dále v tom smyslu, že celá VRS je dále zpracovávána právě po 2~kB blocích, pokud je velikost fyzického sektoru menší nebo stejná. V opačném případě je nutné přejít k blokům větším a zpětná kompatibilita je porušena. Význam VRS je identifikace použitého souborového systému na médiu. Více o VRS je v samostané kapitole \ref{sec:vrs}.\\
 Další částí je \textit{Anchor Volume Descriptor Pointer} (AVDP). Tato části je již pouze pro UDF a jedné se o výchozí bod při čtení souborového systému. Mají několik různých umístění a typicky je na médiu víckrát. Obsahuje jedinou informaci a to je umístění \textit{Volume Descriptor Sequence} (VDS) a to jak hlavní, tak záložní. Více je v kapitole \ref{sec:avdp}.\\
@@ -84,12 +76,14 @@ Další částí je \textit{Logical Volume Integrity Descriptor} (LVID), který 
 Poslední částí jsou samotná data. Jejich výchozím bodem je \textit{File Set Descriptor} (FSD), který udržuje informaci o počtu adresářů a souborů a umístění kořenového adresáře. Poté následují už samotné deskriptory dat následované daty.\\
 Vzhledem k možné koexistenici s ISO9660 na médiu je možné že budou existovat i struktury tohoto souborového systému. Tuto skutečnost je potřeba mít na paměti při případném zápisu dat na médium. Pro samotné čtení není třeba se nad tímto déle pozastavovat.
 
+\section{Deskriptory UDF systému}
+Tato část stručně popisuje skupiny deskriptorů souborového systému UDF. Jedná se pouze o přehledovou část vzhledem k velkému překryvu s specifikací, která je uvedena v \cite{osta-udf-0201} a standardem ECMA-167, který je uveden v \cite{ecma-167}.
 
-\subsection{UDF Bridge Recogniton Sequence}
+\subsection{UDF Bridge Volume Recogniton Sequence}
 \label{sec:vrs}
 Tato sekce je určena k rozpoznání obsaženého souborového systému. Jak bylo předesláno v předchozí kapitole, může být velká až 6 sektorů a obsahuje deskriptor identifikující souborový systém. Jeho poloha je fixní na sektoru 16.\\
-Struktura deskriptorů je následující:
-\begin{center}
+Struktura deskriptorů je zachycena v tabulce \ref{tab:vrs}.
+\begin{table}
     \begin{tabular}{ | l | l | l | l | l | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline
@@ -98,7 +92,8 @@ Struktura deskriptorů je následující:
         6       & 1             & Version         & int8          & Verze deskriptoru \\ \hline
         7       & 2041          & ---           & ---           & Volné místo, záleží na typu deskriptoru \\ \hline
     \end{tabular}
-\end{center}
+    \caption{Struktura VRS deskriptorů\label{tab:vrs}}
+\end{table}
 Jak je vidět, deskriptor se skládá ze třech částí, pomineme-li poslední rezervovanou část obsahující volné místo. První položka \textit{Type} určuje typ deskriptoru. Výčet možných typů je uveden v tabulce \todo{Type Codes table}. Další položka s názvem \textit{Identifier} obsahuje řetězec o pěti znacích. Tato část určuje typ použitého souborového systému. Možné varianty jsou tyto:
 \begin{itemize}
     \item \texttt{BOOT0} - Bootovací záznam
@@ -114,7 +109,9 @@ Poslední položkou je \textit{Version} která obsahuje inforamci o verzi deskri
 Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskriptor obsahující \textit{Identifier} s hodnotou \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. V opačném případě se nejedná o UDF.
 
 \subsection{Anchor Volume Descriptor Pointer}
-\textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu deskriptorů souborového systému a jejich délku. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému a proto je na fixním sektoru číslo 256 a také v případě ukončených souborových systémů se nachází jeho kopie na posledním sektoru. Jeho struktura je vidět na tabulce \ref{tab-avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost.
+\label{sec:avdp}
+\textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu deskriptorů souborového systému a jejich délku. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému, proto je umístěn na předem známém místě. V případě uzavřených souborových systémů to je na sektoru 256, posledním sektoru média a nezřídka také na 256 sektoru od konce média. V případě otevřených souborových systémů je zde výjimka, protože AVDP je na dočasně umístěno na sektoru 512 až do uzavření systému.\\
+Jeho struktura je vidět na tabulce \ref{tab-avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost celého souborového systému.
 \begin{table}
     \begin{tabular}{ | l | l | p{4.5cm} | p{1.3cm} | p{5.5cm} | }
         \hline
@@ -128,16 +125,40 @@ Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskri
 \end{table}
 
 \subsection{Volume Descriptor Sequence}
-\textit{Volume Descriptor Sequence} (VDS) je skupina deskriptorů popisující veškeré vlastnosti souborového systému UDF. Jsou seřazeny postupně na jednotlivých sektorech počínaje adresou udanou z AVDP \ref{s-avdp} a končí po počtu uloženém opět v AVDP. Jejich pořadí není fixní, jsou identifikovány pomocí \textit{DescriptorTag}.S postupným vývojem UDF přibývaly i deskriptory v VDS.\\
-Jak je vidět v AVDP, i tato část je uložena duplicitně pro zvýšení robustonosti. Rezervní VDS je uložena ve stejném tvaru jako primární na následucích sektorech.
+\label{sec:vds}
+\textit{Volume Descriptor Sequence} (VDS) je skupina deskriptorů popisující veškeré vlastnosti souborového systému UDF. Jsou seřazeny postupně na jednotlivých sektorech počínaje adresou udanou z AVDP \ref{sec:avdp} a končí po počtu uloženém opět v AVDP. Jsou uloženy postupně po sektorech od výchozí adresy a končí \textit{Terminating Descriptor}, což je prázdný deskriptor, který obsahuje pouze \textit{Descriptor Tag}. Samotné pořadí deskriptorů není pevné a samotné deskriptory jsou identifikovány právě pomocí \textit{Descriptor Tag}.\\
+Jak je vidět v AVDP, i tato část je uložena duplicitně pro zvýšení robustnosti. Rezervní VDS je uložena ve stejném tvaru jako primární tentorkát však od jiné adresy, opět uvedené v AVDP.\\
+Samotné deskriptory jsou popsány v \cite{osta-udf-0201}, kapitola 2.2. Pro kompletnost zde uvedu jejich výčet ze standardu verze 2.01.
+\begin{itemize}
+    \item \textit{Primary Volume Descriptor}
+    \item \textit{Logical Volume Descriptor}
+    \item \textit{Unallocated Space Descriptor}
+    \item \textit{Implementation Use Volume Descriptor}
+    \item \textit{Partition Descriptor}
+    \item \textit{Terminating Descriptor}
+\end{itemize}
 
 \subsection{Logical Volume Integrity Sequence}
+\label{sec:lvid}
+Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TE). Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Obsahuje následující informace:
+\begin{enumerate}
+    \item Je Logický svazek v konzistentním stavu?
+    \item Kdy bylo naposledy cokoli na Logickém svazku modifikováno.
+    \item Kolik bloků je volných na svazku?
+    \item Jaká je celková velikost svazku v blocích?
+    \item Byl obsah modifikován nějakou \textit{jinou} implementací od posledního přístupu implementace která svazek vytvořila?
+\end{enumerate}
+Jak je vidět z tohoto výčtu, tato část je důležitá hlavně pro čtení a zápis, ale i pro kontrolu dat má svůj význam, například právě kvůli informaci o konzistenci svazku.\\ 
+Samotný formát struktury je opět v \cite{osta-udf-0201}, kapitola 2.2.6.
 
-\subsection{ECMA-119 File Structure}
-
-\subsection{UDF File Structure}
-
-\subsection{File Data Structure}
+\section{File Structure}
+\label{sec:fsd}
+Souborová struktura UDF je postavena na třech a později čtyřech deskriptorech, které se podílí na popisu a uložení dat. Jedná se o tyto deskriptory:
+\begin{itemize}
+    \item \textit{File Set Descriptor} (FSD)
+    \item \textit{(Extended) File Entry} (FE)
+    \item \textit{File Identifier Descriptor} (FID)
+\end{itemize}
 
 \chapter{Definice chyb na souborovém systému}
 \todo{Jak se to může pokazit? A co se s tím dá dělat?}
