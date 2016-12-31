@@ -153,12 +153,29 @@ Samotný formát struktury je opět v \cite{osta-udf-0201}, kapitola 2.2.6.
 
 \section{File Structure}
 \label{sec:fsd}
-Souborová struktura UDF je postavena na třech a později čtyřech deskriptorech, které se podílí na popisu a uložení dat. Jedná se o tyto deskriptory:
+Souborová struktura UDF je postavena na třech deskriptorech, které se podílí na popisu a uložení dat. Jedná se o tyto deskriptory:
 \begin{itemize}
     \item \textit{File Set Descriptor} (FSD)
-    \item \textit{(Extended) File Entry} (FE)
+    \item \textit{File Entry} (FE)
     \item \textit{File Identifier Descriptor} (FID)
 \end{itemize}
+
+\subsection{File Set Descriptor}
+\label{sec:fsd}
+\textit{File Set Descriptor} (FSD) je výchozím bodem pro čtení dat. Jeho pozice je opět uložena v LVD. Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.2. Tato strukutra mimo jiné obsahuje umístění kořenového adresáře. Z hlediska kontroly dat nejsou ostatní údaje tolik významné.
+
+\subsection{File Entry}
+\label{sec:fe}
+\textit{File Entry} (FE) je deskriptor, který popisuje samotný soubor. Jeho pozice je určena jeho \textit{rodičem}, což v případě kořenového adresáře je FSD, ale uvedený je opět kořenový adresář, v případě ostatních souborů a adresářů se jedná o adresář, v němž se nechází.\\
+Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.6, a z ní pouze vyberu některé důležité části. První důležitou informací je počet zapsaných bloků (\textit{LogicalBlocksRecorded}). Další důležitou částí jsou \textit{AllocationDescriptors}. Velikost této části je určena pomocí \textit{LengthofAllocationDescriptors} a obsahuje dva druhy dat, podle toho jestli se FE popisuje adresář nebo soubor.\\
+V případě souboru je v tomto místě uložena pozice dat souboru ve formě \textit{Long Allocation Descriptor} nebo \textit{Short Allocation Descriptor}. Vždy bude použit pouze jeden z nich a měl by být uložen pouze jeden, protože data jsou ukládána sekvenčně do bloků za sebou.\\
+V případě adresáře jsou z \textit{AllocationDescriptors} uloženy \textit{File Identifier Descriptor} (kapitola \ref{sec:fid}), přičemž každý jeden deskriptor drží informaci o jednom \textit{potomkovi} adresáře. Vždy je přítomen nejméně jeden FID a tím je \textit{rodičovský adresář}. 
+
+\subsection{File Identifier Descriptor}
+\label{sec:fid}
+\textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4.\\
+Vzhledem k faktu, že cílem této struktury není adresovat data ale jen FE, obsahuje jen metadata metadat souboru. Například jestli popisuje složku nebo soubor, jestli je soubor smazaný nebo jestli uživatel má vědět o existenci souboru. Dále tato struktura obsahuje identifikátor souboru v podobě textového řetězce. Samozřejmě obsahuje i pozici samotného FE.
+
 
 \chapter{Definice chyb na souborovém systému}
 \todo{Jak se to může pokazit? A co se s tím dá dělat?}
