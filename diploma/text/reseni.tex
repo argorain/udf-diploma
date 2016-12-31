@@ -64,7 +64,8 @@ Pro masivně používané souborové systémy tyto nástroje existují. Pro \tex
 Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt ve s názvem udftools \cite{udftool-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat. 
 
 \chapter{Universal Disk Filesystem}
-\todo{Popsat filesystem, způsob uložení dat, ochrané mechanismy... UDF docs rulez!}
+\label{sec:udf}
+%\todo{Popsat filesystem, způsob uložení dat, ochrané mechanismy... UDF docs rulez!}
 Universal Disk Filesystem (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO 9660) ale není s ním kompatibilní. Jednou z výhod UDF oproti CDFS je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD. 
 
 \section{Struktura systému}
@@ -191,9 +192,11 @@ Třetí kategorií chyb jsou veškeré poruchy fyzického média. U optických d
 Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození.
 
 \section{Detekce chyb}
+\label{sec:errordetection}
 Způsobů jak detekovat chyby v případě jejich nastání je celá řada a liší se požadavky na prostředky a čas. Za naivní přístup lze považovat například detekci porovnáním s referencí. Předpokládejme, že máme stejnou informaci uloženou dvakrát na různých místech (médiích) a v případě poruchy dat je možné data obnovit z referenčního média. Tento přístup představuje například RAID nebo také diferenciální vedení. Toto řešení je evidentně náročné na úložiště kvůli stoprocentní duplicitě dat. Výměnou za to poskytuje informaci nejen o přítomnosti chyby ale i o její poloze a původních datech. Dalším přístupem je vytváření kontrolních součtů. Tento přístup nám dává oproti předchozímu pouze informaci o přítomnosti chyby bez informace kde chyba je a jak ji opravit. V absurdním případě se můžou chyby dokonce navzájem vyrušit takže data nebudou konzistentní ale kontrolní součet bude stejný. I přes tyto nedostatky je kontrolní součet oblíbená metoda detekce chyb kvůli své jednoduchosti a nenáročnosti na paměť. Poněkud komplexnější variantou je CRC (Cyclic Redundancy Check). Tento mechanismus, který původně vznikl pro kabelové přenosy našel uplatnění všude, kde je potřeba mít možnost chyby nejen detekovat ale i opravovat a přitom není prostor pro kopii dat. Je výpočetně náročnější ale výsledek je opět několikabytové číslo. I zde může v extrémním případě dojít k poškození dat a nezměnění CRC, ale tato šance je řádově nižší než v případě kontrolního součtu.
 
 \subsection{Cyclic Redundancy Check}
+\label{sec:crc}
 Cyclic Redundancy Check je narozdíl od ostatních metod poněkud složitější a proto si zaslouží vysvětlení. CRC se skládá z několika částí. Výchozí částí je generační polynom (GP), který určuje na jaké chyby bude naše CRC citlivé. Generační polynom je vytvořen jako sekvence jedniček a nul o stejné délce jako výsledné CRC. Pro polynom $GP=1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0$ odpovídá podle koeficientů GP 1010.\\
 Výchozí operací která je jádrem CRC je logická funkce XOR. Pro demonstraci výpočtu CRC si nadefinujeme řetězec dat, pro která je potřeba CRC spočítat.
 \begin{verbatim}
@@ -237,58 +240,21 @@ XOR                        10 10
                               ----
 \end{verbatim}
 Na tomto příkladu jsme demonstrovali výpočet 4-bitového CRC nad 20 bity dat. Výsledné CRC je 1000.\\
-Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrolního součtu prostým výpočtem CRC nad daty bez vlastního CRC a jejich porovnáním anebo hledáním chyby pomocí chybového vektoru. V případě, že jsou data správná, po operaci XOR nad celými daty včetně CRC musí vyjít chybový vektor 0. Ovšem pokud je na daném bitu chyba, v chybovém vektoru vyjde v tom místě jednička.\\
-\begin{verbatim}
-     0100 1011 0001 1111 1100 1000
-XOR   101 0
-1.   -----------------------------
-     0001 1011 0001 1111 1100 1000
-XOR     1 010
-2.   -----------------------------
-     0000 1111 0001 1111 1100 1000
-XOR       1010
-3.   -----------------------------
-     0000 0101 0001 1111 1100 1000
-XOR        101 0
-4.   -----------------------------
-     0000 0000 0001 1111 1100 1000
-XOR               1 010
-5.   -----------------------------
-     0000 0000 0000 1011 1100 1000
-XOR                 1010 
-6.   -----------------------------
-     0000 0000 0000 0001 1100 1000
-XOR                    1 010
-7.   -----------------------------
-     0000 0000 0000 0000 1000 1000
-XOR                      1010
-8.   -----------------------------
-     0000 0000 0000 0000 0010 1000
-XOR                        10 10
-9.   -----------------------------
-     0000 0000 0000 0000 0000 0000
-\end{verbatim}
-Nyní zkusme stejný výpočet, ovšem s zanesenou chybou v 11. bitu.
-\begin{verbatim}
-     0100 1011 0011 1111 1100 1000
-XOR              ^         10 10
-1.   -----------------------------
-     0100 1011 0011 1111 1110 0000
-XOR                      1010
-2.   -----------------------------
-     0100 1011 0011 1111 0100 0000
-XOR                    1 010
-3.   -----------------------------
-     0100 1011 0011 1110 0000 0000
-XOR                 1010
-4.   -----------------------------
-     0100 1011 0011 0100 0000 0000
-XOR               1 010
-5.   -----------------------------
-     0100 1011 0010 0000 0000 0000
-XOR            1010
-\end{verbatim}
-\todo{Co dělám blbě? Sice to vyjde nenulové, ale neukáže mi to kde je chyba...}
+Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrolního součtu prostým výpočtem CRC nad daty bez vlastního CRC a jejich porovnáním anebo hledáním chyby pomocí chybového vektoru. V případě, že jsou data správná, po operaci XOR nad celými daty včetně CRC musí vyjít chybový vektor 0. Ovšem pokud je datech chyba, vektor vyjde nenulový.
+
+\section{Použité kontrolní mechanismy v UDF}
+\label{sec:howtolabelthat}
+V UDF se využívá několika různých mechanismů, které jsou i v případě nutnosti kombinovány pro zvýšení robustnosti.
+\begin{itemize}
+    \item Redundace dat na médiu,
+    \item zápisový bit,
+    \item checksum,
+    \item CRC.
+\end{itemize}
+V tomto výčtu jsou zachyceny všechny kontrolní mechanismy na úrovni UDF. Kontrolní součty jsou popsány v kapitolách \ref{sec:errordetection} a \ref{sec:crc}. Konkrétně je checksum použit pro kontrolu \textit{DescriptorTag} a CRC pro kontrolu samotného deskriptoru, přičemž jeho referenční výsledek je uložený v již zkotrolovaném tagu.\\
+Redundace deskriptorů byla zmíněna v kapitole \ref{sec:udf}. Lze si povšimnout, že čím je deskriptor důležitější pro samotnou funkci souborového systému, tím je jeho fyzická vzdálenost mezi jednotlivými výskyty na médiu větší. V případě AVDP, které je klíčové pro funkci je jeho vzdálenost téměř maximální možná vzhledem k velikosti média (poprvé je uložen na sektoru 256 a poté na konci média). Další případ redundance je v případě VDS.\\
+Zápisový bit je aplikační ošetření konzistence dat. Jeho fuknci lze přirovnat k zámku na vypínači. Pokud je bit nastaven do logické nuly, zápis probíhá (anebo spíše byl přerušen a nebyl korektně ukončen) zatímco pokud pokud je v logické jedničce, tak to značí korektně ukončenou zápisovou operaci.
+
 \chapter{Realizace nástroje pro detekci chyb}
 \todo{Vlastní řešení.}
 \todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
