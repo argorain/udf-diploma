@@ -281,16 +281,35 @@ Microsoft Windows má implementovaný checkdisk pro UDF ale jejich implementace 
 
 \section{Implementace nástroje \texttt{udffsck}}
 Nástroj \texttt{udffsck} z balíčku \texttt{udftools} navazuje na ostatní nástroje v balíčku, využívá sdílené hlavičky s definicemi UDF a jeho cílem je být plnohodnotným \texttt{fsck} nástrojem pro UDF.\\
-Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch co se týká opravování chyb.\\
+Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch co se týká opravování chyb v metadatech. Samotná data podle všeho opravit nepůjdou.\\
 Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. 
 
+\subsection{Výstup a ovládání nástroje}
+Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu bude odpovídat i jeho ovládání a výstup.\\
+Vstupy různých \texttt{fsck} nástrojů se liší podle jednotlivých souborových systémů, ale kvůli zapouzdřitelnosti musí dodržovat návratové hodnoty pro různé druhy chyb. Jedná se o tyto hodnoty:
+\begin{itemize}
+    \item 0 - Bez chyb 
+    \item 1 - Opraveny chyby na souborovém systému
+    \item 2 - Opraveny chyby na souborovém systému, doporučený reboot 
+    \item 4 - Chyby souborového systému zůstaly neopraveny
+    \item 8 - Chyba programu
+    \item 16 - Chybné vstupní parametry
+    \item 32 - Kontrola byla přerušena na základě uživatelského požadavku
+    \item 128 - Chyba sdílené knihovny
+\end{itemize}
+Návratová hodnota může být i součet těchto hodnot pokud nastalo více chyb zároveň.\\
+Má implementace v tuto chvíli nerespektuje tyto hodnoty z důvodů vývoje a vrací různé chybové kódy podle místa kde program skončil. Toto chování bude nahrazeno lepšími výpisy do standardního výstupu a chybového výstupu.\\
+Jedná se o terminálový program bez jakéhokoli grafického uživatelského rozhraní nebo i textového uživatelského rozhraní. Běh programu je možné ovlivnit pouze jeho vstupními parametry, které jsou dodány při jeho spuštění spolu s médiem ke kontrole. Jeho výstupy jsou směrovány na standardní výstup \texttt{stdout} a chybový výstup \texttt{stderr}. V tuto chvíli není výstup programu sjednocený do uživatelsky přívětivé podoby ale spíše pro vývojáře, protože se vypisuje vysoké množství ladicích a informativních údajů.\\
+Program v tuto chvíli vyžaduje k běhu informaci o velikosti sektoru média a médium samotné. Volání programu může vypadat například takto:\\ 
+\centerline{\texttt{./udffsck -b 2048 medium.img}}\\
+První je samotný program, poté následuje povinný parametr \texttt{-b} následovaný velikostí fyzického sektoru. Mezera mezi paramtrem a hodnotou není povinná. Posledním paramterem je samotné kontrolované médium. Jemu nepředchází žádný identifikátor.\\
+
+
 \subsection{Načtení média a jeho příprava na zpracování}
-Lorem ipsum
+Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor zavřen, protože je již namapován a není důvod k udržování otevřeného souboru.
 
 \subsection{Detekce chyb na médiu}
 Lorem ipsum
 
-\subsection{Výstup a ovládání nástroje}
-Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu odpovídá i jeho ovládání a výstup.\\
-Jedná se o terminálový program bez jakéhokoli grafického uživatelského rozhraní nebo i textového uživatelského rozhraní. Běh programu je možné ovlivnit pouze jeho vstupními parametry, které jsou dodány při jeho spuštění spolu s médiem ke kontrole. Jeho výstupy jsou směrovány na standardní výstup \texttt{stdout} a chybový výstup \texttt{stderr}.
+
 

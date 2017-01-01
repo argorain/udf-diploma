@@ -1,3 +1,483 @@
+\chapter{Ukázkový výpis programu \texttt{udffsck}}
+\begin{lstlisting}[frame=single,caption={Ukázka výstupu programu pro médium s veliostí sektoru 512~B},label=lst:bs512,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left]
+Device block size: 512
+non-option ARGV-elements: ../../udf-samples/bs512-r0150_2.img 
+File to analyze: ../../udf-samples/bs512-r0150_2.img
+FD: 0x3
+[DBG] try #0
+[DBG] vsd: type:0, id:BEA01, v:1
+[DBG] try #1
+[DBG] vsd: type:0, id:NSR02, v:1
+[DBG] try #2
+[DBG] vsd: type:0, id:TEA01, v:1
+bea: type:0, id:BEA01, v:1
+nsr: type:0, id:NSR02, v:1
+tea: type:0, id:TEA01, v:1
+DevSize: 5120000
+Current position: 20000
+Calc CRC: 0x0878, TagCRC: 0x0878
+AVDP[0] successfully loaded.
+DevSize: 5120000
+Current position: 4e1e00
+Calc CRC: 0x0878, TagCRC: 0x0878
+AVDP[1] successfully loaded.
+DevSize: 5120000
+Current position: 4c1e00
+Calc CRC: 0x0878, TagCRC: 0x0878
+AVDP[2] successfully loaded.
+
+Trying to load VDS
+Current position: 20200
+Tag ID: 1
+VolNum: 1
+pVolNum: 0
+seqNum: 1
+predLoc: 0
+New positon is 0x20400
+Tag ID: 6
+LVD size: 0x1b8
+NumOfPartitionMaps: 1
+MapTableLength: 6
+[0x01] [0x06] [0x01] [0x00] [0x00] [0x00] 
+New positon is 0x20600
+Tag ID: 5
+New positon is 0x20800
+Tag ID: 7
+VolDescNum: 6
+NumAllocDesc: 2
+New positon is 0x20a00
+Tag ID: 4
+New positon is 0x20c00
+Tag ID: 8
+New positon is 0x20e00
+Tag ID: 0
+Current position: 4dfe00
+Tag ID: 1
+VolNum: 1
+pVolNum: 0
+seqNum: 1
+predLoc: 0
+New positon is 0x4e0000
+Tag ID: 6
+LVD size: 0x1b8
+NumOfPartitionMaps: 1
+MapTableLength: 6
+[0x01] [0x06] [0x01] [0x00] [0x00] [0x00] 
+New positon is 0x4e0200
+Tag ID: 5
+New positon is 0x4e0400
+Tag ID: 7
+VolDescNum: 6
+NumAllocDesc: 2
+New positon is 0x4e0600
+Tag ID: 4
+New positon is 0x4e0800
+Tag ID: 8
+New positon is 0x4e0a00
+Tag ID: 0
+LVID: loc: 273, len: 512
+LVID: lenOfImpUse: 46
+LVID: freeSpaceTable: 4613
+LVID: sizeTable: 4613
+Calc CRC: 0x3501, TagCRC: 0x3501
+Calc CRC: 0x5f00, TagCRC: 0x5f00
+Calc CRC: 0xaa1b, TagCRC: 0xaa1b
+Calc CRC: 0xe0ee, TagCRC: 0xe0ee
+Calc CRC: 0x2a01, TagCRC: 0x2a01
+Calc CRC: 0x0000, TagCRC: 0x0000
+Calc CRC: 0x3501, TagCRC: 0x3501
+Calc CRC: 0x5f00, TagCRC: 0x5f00
+Calc CRC: 0xaa1b, TagCRC: 0xaa1b
+Calc CRC: 0xe0ee, TagCRC: 0xe0ee
+Calc CRC: 0x2a01, TagCRC: 0x2a01
+Calc CRC: 0x0000, TagCRC: 0x0000
+UDF Metadata Overview
+=====================
+UDF revision: 0
+Disc blocksize: 0
+Disc blocksize bits: 0
+Flags: 0
+
+AVDP
+----
+[0]
+	Identification Tag
+	==================
+	ID: 2 (AVDP)
+	Version: 2
+	Checksum: 0x77
+	Serial Number: 0x1
+	Descriptor CRC: 0x878, Length: 496
+	Tag Location: 0x100
+[1]
+	Identification Tag
+	==================
+	ID: 2 (AVDP)
+	Version: 2
+	Checksum: 0xac
+	Serial Number: 0x1
+	Descriptor CRC: 0x878, Length: 496
+	Tag Location: 0x270f
+[2]
+	Identification Tag
+	==================
+	ID: 2 (AVDP)
+	Version: 2
+	Checksum: 0xab
+	Serial Number: 0x1
+	Descriptor CRC: 0x878, Length: 496
+	Tag Location: 0x260f
+PVD
+---
+[0]
+	Identification Tag
+	==================
+	ID: 1 (PVD)
+	Version: 2
+	Checksum: 0x2d
+	Serial Number: 0x1
+	Descriptor CRC: 0x3501, Length: 496
+	Tag Location: 0x101
+[1]
+	Identification Tag
+	==================
+	ID: 1 (PVD)
+	Version: 2
+	Checksum: 0x50
+	Serial Number: 0x1
+	Descriptor CRC: 0x3501, Length: 496
+	Tag Location: 0x26ff
+LVD
+---
+[0]
+	Identification Tag
+	==================
+	ID: 6 (LVD)
+	Version: 2
+	Checksum: 0x1a
+	Serial Number: 0x1
+	Descriptor CRC: 0x5f00, Length: 430
+	Tag Location: 0x102
+Partition Maps: 1
+[1]
+	Identification Tag
+	==================
+	ID: 6 (LVD)
+	Version: 2
+	Checksum: 0x3e
+	Serial Number: 0x1
+	Descriptor CRC: 0x5f00, Length: 430
+	Tag Location: 0x2700
+Partition Maps: 1
+PD
+--
+[0]
+	Identification Tag
+	==================
+	ID: 5 (PD)
+	Version: 2
+	Checksum: 0xc2
+	Serial Number: 0x1
+	Descriptor CRC: 0xaa1b, Length: 496
+	Tag Location: 0x103
+[1]
+	Identification Tag
+	==================
+	ID: 5 (PD)
+	Version: 2
+	Checksum: 0xe6
+	Serial Number: 0x1
+	Descriptor CRC: 0xaa1b, Length: 496
+	Tag Location: 0x2701
+USD
+---
+[0]
+	Identification Tag
+	==================
+	ID: 7 (USD)
+	Version: 2
+	Checksum: 0xf5
+	Serial Number: 0x1
+	Descriptor CRC: 0xe0ee, Length: 24
+	Tag Location: 0x104
+[1]
+	Identification Tag
+	==================
+	ID: 7 (USD)
+	Version: 2
+	Checksum: 0x19
+	Serial Number: 0x1
+	Descriptor CRC: 0xe0ee, Length: 24
+	Tag Location: 0x2702
+IUVD
+----
+[0]
+	Identification Tag
+	==================
+	ID: 4 (IUVD)
+	Version: 2
+	Checksum: 0x29
+	Serial Number: 0x1
+	Descriptor CRC: 0x2a01, Length: 496
+	Tag Location: 0x105
+[1]
+	Identification Tag
+	==================
+	ID: 4 (IUVD)
+	Version: 2
+	Checksum: 0x4d
+	Serial Number: 0x1
+	Descriptor CRC: 0x2a01, Length: 496
+	Tag Location: 0x2703
+TD
+--
+[0]
+	Identification Tag
+	==================
+	ID: 8 (TD)
+	Version: 2
+	Checksum: 0x3
+	Serial Number: 0x1
+	Descriptor CRC: 0x0, Length: 496
+	Tag Location: 0x106
+[1]
+	Identification Tag
+	==================
+	ID: 8 (TD)
+	Version: 2
+	Checksum: 0x27
+	Serial Number: 0x1
+	Descriptor CRC: 0x0, Length: 496
+	Tag Location: 0x2704
+LAP: length: 200, LBN: 3, PRN: 0
+LAP: LSN: 274
+LogicVolIdent: udf512
+FileSetIdent: LinuxUDF
+LBNLSN: 274
+ROOT LSN: 278
+Calc CRC: 0xa05f, TagCRC: 0xa05f
+
+FE, LSN: 278, EntityID: *Linux UDFFS fileLinkCount: 3, LB recorded: 0
+LEA 0, LAD 236
+01 01 02 00 9c 00 01 00 
+dd 9e 18 00 04 00 00 00 
+01 00 0a 00 00 02 00 00 
+04 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+01 01 02 00 e8 00 01 00 
+df e0 20 00 04 00 00 00 
+01 00 00 0a 00 02 00 00 
+05 00 00 00 00 00 00 00 
+10 00 00 00 00 00 08 69 
+6d 61 67 65 2e 69 73 6f 
+01 01 02 00 e5 00 01 00 
+86 36 20 00 04 00 00 00 
+01 00 00 08 00 02 00 00 
+3a 12 00 00 00 00 00 00 
+11 00 00 00 00 00 08 68 
+69 73 74 6f 72 79 00 00 
+01 01 02 00 21 00 01 00 
+06 f2 20 00 04 00 00 00 
+01 00 02 07 00 02 00 00 
+f4 12 00 00 00 00 00 00 
+12 00 00 00 00 00 08 53 
+6c 6f 7a 6b 61 00 00 00 
+01 01 02 00 0a 00 01 00 
+6a 73 24 00 04 00 00 00 
+01 00 02 0e 00 02 00 00 
+f6 12 00 00 00 00 00 00 
+14 00 00 00 00 00 08 50 
+72 61 7a 64 6e 61 53 6c 
+6f 7a 6b 61 00 00 00 00 
+
+FID found.
+Calc CRC: 0x9edd, TagCRC: 0x9edd
+FID: ImpUseLen: 0
+FID: FilenameLen: 0
+ROOT directory
+ICB: LSN: 278, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 278
+Parent. Not Following this one
+FLen: 38, padding: 2
+
+FID found.
+Calc CRC: 0xe0df, TagCRC: 0xe0df
+FID: ImpUseLen: 0
+FID: FilenameLen: 10
+Filename: image.iso
+ICB: LSN: 279, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 278
+ICB to follow.
+Calc CRC: 0x0125, TagCRC: 0x0125
+
+FE, LSN: 279, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 4660
+LEA 0, LAD 16
+LONG
+ExtLen: 4660, ExtLoc: 280
+LSN: 4939
+00 68 24 00 06 00 00 00 
+00 00 00 00 00 00 00 00 
+
+Return from ICB
+FLen: 48, padding: 0
+
+FID found.
+Calc CRC: 0x3686, TagCRC: 0x3686
+FID: ImpUseLen: 0
+FID: FilenameLen: 8
+Filename: history
+ICB: LSN: 4940, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 278
+ICB to follow.
+Calc CRC: 0xd45e, TagCRC: 0xd45e
+
+FE, LSN: 4940, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 185
+LEA 0, LAD 16
+LONG
+ExtLen: 184, ExtLoc: 4941
+LSN: 5124
+5b 71 01 00 3b 12 00 00 
+00 00 00 00 00 00 00 00 
+
+Return from ICB
+FLen: 46, padding: 2
+
+FID found.
+Calc CRC: 0xf206, TagCRC: 0xf206
+FID: ImpUseLen: 0
+FID: FilenameLen: 7
+Filename: Slozka
+ICB: LSN: 5126, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 278
+ICB to follow.
+Calc CRC: 0x84d4, TagCRC: 0x84d4
+
+FE, LSN: 5126, EntityID: *Linux UDFFS fileLinkCount: 2, LB recorded: 0
+LEA 0, LAD 148
+01 01 02 00 9e 00 01 00 
+dd 9e 18 00 f4 12 00 00 
+01 00 0a 00 00 02 00 00 
+04 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+01 01 02 00 a6 00 01 00 
+f7 80 24 00 f4 12 00 00 
+01 00 00 0b 00 02 00 00 
+f5 12 00 00 00 00 00 00 
+13 00 00 00 00 00 08 73 
+6f 75 62 6f 72 2e 74 78 
+74 00 00 00 01 01 02 00 
+fd 00 01 00 48 82 28 00 
+f4 12 00 00 01 00 02 11 
+00 02 00 00 f7 12 00 00 
+00 00 00 00 15 00 00 00 
+00 00 08 50 72 61 7a 64 
+6e 61 50 6f 64 6c 6f 73 
+7a 6b 61 00 00 00 00 00 
+
+FID found.
+Calc CRC: 0x9edd, TagCRC: 0x9edd
+FID: ImpUseLen: 0
+FID: FilenameLen: 0
+ROOT directory
+ICB: LSN: 278, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 5126
+Parent. Not Following this one
+FLen: 38, padding: 2
+
+FID found.
+Calc CRC: 0x80f7, TagCRC: 0x80f7
+FID: ImpUseLen: 0
+FID: FilenameLen: 11
+Filename: soubor.txt
+ICB: LSN: 5127, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 5126
+ICB to follow.
+Calc CRC: 0x5e2e, TagCRC: 0x5e2e
+
+FE, LSN: 5127, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
+LEA 0, LAD 0
+
+Return from ICB
+FLen: 49, padding: 3
+
+FID found.
+Calc CRC: 0x8248, TagCRC: 0x8248
+FID: ImpUseLen: 0
+FID: FilenameLen: 17
+Filename: PrazdnaPodloszka
+ICB: LSN: 5129, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 5126
+ICB to follow.
+Calc CRC: 0x4690, TagCRC: 0x4690
+
+FE, LSN: 5129, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
+LEA 0, LAD 40
+01 01 02 00 cf 00 01 00 
+db ce 18 00 f7 12 00 00 
+01 00 0a 00 00 02 00 00 
+f4 12 00 00 00 00 00 00 
+12 00 00 00 00 00 00 00 
+
+FID found.
+Calc CRC: 0xcedb, TagCRC: 0xcedb
+FID: ImpUseLen: 0
+FID: FilenameLen: 0
+ROOT directory
+ICB: LSN: 5126, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 5129
+Parent. Not Following this one
+FLen: 38, padding: 2
+
+Return from ICB
+FLen: 55, padding: 1
+
+Return from ICB
+FLen: 45, padding: 3
+
+FID found.
+Calc CRC: 0x736a, TagCRC: 0x736a
+FID: ImpUseLen: 0
+FID: FilenameLen: 14
+Filename: PrazdnaSlozka
+ICB: LSN: 5128, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 278
+ICB to follow.
+Calc CRC: 0x1a4e, TagCRC: 0x1a4e
+
+FE, LSN: 5128, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
+LEA 0, LAD 40
+01 01 02 00 a0 00 01 00 
+dd 9e 18 00 f6 12 00 00 
+01 00 0a 00 00 02 00 00 
+04 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 
+
+FID found.
+Calc CRC: 0x9edd, TagCRC: 0x9edd
+FID: ImpUseLen: 0
+FID: FilenameLen: 0
+ROOT directory
+ICB: LSN: 278, length: 512
+ROOT ICB: LSN: 278
+Actual LSN: 5128
+Parent. Not Following this one
+FLen: 38, padding: 2
+
+Return from ICB
+FLen: 52, padding: 0
+
+All done
+\end{lstlisting}
+
 \chapter{Příklad sazby zdrojových kódů}
 
 \section{Balíček \texttt{listings}}
