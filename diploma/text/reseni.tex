@@ -303,7 +303,7 @@ Jedná se o terminálový program bez jakéhokoli grafického uživatelského ro
 Program v tuto chvíli vyžaduje k běhu informaci o velikosti sektoru média a médium samotné. Volání programu může vypadat například takto:\\ 
 \centerline{\texttt{./udffsck -b 2048 medium.img}}\\
 První je samotný program, poté následuje povinný parametr \texttt{-b} následovaný velikostí fyzického sektoru. Mezera mezi paramtrem a hodnotou není povinná. Posledním paramterem je samotné kontrolované médium. Jemu nepředchází žádný identifikátor.\\
-
+Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
 
 \subsection{Načtení média a jeho příprava na zpracování}
 Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor zavřen, protože je již namapován a není důvod k udržování otevřeného souboru.
