@@ -1,9 +1,9 @@
 \chapter{Souborové systémy OS Linux}
-\todo{Srovnani ext3, ext4, udf, fat, ntfs, ... a nastroju pro ně, soustředit se na fsck}
-\todo{Vysvětlit co to je souborový systém?}
+%\todo{Srovnani ext3, ext4, udf, fat, ntfs, ... a nastroju pro ně, soustředit se na fsck}
+%\todo{Vysvětlit co to je souborový systém?}
 
 \section{Fyzická úložná média}
-\todo{Ozdrojovat...}
+%\todo{Ozdrojovat...}
 Fyzická úložná média představují nejnižší vrstvu  a zároveň základní kámen všech souborových systémů, protože právě na základě jejich vlastností byly vytvářeny.\\
 Z historického hlediska po současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky přes magnetické ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyly konstruovány pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata ale pouze data samotná a jejjich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket a pevných disků. \\
 První opravdový souborový systém v Unixu byl \textbf{S5FS} neboli System V File System (1974), často ovšem označovaný pouze jako \textbf{FS} (File System) nebo \textbf{UFS} (Unix File System) který byl implementován v UNIX System V běžící například na mainframech PDP-11. Tento souborový systém byl velice pomalý a také poměrně jednoduchý, ale právě jeho architektura posloužila jako vzor většiny následujících unixových souborových systémů. Tomu ovšem předcházel souborový systém pro mikropočítače s názvem \textbf{CP/M} (1973) neboli Control Program/Monitor a později Control Program for Microcomputer. Tento souborový systém byl určen narozdíl od S5FS pro mikropočítače od společnosti Intel. V době vzniku totiž začal Intel vyrábět první osmibitové procesory Intel 8008 a o rok později v roce 1974 vznikl Intel 8080 a právě s ním se rozšířil i CP/M. CP/M byl někde na pomezí mezi souborovým a operačním systémem. Na úložném médiu (v tomto případě disketě) byl BIOS, který poskytoval systémová volání na zápis a čtení, řízení klávesnice a monitoru. Poté bylo CP/M, které využívalo těchto volání a poskytovalo je spolu s dalšími shellu a uživatelskému programu. Systémová volání které přidalo CP/M se týkaly převážně přístupu k souborům, která CP/M uchovávalo. Dalším významným souborouvým systémem, který vznikl pro diskety byl \textbf{FAT12} (1977). Posléze s rozšířením pevných disků se začaly vyvíjet další nové souborové systémy odpovídající požadavkům.\\
@@ -15,8 +15,8 @@ Diskové oddíly představují způsob, jak lze fyzické médium abstraktně roz
 Důvodem pro rozdělení na oddíly může být oddělení uživatelských dat od systémových, vyhrazení místa pro odkládací oddíl nebo jiné logické dělení. 
 
 \section{Logical Volume Manager (LVM)}
-\todo{https://wiki.archlinux.org/index.php/LVM}
-Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (\cite{https://wiki.archlinux.org/index.php/Software_RAID_and_LVM}).\\
+%\todo{https://wiki.archlinux.org/index.php/LVM}
+Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (\cite{arch-lvm}).\\
 LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na následujícím obrázku:
 \begin{verbatim}
 Disk1 (/dev/sda):
@@ -47,10 +47,10 @@ Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých
 Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové systémy tyto:
 \begin{itemize}
     \item minix -- nejstarší souborový systém OS Linux. Vzhledem k jeho stáří se dnes již aktivně nevyvýjí a nepoužívá. Mezi jeho hlavní omezení patří maximální velikost souborového systému, která je až 64~MB. Dalším významným omezením je délka názvů soborů, která je limitována na 30 znaků.
-    \item ext -- tento souborový systém, celým jménem Extended Filesystem, vznikl v roce 1992 speciálně pro potřeby kernelu OS Linux \cite{wiki-ext}. Jeho inspirací byl souborový systém UFS (Unix File System), ze kterého převzal strukturu metadat. Jeho limitací byla maximlní velikost 2~GB.
-    \item ext2 -- nástupce souborového systému ext. Byla navýšena maximální velikost na 32~TB a byl navržen podle stejných principů jako Berkeley Fast File System z projektu BSD \cite{wiki-ext2}. Dlouhou dobu byl tento souborový systém používán ve všech hlavních distribucích OS Linux. ext2 nebyl zpětně kompatibilní s původním ext.
-    \item ext3 -- již v pořadí třetí verze ext souborového systému. Nyní již byla zachována téměř plná zpětná kompatibilita s ext2. Oproti ext2 ovšem ext3 přineslo žurnálování, které pomohlo v obnově souborového systému při chybě systému \cite{wiki-ext3}. Zbytek parametrů zůstal shodný s ext2.
-    \item ext4 -- současná verze ext souborového systému \cite{wiki-ext4}. Opět je zpětně kompatibilní s ext3 a ext2 ale oproti nim byla navýšena maximální velikost na 1~EB, ale doporučené maximum je 16~TB. Původně byl ext4 pouze skupina rozšížení pro ext3, ale později se osamostatnil jako ext4. Dalším rozšířením je nyní již neomezený počet podsložek (ext3 mělo omezení na 32000 podsložek). Také bylo zlepšena odolnost žurnálu přidáním kontrolních součtů a celková výkonnost souborového systému.
+    \item ext -- tento souborový systém, celým jménem Extended Filesystem, vznikl v roce 1992 speciálně pro potřeby kernelu OS Linux \cite{linmag-ext}. Jeho inspirací byl souborový systém UFS (Unix File System), ze kterého převzal strukturu metadat. Jeho limitací byla maximlní velikost 2~GB.
+    \item ext2 -- nástupce souborového systému ext. Byla navýšena maximální velikost na 32~TB a byl navržen podle stejných principů jako Berkeley Fast File System z projektu BSD \cite{nongnu-ext2}. Dlouhou dobu byl tento souborový systém používán ve všech hlavních distribucích OS Linux. ext2 nebyl zpětně kompatibilní s původním ext.
+    \item ext3 -- již v pořadí třetí verze ext souborového systému. Nyní již byla zachována téměř plná zpětná kompatibilita s ext2. Oproti ext2 ovšem ext3 přineslo žurnálování, které pomohlo v obnově souborového systému při chybě systému \cite{paper-ext3}. Zbytek parametrů zůstal shodný s ext2.
+    \item ext4 -- současná verze ext souborového systému \cite{paper-ext4}. Opět je zpětně kompatibilní s ext3 a ext2 ale oproti nim byla navýšena maximální velikost na 1~EB, ale doporučené maximum je 16~TB. Původně byl ext4 pouze skupina rozšížení pro ext3, ale později se osamostatnil jako ext4. Dalším rozšířením je nyní již neomezený počet podsložek (ext3 mělo omezení na 32000 podsložek). Také bylo zlepšena odolnost žurnálu přidáním kontrolních součtů a celková výkonnost souborového systému.
     \item vfat -- typický zástupce cizích souborových systémů. V tomto případě se jedná o MS FAT32, který je hojně používaný na USB flash discích.
     \item iso9660 -- standardní souborový systém pro CD-ROM. 
     \item udf -- souborový systém původně vyvynutý pro datové rozšíření CD-ROM. Posléze rozšířen pro DVD a BluRay. V současnosti je používán například v šifrovaných flash discích. 
@@ -61,7 +61,7 @@ Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové
 \section{Nástroje kontroly integrity}
 V prostředí OS Linux je pro kontrolu integrity určen primárně nástroj \texttt{fsck} (Filesystem Consistency Check). V manuálové stránce k \texttt{fsck} \cite{man-fsck} se lze dočíst, že samotný \texttt{fsck} je pouze frontend, který volá specifické nástroje pro daný souborový systém. Skutečné nástroje určené pro kontrolu integrity, které jsou obvykle dodávány spolu s nástroji k vytvoření a práci s daným soborovým systémem se jmenují \texttt{fsck.fstype}, například \texttt{fsck.ext4}.\\
 Pro masivně používané souborové systémy tyto nástroje existují. Pro \textbf{ext} rodinu se jedná o nástroj \texttt{e2fsck}. Podporovány jsou i převzaté souborové systémy, například \texttt{fsck.fat} pro souborové systémy \textbf{vfat} a \textbf{msdos}. Ovšem pro například pro \textbf{iso9660} nástroje kontrolující integritu existují pouze jako nástroje vzniklé na základě pokusů při testování vadných disků. Takovým je i \texttt{isovfy} \cite{man-isovfy} ze skupiny nástrojů isoinfo, který ovšem pouze umožňuje kontrolu integrity, nikoli opravu chyb.\\
-Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt ve s názvem udftools \cite{udftool-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat. 
+Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt ve s názvem udftools \cite{udftools-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat. 
 
 \chapter{Universal Disk Filesystem}
 \label{sec:udf}
@@ -95,11 +95,11 @@ Struktura deskriptorů je zachycena v tabulce \ref{tab:vrs}.
     \end{tabular}
     \caption{Struktura VRS deskriptorů\label{tab:vrs}}
 \end{table}
-Jak je vidět, deskriptor se skládá ze třech částí, pomineme-li poslední rezervovanou část obsahující volné místo. První položka \textit{Type} určuje typ deskriptoru. Výčet možných typů je uveden v tabulce \todo{Type Codes table}. Další položka s názvem \textit{Identifier} obsahuje řetězec o pěti znacích. Tato část určuje typ použitého souborového systému. Možné varianty jsou tyto:
+Jak je vidět, deskriptor se skládá ze třech částí, pomineme-li poslední rezervovanou část obsahující volné místo. První položka \textit{Type} určuje typ deskriptoru. V tomto případě je jediná povolená hodnota 1. Další položka s názvem \textit{Identifier} obsahuje řetězec o pěti znacích. Tato část určuje typ použitého souborového systému. Možné varianty jsou tyto:
 \begin{itemize}
     \item \texttt{BOOT0} - Bootovací záznam
-    \item \texttt{CD001} - souborový systém ISO~9660
-    \item \texttt{CDW02} - TODO
+    \item \texttt{CD001} - Souborový systém ISO~9660
+    \item \texttt{CDW02} - Souborový systém podle ECMA-168
     \item \texttt{BEA01} - \textit{Beginning Extended Area Descriptor}, začátek UDF Bridge sekvence
     \item \texttt{TEA01} - \textit{Terminating Extended Area Descriptor}, konec UDF Bridge sekvence
     \item \texttt{NSR01} - UDF verze 1.0 a vyšší
@@ -179,7 +179,7 @@ Vzhledem k faktu, že cílem této struktury není adresovat data ale jen FE, ob
 
 
 \chapter{Definice chyb na souborovém systému}
-\todo{Jak se to může pokazit? A co se s tím dá dělat?}
+%\todo{Jak se to může pokazit? A co se s tím dá dělat?}
 Chyby na souborovém systému mohou vzniknout ze třech příčin. 
 \begin{enumerate}
     \item Chybou ovladače souborového systému,
@@ -256,15 +256,14 @@ Redundace deskriptorů byla zmíněna v kapitole \ref{sec:udf}. Lze si povšimno
 Zápisový bit je aplikační ošetření konzistence dat. Jeho fuknci lze přirovnat k zámku na vypínači. Pokud je bit nastaven do logické nuly, zápis probíhá (anebo spíše byl přerušen a nebyl korektně ukončen) zatímco pokud pokud je v logické jedničce, tak to značí korektně ukončenou zápisovou operaci.
 
 \chapter{Realizace nástroje pro detekci chyb}
-\todo{Vlastní řešení.}
-\todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
+%\todo{Vlastní řešení.}
+%\todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
 \section{Stav projektu udftools}
 Projekt udftools byl založen roce 1999 na projektovém serveru SourceForge \cite{udftools-sourceforge} Bennem Fennemou. Byl implementován standard UDF 1.5 a byly vytvořeny nástroje pro paketový zápis na CD, vytvoření souborového systému UDF a pro přístup k němu. Nástroj pro kontrolu konzistence zůstal jako prázdný projekt, byly ovšem vytvořeny nástroje pro vytvoření souborového systému UDF, nástroje pro jeho zápis včetně paketového zápisu.\\
 V roce 2007 byly integrovány poslední patche a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} Palim Rohárem a znovu byl započat vývoj, převážně opravy starých chyb. Byla implementována verze UDF 2.01. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a tento stav přetrvává do současnosti.\\
 V tuto chvíli se komunita okolo projektu udftools skládá hlavně z Paliho Rohára a z Františka Kluknavského. Vzhledem k nepříliš vysoké popularitě UDF není projekt udftools aktivní. Sice je stále udržován panem Rohárem, ale aktivní vývoj v tuto chvíli pravděpodobně neprobíhá, nebo alespoň ne veřejně.
 
 \section{Existující nástroje pro kontrolu konzistence UDF}
-\todo{Předělat citace do příloh na citace v textu}
 Pro OS Linux jsou znám pouze nástroj \texttt{udfct\_1.5r4}. Tento nástroj byl vyvynut firmou Philips a jedná se o nástroj který je schopný zkontrolovat integritu souborového systému UDF. Chyby v implementaci UDF a případné chyby v datech vypisuje do terminálu ale není schopný je opravovat. Zásadním problémem tohoto nástroje je, že existuje pouze pod restriktivní licencí firmy Philips a není jej tudíž možné použít jako výchozí bod dalšího vývoje i přes dostupnost zdrojových souborů. V současnosti je balíček se zdrojovými kódy dostupný na Wayback Machine \cite{wayback}, firma Philips jej již nenabízí. Mou žádost o poskytnutí práva na přepoužití jejich kódu ignorovali.\\
 V BSD je \texttt{fsck} v podobném stavu jako v Linuxu ovšem komunita okolo BSD na problému pomalu pracuje. Našel jsem blog \cite{scottuvblog} od Scotta Longa z projektu FreeBSD kde má shrnutí své práce na UDF včetně jeho patchů do FreeBSD implementace UDF. Mezi jeho body k doplnění je i nástroj \texttt{fsck} a právě proto jsem ho oslovil s prosbou o informace. Právě Scott Long mne odkázal na projekt NetBSD, protože on sám nikdy na \texttt{fsck} nezačal pracovat, ale doslechl se, že v projektu NetBSD něco vzniká. Po hledání jsem nalezl mailing list z roku 2008, kde Reinoud Zandijk popisuje svůj postup práce na UDF implementaci. Na konci jeho zprávy je poznámka o \texttt{fsck} s informací, že bude "brzy". Žádná implementace se ovšem na svět nedostala, takže jsem mu napsal s prosbou o informace o  stavu jeho implementace \texttt{fsck}. Jeho odpověď byla vyčerpávající a potvrzovala mé podezření o stavu open source implementace. On sám má rozpracovanou implementaci \texttt{fsck} ale zveřejňovat ji zatím nebude, protože není dokončena, jeho slovy: 
 \begin{quote} 
@@ -274,15 +273,21 @@ Nikdo další žádnou jinou open source implementaci nemá vyjma projektu Open 
 \begin{quote}
 As for \texttt{fsck\_udf}, there is only one opensource version and thats the OpenSolaris one. Before you get too exited, its fairly limited and will only check older media and even then only deals with recovering free space and get the directory tree in-order. Important but limited.
 \end{quote}
-Implementace v projektu Open Solaris je tedy v současnosti jedinou dostupnou open source implementací \texttt{fsck}. Jejich kód je dostupný na serveru GitHub \cite{solaris-github}. Bohužel ani jejich implementace není kompletní a dokáže obnovit pouze volné místo a strom souborového systému ale bez dat. Dalším omezením je maximální verze UDF, která je omezena na verzi 2.00. Ovšem i toto je dobrý výchozí bod pro další práci.\\ \todo{Overit max verzi solaris udf}
+Implementace v projektu Open Solaris je tedy v současnosti jedinou dostupnou open source implementací \texttt{fsck}. Jejich kód je dostupný na serveru GitHub \cite{solaris-github}. Bohužel ani jejich implementace není kompletní a dokáže obnovit pouze volné místo a strom souborového systému ale bez dat. Dalším omezením je maximální verze UDF, která je omezena na verzi 2.01 ovladačem UDF. Nástroj jako takový exaktní omezení verze nemá. Ovšem i toto je dobrý výchozí bod pro další práci.\\
 Co se týká OSX od společnosti Apple, ti mají nástroje pro kontrolu UDF implementovanou v nástroji \texttt{fsck\_udf} pro všechny exitující revize, ovšem zdrojové kódy nejsou veřejně dostupné, takže je možné jejich nástroje použít pouze jako referenční pro srovnání funkčnosti.\\
-Microsoft Windows má implementovaný checkdisk pro UDF ale jejich implementace trpí problémy s implementací samotného ovladače pro UDF, který není schopný načíst souborové systémy větší než 1~GB.\\
-\todo{Overit na windows problemy udf}
+Microsoft Windows má implementovaný checkdisk pro UDF ale jeho zdrojový kód je bohužel uzavřený.\\
 
 \section{Implementace nástroje \texttt{udffsck}}
 Nástroj \texttt{udffsck} z balíčku \texttt{udftools} navazuje na ostatní nástroje v balíčku, využívá sdílené hlavičky s definicemi UDF a jeho cílem je být plnohodnotným \texttt{fsck} nástrojem pro UDF.\\
 Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch co se týká opravování chyb v metadatech. Samotná data podle všeho opravit nepůjdou.\\
-Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. 
+Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven.\\
+Myšlenkovou strukuturu programu zachycuje obrázek \ref{fig:steps1}. 
+\begin{figure}[ht] 
+    \centering
+    \includegraphics[scale=0.4]{obrazky/steps1.eps}
+    \caption{Zjednodušený alogoritmus činnosti programu}
+    \label{fig:steps1}
+\end{figure}
 
 \subsection{Výstup a ovládání nástroje}
 Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu bude odpovídat i jeho ovládání a výstup.\\
@@ -306,10 +311,39 @@ První je samotný program, poté následuje povinný parametr \texttt{-b} násl
 Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
 
 \subsection{Načtení média a jeho příprava na zpracování}
-Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor zavřen, protože je již namapován a není důvod k udržování otevřeného souboru.
+Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor uzavřen, protože ve chvíli, kdy byl úspěšně namapován byla jeho reference zkopírována a začala být udržována operačním systémem, který ji zruší až nebudou žadné části souboru namapované do paměti (viz \cite{posix-mmap}). 
+
+\subsection{Algoritmus načtení AVDP}
+AVDP je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému. Jak je uvedeno v kapitole \ref{sec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomny mohou být až tři na médiu.\\
+Jejich načítání pro potřeby další práce se souborovým systém lze popsat algoritmem na obrázku \ref{fig:avdp}. Alogoritmus prochází možné lokace AVDP dokud neuspěje nebo nedojdou možnosti. Pro potřeby kontroly a opravy média je třeba po nalezení alespoň jednoho správného AVDP ostatní podle něj opravit.
+\begin{figure}[ht] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.4]{obrazky/avdp.eps}
+    \caption{Zjednodušený algoritumus načtení AVDP}
+    \label{fig:avdp}
+\end{figure}
+
+\subsection{Algoritmus čtení souborů}
+Obnova dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že UDF neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a místo, kde by data měla být.\\
+Algoritmus načtení adresářové strkutury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou strkturou.\\
+Místa označnená jako \textit{error} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
+\begin{figure}[ht] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.36]{obrazky/files.eps}
+    \caption{Algoritmus načítání souborů}
+    \label{fig:files}
+\end{figure}
 
 \subsection{Detekce chyb na médiu}
-Lorem ipsum
-
-
+Detekce chyb na médiu je v tuto chvíli implementována pouze na úrovni porovnání kontroloních součtů a CRC.\\
+Kontrolní součty jsou implementovány mou funkcí\\
+\centerline{\texttt{\detokenize{uint8_t calculate_checksum(descTag tag)}}}\\
+v souboru \texttt{udffsck.c}. Tato funkce pouze počítá checksum nad zadaným tagem a výsledek vrací. Proto je zapouzdřena do funkce\\
+\centerline{\texttt{\detokenize{int checksum(descTag tag)}}}\\
+která přidává porovnání se checksum v tagu. Takto fukce vrací 0 při rozdílu a nenulovou hodnotu při shodě.\\
+CRC je počítáno funkcí sdílené knihovny, která je součástí balíku. Ta byla opět zapouzdřena funkcí\\
+\centerline{\texttt{\detokenize{int crc(void * desc, uint16_t size)}}}\\
+aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem je, že \textit{DescriptorTag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.)
 

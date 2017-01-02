@@ -632,50 +632,45 @@ short fxdf2t( short coef[][5], short sample)
 
 \fi
 
+\chapter{Obsah přiloženého archivu}
 
-
-
-
-\chapter{Obsah přiloženého CD}
-Nezapomeňte uvést, co čtenář najde na přiloženém médiu.
-Je vhodné okomentovat obsah každého adresáře, specifikovat, který soubor obsahuje důležitá nastavení, který soubor je určen ke spuštění atd.
-Také je dobře napsat, v~jaké verzi software byl kód testován (např.\ Matlab 2010b).
-
-Pokud je souborů hodně a jsou organizovány ve více složkách,  je možné pro výpis adresářové struktury použít balíček \href{https://www.ctan.org/pkg/dirtree}{\texttt{dirtree}}.
-
+Pro úspěšnou kompilaci je potřeba mít nainstalovaný nástroj \texttt{autotools}, \texttt{gcc} verze 4.9 a vyšší a knihovnu \texttt{cmocka} ve verzi 1.1.0. Nástroj je aktuálně testován vůči distribucím Debian a Ubuntu. Aktuálně je potřeba pro správnou funkci potřeba little-endian procesor.
 \dirtree{%.
-.1 /\DTcomment{kořenový adresář přiloženého CD}.
-.2 loga\DTcomment{loga školy a fakulty}.
-.3 FEKT-spec-color.eps.
-.3 FEKT-spec-color.pdf.
-.3 logolink-op\_vavpi.png.
-.3 RE-spec-color.eps.
-.3 RE-spec-color.pdf.
-.3 SIX\_logo\_zahlavi.png.
-.2 obrazky\DTcomment{ostatní obrázky}.
-.3 soucastky.eps.
-.3 soucastky.png.
-.3 spoje.eps.
-.3 spoje.png.
-.3 ZlepseneWilsonovoZrcadloNPN.eps.
-.3 ZlepseneWilsonovoZrcadloNPN.png.
-.3 ZlepseneWilsonovoZrcadloPNP.eps.
-.3 ZlepseneWilsonovoZrcadloPNP.png.
-.2 pdf\DTcomment{pdf stránky generované informačním systémem}.
-.3 student-desky.pdf.
-.3 student-titulka.pdf.
-.3 student-zadani.pdf.
-.2 text\DTcomment{zdrojové textové soubory}.
-.3 literatura.tex.
-.3 prilohy.tex.
-.3 reseni.tex.
-.3 uvod.tex.
-.3 vysledky.tex.
-.3 zaver.tex.
-.3 zkratky.tex.
-.2 navod-sablona\_FEKT.pdf\DTcomment{návod na používání šablony}.
-.2 obhajoba.tex\DTcomment{hlavní soubor pro sazbu prezentace k~obhajobě}.
-.2 readme.txt\DTcomment{soubor s~popisem obsahu CD}.
-.2 sablona.tex\DTcomment{hlavní soubor pro sazbu kvalifikační práce}.
-.2 thesis.sty\DTcomment{balíček pro sazbu kvalifikačních prací}.
+.1 /\DTcomment{kořenový adresář archivu}.
+.2 AUTHORS.
+.2 autogen.sh\DTcomment{Skript pro kompilaci balíku}.
+.2 cdrwtool\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{cdrwtool}}.
+.2 configure.ac.
+.2 COPYING.
+.2 doc\DTcomment{Adresář s dokumentacemi k jednotlivým nástrojům}.
+.2 Doxyfile.
+.2 ChangeLog.
+.2 include\DTcomment{Adresář se sdílenými hlavičkovými soubory}
+.3 bswap.h.
+.3 \detokenize{ecma_167.h}\DTcomment{Soubor se strkuturami podle ECMA-167}.
+.3 libudffs.h\DTcomment{Soubor s definicemi funkcí ze sdílené knihovny \texttt{libtool}}.
+.3 \detokenize{osta_udf.h}\DTcomment{Soubor se strukturami podle OSTA UDF dokumentace}.
+.3 \detokenize{udf_endian.h}.
+.3 \detokenize{udf_lib.h}.
+.2 INSTALL.
+.2 libudffs\DTcomment{Adresář se zdrojovými kódy sdílené knihovy \texttt{libudffs}}.
+.2 Makefile.am.
+.2 mkudffs\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{mkudffs}}.
+.2 NEWS.
+.2 pktsetup.
+.2 README.
+.2 README.md.
+.2 TODO.
+.2 udffsck\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{udffsck}}.
+.3 \detokenize{ecma_119.h}\DTcomment{Soubor s vybranými hlavičkami standardu ECMA-119.}.
+.3 main.c\DTcomment{Hlavní soubor programu. Obsahuje kromě funkce main také detekci VRS.}.
+.3 Makefile.am.
+.3 options.c\DTcomment{Parser vstupních parametrů a nápověda.}.
+.3 options.h.
+.3 test.c\DTcomment{Zdrojový soubor pro unit-testy.}.
+.3 udffsck.c\DTcomment{V tomto souboru je jádro celého programu.}.
+.3 udffsck.h.
+.3 utils.c\DTcomment{Podpůrné funkce (například tisk tagů)}.
+.3 utils.h.
+.2 wrudf\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{wrudf}}.
 }
