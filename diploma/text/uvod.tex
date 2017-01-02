@@ -2,8 +2,7 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Úvod}
 
-
-Úvod studentské práce, např\,\dots
-
-Tato práce se věnuje oblasti \zk{zkDSP} (\zkratkatext{zkDSP}), zejména jevům, které nastanou při nedodržení Nyquistovy podmínky pro \zkratka{symfvz}.%
-\footnote{Tato věta je pouze ukázkou použití příkazů pro sazbu zkratek.}
+Diagnostika integrity dat je klíčovou částí v uchovávání dat. Bez ní nemáme žádnou informaci o jejich konzistentnosti ani o jejich správnosti a vzhledem k faktu, že data, respektive duševní vlastnictví jsou nejcennější část výpočetní techniky, je potřeba této problematice věnovat dostatečnou pozornost.\\
+Cílem této práce je vytvořit nástroj pro diagnostiku konzistence dat souborového systému v GNU/Linux, pro který tyto nástroje neexistují. Bude provedena rešerše existujících souborových systémů a jejich diagnostických nástrojů a vybrán dostatečně perspektivní souborový systém, kterému tyto nástroje chybí.\\
+Různé souborové systémy jsou určeny přednostně pro určitá fyzická média. Tomu posléze odpovídá i jejich design, který obvykle respektuje silné a slabé stránky daného média. To také odráží i druh chyb, které se na daném médiu vyskytují a to, jak se s nimi vypořádává souborový systém.\\
+Obecně lze tvrdit, že jsou chyby opravitelné a neopravitelné. A opravitelná chyba se může stát neopravitelnou, pokud její množství překoná schopnosti opravného algoritmu. To, které chyby opravit lze či ne ovšem není možné obecně říct bez znalosti použitých opravných algoritmů. Proto je potřeba pečlivě nadefinovat jaké chyby nastat mohou a mohou být detekovány a kolik z nich je ještě možné opravit nástroji poskytnutými návrhem souborového systému. 
