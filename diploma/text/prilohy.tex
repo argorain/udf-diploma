@@ -477,7 +477,28 @@ FLen: 52, padding: 0
 
 All done
 \end{lstlisting}
-
+\textbf{Legenda}
+\begin{enumerate}
+    \item Zobrazení přijatého parametru velikost sektoru
+    \item Ladicí výpis parseru vstupních argumentů
+    \item Soubor k analýze
+    \item Ladicí informace - File Descriptor v operačním systému
+    \item - 10. Ladicí informace ze čtení VRS \addtocounter{enumi}{5}
+    \item - 13. Nalezená VRS sekvence \addtocounter{enumi}{2}
+    \item - 26. Načtení a kontrola třech AVDP \addtocounter{enumi}{12}
+    \item - 75. Načtení hlavní a rezervní VDS a výpis ladicích údajů u některých deskriptorů \addtocounter{enumi}{48}
+    \item - 79. Načtení LVID \addtocounter{enumi}{3}
+    \item - 91. Ladicí výpis výpočtů a očekávaných hodnot CRC pro VDS \addtocounter{enumi}{11}
+    \item - 249. Výpis všech tagů VDS \addtocounter{enumi}{157}
+    \item - 257. Načtení a kontrola FSD \addtocounter{enumi}{7}
+    \item - 290. Načtení FE, v tomto případě se jedná o kořenový adresář. Výpis bytového pole je položka \texttt{AllocationDescriptors} a ta obsahuje FID jeho potomků. \addtocounter{enumi}{32}
+    \item - 301. Výpis FID. Povšimněte si řádku 299, kde je zobrazen ladicí výpis \textit{Parent. Not followng this one.}. Proto je tento FID přeskočen a pokračuje se k dalšímu. Kdyby byl následován, vratili bysme se o úroveň výš. \addtocounter{enumi}{10}
+    \item - 312. Načtení FID. Zde již na řádku 310 je vidět hláška \textit{ICB to follow}, což znamená, že se zanoříme na adresu určenou tímto deskriptorem. \addtocounter{enumi}{10}
+    \item - 320. Výpis FE na který ukazoval předchozí FID. Jedná se o soubor, proto jeho \texttt{AllocationDescriptors} obsahují pouze \texttt{long address} a ne FID. \addtocounter{enumi}{7}
+    \item Ladicí výpis informujicí o úspěšném návratu zpět do rodičovské FE.
+    \item Ladicí výpis zobrazující jak dlouhý FID je a o kolik se tím pádem má posunout pro další.
+\end{enumerate}
+Takto program postupně zpracuje všechny soubory až skončí s hláškou \textit{All done}. Pokud vše skončilo správně, měl by vrátit 0.
 \iffalse
 \chapter{Příklad sazby zdrojových kódů}
 
