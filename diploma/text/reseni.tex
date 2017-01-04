@@ -312,7 +312,7 @@ První je samotný program, poté následuje povinný parametr \texttt{-b} násl
 Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
 
 \subsection{Načtení média a jeho příprava na zpracování}
-Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor uzavřen, protože ve chvíli, kdy byl úspěšně namapován byla jeho reference zkopírována a začala být udržována operačním systémem, který ji zruší až nebudou žadné části souboru namapované do paměti (viz \cite{posix-mmap}). 
+Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí funkce \texttt{mmap} namapováno do paměti aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor uzavřen, protože ve chvíli, kdy byl úspěšně namapován byla jeho reference zkopírována a začala být udržována operačním systémem, který ji zruší až nebudou žadné části souboru namapované do paměti (viz \cite{posix-mmap}). 
 
 \subsection{Algoritmus načtení AVDP}
 AVDP je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému. Jak je uvedeno v kapitole \ref{sec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomny mohou být až tři na médiu.\\
@@ -326,9 +326,9 @@ Jejich načítání pro potřeby další práce se souborovým systém lze popsa
 \end{figure}
 
 \subsection{Algoritmus čtení souborů}
-Obnova dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že UDF neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a místo, kde by data měla být.\\
+Obnova uživatelských dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že UDF neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a místo, kde by data měla být.\\
 Algoritmus načtení adresářové strkutury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou strkturou.\\
-Místa označnená jako \textit{error} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
+Místa na obrázku označnená jako \textit{ERROR} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
 \begin{figure}[ht] 
     \centering
     %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}

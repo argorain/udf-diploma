@@ -477,7 +477,7 @@ FLen: 52, padding: 0
 
 All done
 \end{lstlisting}
-\textbf{Legenda}
+\textbf{Legenda} (čísla řádků)
 \begin{enumerate}
     \item Zobrazení přijatého parametru velikost sektoru
     \item Ladicí výpis parseru vstupních argumentů
@@ -492,9 +492,9 @@ All done
     \item - 249. Výpis všech tagů VDS \addtocounter{enumi}{157}
     \item - 257. Načtení a kontrola FSD \addtocounter{enumi}{7}
     \item - 290. Načtení FE, v tomto případě se jedná o kořenový adresář. Výpis bytového pole je položka \texttt{AllocationDescriptors} a ta obsahuje FID jeho potomků. \addtocounter{enumi}{32}
-    \item - 301. Výpis FID. Povšimněte si řádku 299, kde je zobrazen ladicí výpis \textit{Parent. Not followng this one.}. Proto je tento FID přeskočen a pokračuje se k dalšímu. Kdyby byl následován, vratili bysme se o úroveň výš. \addtocounter{enumi}{10}
+    \item - 301. Výpis FID. Povšimněte si řádku 299, kde je zobrazen ladicí výpis \textit{Parent. Not followng this one.}. Proto je tento FID přeskočen a pokračuje se k dalšímu. Případ s následováním začíná na řádku 302. \addtocounter{enumi}{10}
     \item - 312. Načtení FID. Zde již na řádku 310 je vidět hláška \textit{ICB to follow}, což znamená, že se zanoříme na adresu určenou tímto deskriptorem. \addtocounter{enumi}{10}
-    \item - 320. Výpis FE na který ukazoval předchozí FID. Jedná se o soubor, proto jeho \texttt{AllocationDescriptors} obsahují pouze \texttt{long address} a ne FID. \addtocounter{enumi}{7}
+    \item - 320. Výpis FE na který ukazoval předchozí FID. Jedná se o soubor, proto jeho \texttt{AllocationDescriptors} obsahují pouze \texttt{long address} dat a ne FID. \addtocounter{enumi}{7}
     \item Ladicí výpis informujicí o úspěšném návratu zpět do rodičovské FE.
     \item Ladicí výpis zobrazující jak dlouhý FID je a o kolik se tím pádem má posunout pro další.
 \end{enumerate}
@@ -634,7 +634,7 @@ short fxdf2t( short coef[][5], short sample)
 
 \chapter{Obsah přiloženého archivu}
 
-Pro úspěšnou kompilaci je potřeba mít nainstalovaný nástroj \texttt{autotools}, \texttt{gcc} verze 4.9 a vyšší a knihovnu \texttt{cmocka} ve verzi 1.1.0. Nástroj je aktuálně testován vůči distribucím Debian a Ubuntu. Aktuálně je potřeba pro správnou funkci potřeba little-endian procesor.
+Pro úspěšnou kompilaci je potřeba mít nainstalovaný nástroj \texttt{autotools}, \texttt{gcc} verze 4.9 a vyšší a knihovnu \texttt{cmocka} ve verzi 1.1.0. Nástroj je aktuálně testován vůči distribucím Debian a Ubuntu. V tuto chvíli je potřeba pro správnou funkci potřeba little-endian procesor. Tento požadavek bude před dokončením odstraněn.
 \dirtree{%.
 .1 /\DTcomment{kořenový adresář archivu}.
 .2 AUTHORS.
@@ -645,7 +645,7 @@ Pro úspěšnou kompilaci je potřeba mít nainstalovaný nástroj \texttt{autot
 .2 doc\DTcomment{Adresář s dokumentacemi k jednotlivým nástrojům}.
 .2 Doxyfile.
 .2 ChangeLog.
-.2 include\DTcomment{Adresář se sdílenými hlavičkovými soubory}
+.2 include\DTcomment{Adresář se sdílenými hlavičkovými soubory}.
 .3 bswap.h.
 .3 \detokenize{ecma_167.h}\DTcomment{Soubor se strkuturami podle ECMA-167}.
 .3 libudffs.h\DTcomment{Soubor s definicemi funkcí ze sdílené knihovny \texttt{libtool}}.
