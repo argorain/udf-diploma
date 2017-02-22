@@ -1,0 +1,80 @@
+%--------------------------------------------------------------------------------
+%
+% Text pøíspìvku do sborníku EEICT
+%
+% Vytvoøil:  Martin Drahanskı
+% Datum:     26.02.2007
+% E-mail:    drahan@fit.vutbr.cz
+%
+%--------------------------------------------------------------------------------
+%
+% Pøeloení: pdflatex prispevek.tex
+%
+% Optimální zpùsob pouití = pøepište jen vlastní text
+%
+\documentclass{eeict}
+\inputencoding{cp1250}
+\usepackage[bf]{caption2}
+%--------------------------------------------------------------------------------
+
+\title{TITLE OF THE PAPER - IN ENGLISH}
+\author{Vojtìch Vladyka}
+\programme{Master Degree Programme (2), FEEC BUT}
+\emails{xvlady00@stud.feec.vutbr.cz}
+
+\supervisor{Petr Petyovskı}
+\emailv{petyovsky@feec.vutbr.cz}
+
+\abstract{The abstract is placed here. It shoud be approximately 50-100 words long.
+The purpose of the abstract is to summarize the important ideas of the paper. It
+must be written in English. Please ask your supervisor to check the abstract. 
+Below the abstract there are keywords there, also written in English.}
+\keywords{EEICT, template, guide}
+
+\begin{document}
+% -- Hlavièka práce --
+
+\maketitle
+
+%-------------------------------------------------------------------------------
+\selectlanguage{czech}
+\section{Úvod}
+
+Tady u se koneènì mùete vyjádøit. Patrnì bude vhodné nìjakı úvod napsat,
+aby se ètenáø lehce vpravil do problematiky. Rozhodnì ale není vhodné se
+zde nìjak pøíliš široce rozepisovat. Nezapomeòte, e pro kadı pøíspìvek
+jsou ve sborníku vyhrazeny maximálnì 3 stránky pro Bc. a Mgr. studenty,
+5 stran pro studenty PhD.
+
+Kdy u se nám zdá, e toho bylo dost, pøejdeme k vìci (v další kapitole).
+
+\section{Universal Disk Format}
+
+
+\section{Filesystem Consistency Check}
+
+
+\section{Detekce chyb a jejich oprava}
+
+
+\section{Závìr}
+Tìko øíct, co sem ještì tak asi napsat. Doufám, e tato šablonka nìkomu usnadní
+splnìní zostøenıch poadavkù, které jsou kladeny na pøíspìvky pro konferenci
+EEICT. Pokud bude mít nìkdo jakékoliv pøipomínky a námìty, nech neváhá a
+pošle e–mail:
+
+%------------
+% Citace
+%
+\begin{thebibliography}{9}
+  \bibitem{rybicka} Rybièka, J.: \LaTeX pro zaèáteèníky, Brno, Konvoj 1999,
+            ISBN 80-85615-77-0
+  \bibitem{orsag} Orság, F.: Vision für die Zukunft. Biometrie, Kreutztal,
+            DE, b-Quadrat, 2004, s. 131-145, ISBN 3-933609-02-X
+  \bibitem{drahansky} Drahanskı, M., Orság, F.: Biometric Security Systems:
+    Robustness of the Finger-print and Speech Technologies. In: BT 2004 - 
+    International Workshop on Biometric Technologies, Calgary, CA, 2004,
+    s. 99-103
+\end{thebibliography}
+
+\end{document}
