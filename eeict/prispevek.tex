@@ -17,7 +17,7 @@
 \usepackage[bf]{caption2}
 %--------------------------------------------------------------------------------
 
-\title{TITLE OF THE PAPER - IN ENGLISH}
+\title{FILESYSTEM CONSISTENCY CHECK FOR UNIVERSAL DISK FORMAT}
 \author{Vojtìch Vladyka}
 \programme{Master Degree Programme (2), FEEC BUT}
 \emails{xvlady00@stud.feec.vutbr.cz}
@@ -49,13 +49,38 @@ jsou ve sborníku vyhrazeny maximálnì 3 stránky pro Bc. a Mgr. studenty,
 Kdy u se nám zdá, e toho bylo dost, pøejdeme k vìci (v další kapitole).
 
 \section{Universal Disk Format}
-
+Universal Disk Format (UDF) je souborovı systém, kterı vznikl jako následovník souborového systému ISO~9660, vyvinutého pro CD. UDF bìhem svého vıvoje prodìlalo øadu rozšíøení aby odpovídalo na poadavky médií, pro které bylo pøednostnì urèeno. Takto se postupnì od CD na DVD a BD. Ovšem díky svému zamìøení na univerzálnost a pøesnositelnost je i v této dobì úpadku optickıch médií optimální volbou pro pøenos dat mezi rùznımi operaèními systémy napøíklad na flash discích.
 
 \section{Filesystem Consistency Check}
+Filesystem Consistency Check (fsck) je Linuxovı nástroj urèenı pro kontrolu a opravu souborovıch systémù. Tento nástroj ovšem pouze zapouzdøuje nástroje specializované pro danı soborovı systém, kterı má bıt kontrolován a poskytuje tak uivateli univerzální ovládací rozhraní. Problém pøed kterım stála tato práce byl právì v absenci nástroje fsck pro souborovı systém UDF, protoe právì absence nástroje na kontrolu souborového systému je zásadním omezením pouitelnosti daného souborového systému.
 
+Nástroj fsck je mnou aktuálnì rozpracován v balíèku udftools, kterı je zaøazen ve vìtšinì dominantních linuxovıch distribucí. Cílem je jeho plná integrace do balíèku udftools.
 
 \section{Detekce chyb a jejich oprava}
+Detekce chyb je jádrem celé práce. UDF nám nabízí nìkolik detekèních mechanismù které jsou dané jeho návrhem. Jedná se o tyto:
+\begin{itemize}
+    \item Checksum
+    \item Cyclic Redundancy Check (CRC)
+    \item Redundance deskriptorù souborového systému
+    \item Zápisovı bit
+\end{itemize}
 
+\textbf{Checksum} zajišuje kontrolní mechansimus všech identifikátorù (tagù) deskriptorù souborového systému. Jedná se o XXXXXXXXXX(Popsat mechansimus checksum)XXXXXXXXXXXXX
+
+\textbf{Cyclic Redundancy Check (CRC)} zajišuje kontrolu samotnıch deskriptorù, pøièem referenèní hodnota je uloena v tagu deskriptoru a tudí zajištìná checksumem. Pouitı CRC je XXXXXXXXXXXXXXXXXXXXXXX.
+
+\textbf{Redundance deskriptorù} je pouita u skupiny deskriptorù s názvem Volume Descriptor Sequence (VDS). Ta obsahuje všechna metadata tıkající se souborového systému jako takového, nikoliv dat. VDS je uloeno ve dvou exempláøích jako Main VDS a Reserve VDS. Další pøípad redundance je v pøípadì Anchor Volume Descriptor Sequence (AVDP) co je vıchozí bod pro naètení souborového systému (superblock). Ten je uloen alespoò ve dvou exempláøích, èasto však ve tøech. 
+
+\textbf{Zápisovı bit} je mechansimus tıkající se konzistence dat. Povinností ovladaèe souborového systému je v pøípadì zahájení zápisové operace nastavit bit v XXXXXXXXXX jako 1 a vrátit ho do 0 a po ukonèení operace. Tímto je zajištìno, e v pøípadì pøerušení zápisové operace bude soubor oznaèen jako neplatnı a mùe s ním bıt podle toho nakládáno.
+
+Z tohoto vıètu je evidentní, e je moné detekovat chyby v jakémkoli deskriptoru, pøípadnì detekovat nedokonèenı zápis dat, ale snadná korekce je moná pouze u VDS a AVDP. Korekce poškození samotnıch dat je nemoná kvùli absenci mechanismu na detekci chyby.
+
+\section{Design nástroje udffsck}
+Nástroj udffsck je koncipován jako interaktivní nástroj s moností automatické korekce. Funkce nástroje je rozdìlena do dvou fází:
+\begin{enumerate}
+    \item Detekce chyb a jejich nahlášení uivateli - podle míry poškození buï dojde a ke kontrole souborového stromu nebo detekce skonèí na chybì v deskriptoru koøenového adresáøe.
+    \item Korekce chyb kde je to moné a zápis opravené verze. Pokud detekce prošla a k souborovému stromu, je moné provést i korekci v datech v pøípadì nìjakıch nedokonèenıch zápisù. Paklie detekce se nedostala k datùm, šance na opravu souborového systému jsou mizivé.  
+\end{enumerate}
 
 \section{Závìr}
 Tìko øíct, co sem ještì tak asi napsat. Doufám, e tato šablonka nìkomu usnadní
