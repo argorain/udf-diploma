@@ -39,17 +39,17 @@
 \section{Úvod}
 V poèítaèové technice jsou data to, co má nìjakou hodnotu. Proto je nutné klást dùraz na detekci pøípadných chyb na souborovém systému a možnosti jejich korekce. Pøi této možnosti nelze považovat úložné øešení za použitelné. 
 
-Právì z tohoto dùvodu byla zapoèata práce na nástroji udffsck pro OS Linux, protože v souèasné chvíli tento nástroj neexistuje. Cílem tohoto nástroje je detekovat a opravovat chyby na souborovém systému Universal Disk Format (UDF). 
+Právì z tohoto dùvodu byla zapoèata práce na nástroji udffsck pro OS Linux, protože v souèasné chvíli tento nástroj neexistuje. Cílem tohoto nástroje je detekovat a opravovat chyby na souborovém systému \textit{Universal Disk Format} (UDF). 
 
 \section{Filesystem Consistency Check}
-Filesystem Consistency Check (fsck, \cite{man-fsck}) je Unixový nástroj urèený pro kontrolu a opravu souborových systémù. Tento nástroj ovšem pouze zapouzdøuje nástroje specializované pro daný soborový systém, který má být kontrolován a poskytuje tak uživateli univerzální ovládací rozhraní. Problém pøed kterým stála tato práce byl právì v absenci nástroje fsck pro souborový systém UDF (více dále v textu), protože právì absence nástroje na kontrolu souborového systému je zásadním omezením použitelnosti daného souborového systému.
+\textit{Filesystem Consistency Check} (\texttt{fsck}, \cite{man-fsck}) je Unixový nástroj urèený pro kontrolu a opravu souborových systémù. Tento nástroj ovšem pouze zapouzdøuje nástroje specializované pro daný soborový systém, který má být kontrolován a poskytuje tak uživateli univerzální ovládací rozhraní. Problém pøed kterým stála tato práce byl právì v absenci nástroje \texttt{fsck} pro souborový systém UDF (více dále v textu), protože právì absence nástroje na kontrolu souborového systému je zásadním omezením použitelnosti daného souborového systému.
 
-Nástroj fsck je mnou aktuálnì rozpracován v linuxovém balíèku udftools \cite{udftools-github, udftools-github-fork}, který je zaøazen ve vìtšinì dominantních linuxových distribucí. Cílem práce je po jeho dokonèení zaøazení do hlavního repozitáøe balíèku udftools.
+Nástroj \texttt{fsck} je mnou aktuálnì rozpracován v linuxovém balíèku \emph{udftools} \cite{udftools-github, udftools-github-fork}, který je zaøazen ve vìtšinì dominantních linuxových distribucí. Cílem práce je po jeho dokonèení zaøazení do hlavního repozitáøe balíèku udftools.
 
 \section{Universal Disk Format}
-Universal Disk Format (UDF) je souborový systém, který vznikl jako následovník souborového systému ISO~9660, vyvinutého pro CD. UDF bìhem svého vývoje prodìlalo øadu rozšíøení aby odpovídalo na požadavky médií, pro které bylo pøednostnì urèeno. Takto se postupnì rozšíøilo od CD na DVD a BD. Ovšem díky svému zamìøení na univerzálnost a pøesnositelnost je i v této dobì úpadku optických médií optimální volbou pro pøenos dat mezi rùznými operaèními systémy napøíklad na flash discích.
+\textit{Universal Disk Format} (UDF) je souborový systém, který vznikl jako následovník souborového systému ISO~9660, vyvinutého pro CD. UDF bìhem svého vývoje prodìlalo øadu rozšíøení aby odpovídalo na požadavky médií, pro které bylo pøednostnì urèeno. Takto se postupnì rozšíøilo od CD na DVD a BD. Ovšem díky svému zamìøení na univerzálnost a pøesnositelnost je i v této dobì úpadku optických médií optimální volbou pro pøenos dat mezi rùznými operaèními systémy napøíklad na flash discích.
 
-UDF je popsané pøednostnì dokumentem Universal Disk Format Specification \cite{osta-udf-0201} a také standardem ECMA-167 \cite{ecma-167}. Vzhledem k faktu, že balíèek udftools podporuje UDF do verze 2.01 (rozšíøení pro DVD-RW) tak i moje implementace míøí k této verzi pøestože nejaktuálnìjší verze je 2.60 (rozšíøení pro Blu-Ray.) Po aktualizaci zbytku balíèku nebude problém povýšit i nástroj udffsck.
+UDF je popsané pøednostnì dokumentem \textit{Universal Disk Format Specification} \cite{osta-udf-0201} a také standardem ECMA-167 \cite{ecma-167}. Vzhledem k faktu, že balíèek udftools podporuje UDF do verze 2.01 (rozšíøení pro DVD-RW) tak i moje implementace míøí k této verzi pøestože nejaktuálnìjší verze je 2.60 (rozšíøení pro Blu-Ray.) Po aktualizaci zbytku balíèku nebude problém povýšit i nástroj \texttt{udffsck}.
 
 \section{Detekce chyb a jejich oprava}
 \label{sec:errors}
@@ -73,14 +73,14 @@ Detekce chyb je jádrem celé práce. UDF nám díky svému návrhu nabízí nìkolik dete
     \item Nad výstupním CRC není provedena operace XOR
 \end{itemize}
 
-\textbf{Redundance deskriptorù} je použita u skupiny deskriptorù s názvem Volume Descriptor Sequence (VDS). Ta obsahuje všechna metadata týkající se souborového systému jako takového, nikoliv dat. VDS je uloženo ve dvou exempláøích jako Main VDS a Reserve VDS. Další pøípad redundance je v pøípadì Anchor Volume Descriptor Sequence (AVDP) což je výchozí bod pro naètení souborového systému. Ten je uložen alespoò ve dvou exempláøích, èasto však ve tøech. 
+\textbf{Redundance deskriptorù} je použita u skupiny deskriptorù s názvem \textit{Volume Descriptor Sequence} (VDS). Ta obsahuje všechna metadata týkající se souborového systému jako takového, nikoliv dat. VDS je uloženo ve dvou exempláøích jako \textit{Main VDS} a \textit{Reserve VDS}. Další pøípad redundance je v pøípadì \textit{Anchor Volume Descriptor Sequence} (AVDP) což je výchozí bod pro naètení souborového systému. Ten je uložen alespoò ve dvou exempláøích, èasto však ve tøech. 
 
 \textbf{Zápisový byte} je mechansimus týkající se konzistence dat. Povinností ovladaèe souborového systému je v pøípadì zahájení zápisové operace nastavit byte v deskriptoru \textit{Logical Volume Integrity Descriptor} (\cite[s.~62-63]{ecma-167}) jako \textit{Open Integrity Descriptor} a vrátit ho do stavu \textit{Closed Integrity Descriptor} až po ukonèení zápisové operace nebo odpojení oddílu. Tímto je zajištìno, že v pøípadì pøerušení zápisové operace bude oddíl oznaèen jako nekonzistentní a mùže s ním být podle toho nakládáno. 
 
 Z tohoto výètu je evidentní, že je možné detekovat chyby v jakémkoli deskriptoru, pøípadnì detekovat nedokonèený zápis dat, ale snadná korekce je možná pouze u VDS a AVDP. Korekce poškození samotných dat je nemožná kvùli absenci mechanismu na detekci chyby.
 
 \section{Návrh nástroje udffsck}
-Nástroj udffsck je koncipován jako interaktivní nástroj s možností automatické korekce. Funkce nástroje je rozdìlena do dvou fází:
+Nástroj \texttt{udffsck} je koncipován jako interaktivní nástroj s možností automatické korekce. Funkce nástroje je rozdìlena do dvou fází:
 \begin{enumerate}
     \item Detekce chyb popsaných v kapitole \ref{sec:errors} a jejich nahlášení uživateli - podle míry poškození buï dojde až ke kontrole souborového stromu nebo detekce skonèí v nìkteré z pøedchzejících fází. Typické body kde mùže detekce uvíznout je znièení všech AVDP (obsahuje ukazatel na VDS), znièení obou LVD (\textit{Logical Volume Descriptor}, obsahuje ukazatel na koøenový adresáø) nebo znièení \textit{File Entry} koøenového adresáøe, pøípadnì nìkterého z podadresáøù. Pokraèování v kontrole poté nneí již možné, protože se nelze øídit daty v poškozených deskriptorech. 
         
@@ -96,7 +96,7 @@ Byla nastínìna problematika detekce chyb na souborovém systému UDF a možnosti je
 
 V dobì psaní této práce je projekt rozpracovaný a umožòuje provést detekci všech chyb vyjma neukonèené zápisové operace a koreci poškozeného AVDP a VRS.
 
-Od zapoèetí práce jsem v kontaktu se souèasným správcem balíèku udftools i s tvùrci rùzných nástrojù pro korekci UDF pro FreeBSD. Stejnì tak byla snaha o zkontaktování autorù nástroje udf\_fsck v OS X ale nebyla vyslyšena. Podobnì dopadla i snaha o kontakt s tvùrci nástroje udfct od spoleènosti Philips, který provádí kontrolu média vùèi standardu. 
+Od zapoèetí práce jsem v kontaktu se souèasným správcem balíèku udftools i s tvùrci rùzných nástrojù pro korekci UDF pro FreeBSD. Stejnì tak byla snaha o zkontaktování autorù nástroje \texttt{udf\_fsck} v OS X ale nebyla vyslyšena. Podobnì dopadla i snaha o kontakt s tvùrci nástroje \texttt{udfct} od spoleènosti Philips, který provádí kontrolu média vùèi standardu. 
 
 %------------
 % Citace
