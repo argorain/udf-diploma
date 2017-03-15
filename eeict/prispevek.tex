@@ -26,8 +26,8 @@
 \supervisor{Petr Petyovskı}
 \emailv{petyovsky@feec.vutbr.cz}
 
-\abstract{This paper focus on creation of tool for detection and correction for UDF filesystem in~OS~Linux. It describes all available error detection machanisms described by ECMA-167 standard and possible solution how to correct found errors.}
-\keywords{UDF, fsck, Linux, error detection, error correction}
+\abstract{This paper focus on creation of tool for detection and correction UDF filesystem in~OS~Linux. It describes all available error detection mechanisms described by ECMA-167 standard and possible solution how to correct found errors.}
+\keywords{UDF, fsck, Linux, error detection, error correction, filesystem}
 
 \begin{document}
 % -- Hlavièka práce --
@@ -37,14 +37,14 @@
 %-------------------------------------------------------------------------------
 \selectlanguage{czech}
 \section{Úvod}
-V poèítaèové technice jsou data to, co má nìjakou hodnotu. Proto je nutné klást dùraz na detekci pøípadnıch chyb na souborovém systému a monosti jejich korekce. Pokud tato monost chybí, nelze povaovat úloné øešení za pouitelné. 
+V poèítaèové technice jsou data to, co má hodnotu. Proto je nutné pøi ukládání dat do souborového systému klást dùraz na detekci pøípadnıch chyb a monosti jejich korekce. Pokud tato monost chybí, nelze povaovat úloné øešení za spolehlivé. 
 
-Právì z tohoto dùvodu byla zapoèata práce na nástroji udffsck pro OS Linux, protoe v souèasné chvíli tento nástroj neexistuje. Cílem tohoto nástroje je detekovat a opravovat chyby na souborovém systému \textit{Universal Disk Format} (UDF). 
+Právì z tohoto dùvodu byla zapoèata práce na nástroji udffsck pro OS Linux, protoe v souèasné chvíli tento nástroj neexistuje jako open source øešení. Cílem této práce je navrhnout nástroj pro detekci a korekci chyb na souborovém systému \textit{Universal Disk Format} (UDF). 
 
 \section{Filesystem Consistency Check}
-\textit{Filesystem Consistency Check} (\texttt{fsck}, \cite{man-fsck}) je Unixovı nástroj urèenı pro kontrolu a opravu souborovıch systémù. Tento nástroj ovšem pouze zapouzdøuje nástroje specializované pro danı soborovı systém kterı má bıt kontrolován a poskytuje tak uivateli univerzální ovládací rozhraní. Problém pøed kterım stála tato práce byl právì v absenci nástroje \texttt{fsck} pro souborovı systém UDF (více dále v textu), protoe právì absence nástroje na kontrolu souborového systému je zásadním omezením pouitelnosti daného souborového systému.
+\textit{Filesystem Consistency Check} (\texttt{fsck}) je Unixovı nástroj urèenı pro kontrolu a opravu souborovıch systémù. Tento nástroj ovšem pouze zapouzdøuje nástroje specializované pro danı souborovı systém kterı má bıt kontrolován a poskytuje tak uivateli univerzální ovládací rozhraní. Problém pøed kterım stála tato práce byl právì v absenci nástroje \texttt{fsck} pro souborovı systém UDF (dále v textu), protoe právì absence nástroje na kontrolu souborového systému je zásadním omezením pouitelnosti daného souborového systému.
 
-Nástroj \texttt{fsck} je mnou aktuálnì rozpracován v linuxovém balíèku \emph{udftools} \cite{udftools-github-fork}. Cílem práce je po jeho dokonèení zaøazení do hlavního repozitáøe balíèku udftools \cite{udftools-github}, kterı je souèástí vìtšiny dominantních linuxovıch distribucí.
+Nástroj \texttt{fsck} je mnou aktuálnì rozpracován v linuxovém balíèku \emph{udftools}. Cílem práce je po jeho dokonèení zaøazení do softwarového repozitáøe balíèku udftools \cite{udftools-github}, kterı je souèástí vìtšiny dominantních linuxovıch distribucí.
 
 \section{Universal Disk Format}
 \textit{Universal Disk Format} (UDF) je souborovı systém, kterı vznikl jako následovník souborového systému ISO~9660, vyvinutého pro CD. UDF bìhem svého vıvoje prodìlalo øadu rozšíøení aby odpovídalo na poadavky médií, pro které bylo pøednostnì urèeno. Takto se postupnì rozšíøilo od CD na DVD a BD. Ovšem díky svému zamìøení na univerzálnost a pøesnositelnost je i v této dobì úpadku optickıch médií optimální volbou pro pøenos dat mezi rùznımi operaèními systémy napøíklad na flash discích.
@@ -53,17 +53,17 @@ UDF je popsané pøednostnì dokumentem \textit{Universal Disk Format Specification
 
 \section{Detekce chyb a jejich oprava}
 \label{sec:errors}
-Detekce chyb je jádrem celé práce. UDF nám díky svému návrhu nabízí nìkolik detekèních mechanismù. Jedná se o tyto:
+Detekce chyb je jádrem celé práce. UDF díky svému návrhu nabízí nìkolik detekèních mechanismù. Jedná se o tyto:
 \begin{itemize}
     \item Kontrolní souèet (Checksum)
     \item Cyclic Redundancy Check (CRC)
     \item Redundance deskriptorù souborového systému
-    \item Zápisové pole
+    \item Pøíznak zápisu
 \end{itemize}
 
-\textbf{Kontrolní souèet (Checksum)} zajišuje kontrolní mechansimus všech identifikátorù (tagù) deskriptorù souborového systému. Jedná se o prostı souèet hodnot všech bytù tagu vyjma místa pro vısledek samotnı a následné modulo 256 (t.j. oøez vısledku na délku spodních 8~bitù.)
+\textbf{Kontrolní souèet (Checksum)} zajišuje kontrolní mechansimus všech identifikátorù (tagù) deskriptorù\footnotemark[1]\footnotetext[1]{Deskriptor, neboli popisovaè je struktura obsahující metadata\footnotemark[2] souborového systému.} souborového systému. Jedná se o prostı souèet hodnot všech bytù tagu vyjma místa pro vısledek samotnı a následné modulo 256.
 
-\textbf{Cyclic Redundancy Check (CRC)} zajišuje kontrolu samotnıch deskriptorù, pøièem referenèní hodnota je uloena v tagu deskriptoru a tudí zajištìná checksumem. Pouívá se CRC-CCIT, které je definováno tìmito parametry:
+\textbf{Cyclic Redundancy Check (CRC)} zajišuje kontrolu samotnıch deskriptorù, pøièem referenèní hodnota je uloena v tagu deskriptoru a tudí zajištìná kontrolním souètem. Pouívá se CRC-CCITT, které je definováno tìmito parametry:
 \begin{itemize}
     \item Délka: 16~bit
     \item Vstupní polynom: \texttt{0x1021}
@@ -73,50 +73,53 @@ Detekce chyb je jádrem celé práce. UDF nám díky svému návrhu nabízí nìkolik dete
     \item Nad vıstupním CRC není provedena operace XOR
 \end{itemize}
 
-\textbf{Redundance deskriptorù} je pouita u skupiny deskriptorù s názvem \textit{Volume Descriptor Sequence} (VDS). Ta obsahuje všechna metadata tıkající se souborového systému jako takového, nikoliv dat. VDS je uloeno ve dvou exempláøích jako \textit{Main VDS} a \textit{Reserve VDS}. Další pøípad redundance je v pøípadì \textit{Anchor Volume Descriptor Sequence} (AVDP) co je vıchozí bod pro naètení souborového systému. Ten je uloen alespoò ve dvou exempláøích, èasto však ve tøech. 
+\textbf{Redundance deskriptorù} je pouita u skupiny deskriptorù s názvem \textit{Volume Descriptor Sequence} (VDS). Ta obsahuje všechna metadata\footnotemark[2]\footnotetext[2]{Metadata jsou data, která popisují jiná data. V tomto pøípadì popisují zpùsob uloení dat na souborovém systému} tıkající se souborového systému jako takového, nikoliv dat. VDS je uloeno ve dvou exempláøích jako \textit{Main VDS} a \textit{Reserve VDS}. Další pøípad redundance je v pøípadì \textit{Anchor Volume Descriptor Sequence} (AVDP) co je vıchozí bod pro naètení souborového systému. Ten je uloen alespoò ve dvou exempláøích, èasto však i ve tøech. 
 
-\textbf{Zápisové pole} je mechansimus tıkající se konzistence dat. Povinností ovladaèe souborového systému je v pøípadì zahájení zápisové operace nastavit poloku \textit{Integrity Type} v deskriptoru \textit{Logical Volume Integrity Descriptor} (\cite[s.~62-63]{ecma-167}) jako \textit{Open Integrity Descriptor} a vrátit ho do stavu \textit{Closed Integrity Descriptor} a po ukonèení zápisové operace nebo odpojení oddílu. Tímto je zajištìno, e v pøípadì pøerušení zápisové operace bude oddíl oznaèen jako nekonzistentní a mùe s ním bıt podle toho nakládáno. 
+\textbf{Pøíznak zápisu} je mechanismus tıkající se konzistence dat. Povinností ovladaèe souborového systému je v pøípadì zahájení zápisové operace nastavit poloku \textit{Integrity Type} v deskriptoru \textit{Logical Volume Integrity Descriptor} (\cite[s.~62-63]{ecma-167}) jako \textit{Open Integrity Descriptor} a vrátit ho do stavu \textit{Closed Integrity Descriptor} a po ukonèení zápisové operace nebo odpojení oddílu. Tímto je zajištìno, e v pøípadì pøerušení zápisové operace bude oddíl oznaèen jako nekonzistentní a mùe s ním bıt podle toho nakládáno. 
 
-Z tohoto vıètu je evidentní, e je moné detekovat chyby v jakémkoli deskriptoru, pøípadnì detekovat nedokonèenı zápis dat, ale snadná korekce je moná pouze u VDS a AVDP. Korekce poškození samotnıch dat je nemoná kvùli absenci mechanismu na detekci chyby.
+Z tohoto vıètu je evidentní, e je moné detekovat chyby v metadatech souborového systému, pøípadnì detekovat nedokonèenı zápis dat, ale snadná korekce je moná pouze u VDS a AVDP. Korekce poškození samotnıch dat je nemoná kvùli absenci mechanismu na detekci chyby. Tato detekce je zajištìna pøímo pomocí firmware jako CRC (ECC) datového média.
 
 \section{Návrh nástroje udffsck}
-Nástroj \texttt{udffsck} je koncipován jako interaktivní nástroj s moností automatické korekce. Funkce nástroje je rozdìlena do dvou fází:
+Nástroj \texttt{udffsck} je koncipován jako interaktivní nástroj s moností automatickıch korekcí. Funkce nástroje je rozdìlena do dvou fází:
 \begin{enumerate}
-    \item Detekce chyb popsanıch v kapitole \ref{sec:errors} a jejich nahlášení uivateli - podle míry poškození buï dojde a ke kontrole souborového stromu nebo detekce skonèí v nìkteré z pøedchzejících fází. Typické body kde mùe detekce uvíznout je znièení všech AVDP (obsahuje ukazatel na VDS), znièení obou LVD (\textit{Logical Volume Descriptor}, obsahuje ukazatel na koøenovı adresáø) nebo znièení \textit{File Entry} koøenového adresáøe, pøípadnì nìkterého z podadresáøù. Pokraèování v kontrole poté není ji moné, protoe se nelze øídit daty v poškozenıch deskriptorech. 
+    \item Detekce chyb popsanıch v kapitole \ref{sec:errors} a jejich nahlášení uivateli - podle míry poškození buï dojde a ke kontrole souborového stromu nebo detekce skonèí v nìkteré z pøedcházejících fází. Typické body kde mùe detekce uvíznout je znièení všech AVDP (obsahuje ukazatel na VDS), znièení obou LVD (\textit{Logical Volume Descriptor}, obsahuje ukazatel na koøenovı adresáø) nebo znièení \textit{File Entry} koøenového adresáøe, pøípadnì nìkterého z podadresáøù. Pokraèování v kontrole poté není ji moné, protoe se nelze øídit daty v poškozenıch deskriptorech. 
         
-Je na zváení pøidání monosti pouití takovıch deskriptorù i pøes jejich poškození, protoe tato monost mùe umonit alespoò obnovu èásti dat v pøípadì katastrofického poškození.
+Je na zváení pøidání monosti pouití takovıch deskriptorù i pøes jejich poškození, protoe tato monost mùe umonit alespoò obnovu èásti dat v pøípadì katastrofického poškození souborového systému.
 
     \item Korekce chyb kde je to moné a zápis opravené verze. Pokud detekce prošla a k souborovému stromu, je moné provést i korekci v deskriptorech dat v pøípadì nìjakıch nedokonèenıch zápisù. 
 \end{enumerate}
 
-Návrh poèítá s zaèlenìním \texttt{udffsck} mezi ostatní \texttt{fsck}, take dodruje standardizované návratové hodnoty \cite{man-fsck}. Vstupní parametry standardizovány nejsou, protoe kadı souborovı systém má jiné poadavky na kontrolu.
+Návrh poèítá s zaèlenìním \texttt{udffsck} mezi ostatní \texttt{fsck}, take dodruje standardizované návratové hodnoty. Vstupní parametry standardizovány nejsou, protoe kadı souborovı systém má jiné poadavky na kontrolu.
 
 \section{Závìr}
 Byla nastínìna problematika detekce chyb na souborovém systému UDF a monosti jejich korekce. Bylo nastínìno nìkolik variant jak lze provést jejich korekci vèetnì pøípadnıch moností pro obnovu pøi velkém poškoení.     
 
-V dobì psaní této práce je projekt rozpracovanı a umoòuje provést detekci všech chyb vyjma neukonèené zápisové operace a koreci poškozeného AVDP a VRS.
+V dobì psaní této práce je projekt rozpracovanı a umoòuje provést detekci všech chyb vyjma neukonèené zápisové operace a koreci poškozeného AVDP a VDS.
 
-Od zapoèetí práce jsem v kontaktu se souèasnım správcem balíèku udftools i s tvùrci rùznıch nástrojù pro korekci UDF pro FreeBSD. Stejnì tak byla snaha o zkontaktování autorù nástroje \texttt{udf\_fsck} v~OS~X ale nebyla vyslyšena. Podobnì dopadla i snaha o kontakt s tvùrci nástroje \texttt{udfct} od spoleènosti Philips, kterı provádí kontrolu média vùèi standardu. 
+Od zapoèetí práce jsem v kontaktu se souèasnım správcem balíèku udftools i s tvùrci rùznıch nástrojù pro korekci UDF pro OS~Free~BSD. Stejnì tak byla snaha o zkontaktování autorù nástroje \texttt{udf\_fsck} v~Apple~macOS ale nebyla vyslyšena. Podobnì dopadla i snaha o kontakt s tvùrci nástroje \texttt{udfct} od spoleènosti Philips, kterı provádí kontrolu média vùèi standardu a slouí v souèasnosti jako referenèní testovací øešení pro srovnání s mnou vyvíjenım nástrojem. 
+
+Práce v tuto chvíli smìøuje k implementaci opravnıch algoritmù pro souborovı strom a rozsáhlému testování na rùznıch platformách a médiích. Je v plánu testování provést na architekturách x86, x86\_64, ARM a Power8 pro ovìøení správné funkce na platformách s rùznou endianitou.
 
 %------------
 % Citace
 %
 \begin{thebibliography}{9}
     
-    \bibitem{man-fsck}
-            Fsck. \emph{Die.net} [online]. [cit. 2017-01-02]. Dostupné z: \url{https://linux.die.net/man/8/fsck}
+%    \bibitem{man-fsck}
+%           Fsck. \emph{Die.net} [online]. [cit. 2017-01-02]. Dostupné z: \url{https://linux.die.net/man/8/fsck}
     
     \bibitem{udftools-github}
             \emph{pali/udftools. In: GitHub}\/ [online]. 2016 [cit. 2016-11-21]. Dostupné z: \url{https://github.com/pali/udftools}
     
-    \bibitem{udftools-github-fork}
-            \emph{argorain/udftools. In: GitHub}\/ [online]. 2017 [cit. 2017-03-08]. Dostupné z: \url{https://github.com/argorain/udftools}
+%    \bibitem{udftools-github-fork}
+%            \emph{argorain/udftools. In: GitHub}\/ [online]. 2017 [cit. 2017-03-08]. Dostupné z: \url{https://github.com/argorain/udftools}
     
     \bibitem{osta-udf-0201}
             \emph{Universal Disk Format Specification}. Revision 2.01. Cupertino, California: Optical Storage Technology Association, 2000.
 
     \bibitem{ecma-167}
-        \emph{ECMA-167}. 3rd Edition. Geneva, Switzerland: ECMA, 1997.
+            \emph{ECMA-167}. 3rd Edition. Geneva, Switzerland: ECMA, [online] 1997. [cit. 2017-03-09].
+        Dostupné z: \url{https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-167.pdf}
     
 
 \end{thebibliography}
