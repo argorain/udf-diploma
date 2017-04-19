@@ -325,9 +325,16 @@ První je samotný program, poté následuje povinný parametr \texttt{-b} násl
 Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
 
 \subsection{Načtení média a jeho příprava na zpracování}
+\todo{Popsat flock, kontroly...}
 Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí funkce \texttt{mmap} namapováno do paměti, aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor uzavřen, protože ve chvíli, kdy byl úspěšně namapován byla jeho reference zkopírována a začala být udržována operačním systémem, který ji zruší až nebudou žadné části souboru namapované do paměti (viz \cite{posix-mmap}). 
 
-\subsection{Algoritmus načtení AVDP}
+\subsection{Kontrola přítomnosti souborového systému UDF}
+Po úspěšném načtení média je prvním krokem před jakoukoli další prací kontrola přítomnosti správného souborového systému, v tomto případě UDF. Tato kontrola probíhá kontrolou superbloku pomocí funkce \texttt{is\_udf}. Tato funkce načte blok na adrese \texttt{0x8000}, neboli 16.~sektor při velikosti sektoru 2048~B. Tato adresa je odvozena od souborového systému ISO~9660, který povoluje pouze jednu velikost sektoru a to 2048~B. Protože UDF navazuje na ISO~9660, je zachována zpětná kompatibilita a je umožněna koexistence obou souborových systémů.
+
+Kontrola samotná probíhá načtením struktur VRS kde se vyhledávají deskriptory popisující UDF, t.j. deskriptory obsahující identifikátor \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. Pokud je takovýto identifikátor nalezen, a spolu s ním je i nalezen identifikátor \texttt{TEA01} (\textit{Terminating Extended Area}) je médium prohlášeno za správné a může se přistoupit ke kontrole. Pokud je nalezena identifikace UDF ale ne kompletní \textit{Extended Area}, může to znamenat neuzavřené médium a to pro další kontrolu znamená jiné umístění AVDP. Kontrola je ale možná. Pakliže nebyl nalezen identifikátor UDF, kontrola končí chybou a program končí.
+
+\subsection{Načtení a kontrola AVDP}
+\todo{Popsat variantu unclosed and closed medium}
 AVDP je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému. Jak je uvedeno v kapitole \ref{sec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomny mohou být až tři na médiu.\\
 Jejich načítání pro potřeby další práce se souborovým systém lze popsat algoritmem na obrázku \ref{fig:avdp}. Algoritmus prochází možné lokace AVDP dokud neuspěje nebo nedojdou možnosti. Pro potřeby kontroly a opravy média je třeba po nalezení alespoň jednoho správného AVDP ostatní podle něj opravit.
 \begin{figure}[ht] 
@@ -338,7 +345,35 @@ Jejich načítání pro potřeby další práce se souborovým systém lze popsa
     \label{fig:avdp}
 \end{figure}
 
-\subsection{Algoritmus čtení souborů}
+\subsection{Načtení a kontrola VDS}
+Po úspěšném nalezení funkčního AVDP je možné načíst \textit{Volume Descriptor Sequence} (VDS). Tato skupina metadat je uložena na dvou místech, typicky jedno na začátku a druhé na konci média. Pozice obou je uložena právě v AVDP. 
+
+Tato skupina deskriptorů je popsána v kapitole \ref{sec:vds}. Deskriptory jsou uloženy za sebou v jednotlivých sektorech, přičemž poslední musí být vždy \textit{Terminating Descriptor}. Jak hlavní, tak záložní VDS by měly být ekvivalentní. 
+
+Jednotlivé deskriptory jsou načítány a ukládány do struktur pro další zpracování. První kontrola během načítání spočívá v porovnání kontrolního součtu tagu deskriptoru. Pokud tato kontrola uspěje, je možné provést porovnání CRC, protože již máme díky ověřenému tagu jistou totožnost deskriptoru, jeho předpokládané CRC a polohu. Pokud kontrola CRC uspěje, zkontroluje se poloha deskriptoru vůči deklarovanému umístění v tagu. Pokud i tato kontrola je v pořádku, lze prohlásit tag za správný. Pokud by byly v pořádku jako kontrolní součet, tak CRC, ale bylo by špatně deklarované umístění, lze s tagem pracovat, protože data která nese jsou s největší pravděpodobností v pořádku, ale je nutné opravit jeho umístění a následně přepočítat kontrolní součet a CRC. 
+
+\subsection{Načtení a kontrola LVID}
+\textit{Logical Volume Integrity Descriptor} (LVID) je důležitou částí UDF. Je umístěné mimo VDS a jeho pozice je uložena v LVD pod položkou \textit{Integrity Sequence Extent}. LVID není redundantní, což zjednodušuje práci s ním, ale zároveň se kvůli tomu jedná o slabé místo UDF. 
+
+Po kontrole kontrolního součtu a CRC je přistoupeno k samotnému načtení dat. Pro snažší práci s daty uloženými v LVID jsou data ukládána do struktury \texttt{filesystemStats}. Protože nadřazeným standardem je ECMA-167, jsou struktury popsány podle ní. Ovšem samotnou implementací je UDF standard a ten využívá pole \textit{Implementation Use}, kam ukládá tyto údaje:
+\begin{itemize}
+    \item Počet souborů na svazku
+    \item Počet adresářů na svazku
+    \item Minimální revize UDF, se kterou je možné médium číst
+    \item Minimální revize UDF, se kterou je možné na médium zapisovat
+    \item Maximální revize UDF, se kterou je možné na médium zapisovat
+\end{itemize}
+Podobná situace je u položky \textit{Logical Volume Contents Use}. UDF tuto položku používá k uložení \textit{Logical Volume Header Descriptor}, což je struktura popsaná pomocí standardu ECMA-167 s jediným cílem a tím je uložení dalšího \textit{Unique ID}, neboli unikátního identifikátoru, který nese každý soubor a adresář na médiu. Význam \textit{Unique ID} je popsán v kapitole \ref{sec:filetree}.
+
+Další částí je \textit{Free Space Table}, což je tabulka obsahující informaci o velikosti logického svazku a volného místa na něm. Oba údaje jsou v logických blocích, nikoli v bytech. 
+
+Důležitou částí je i časová značka poslední modifikace logického svazku. Toto datum, uložené v UTC, by mělo být vždy nejmladší ze všech časových značek na svazku. 
+
+Poslední položkou, která je důležitá pro prácí se svazkem je \textit{Integrity Type}. Ten může být buď otevřený nebo uzavřený. Pokud je uzavřený, tak by měl být svazek v konzistentním stavu. Pakliže je otevřený, je možné že probíhá zápisová operace, nebo že byl svazek během ní nesprávně odebrán. Tento indikátor pomáhá vyvolat požadavek na kontrolu média v operačním systému a pro kontrolu to je důležitý ukazatel upozorňující na pravděpodbnou nesrovnalost mezi deklarovaným volným místem a skutečností. 
+
+\subsection{Kontrola a obnova stromu souborů}
+\label{sec:filetree}
+\todo{Popsat Unique ID}
 Obnova uživatelských dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že UDF neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a místo, kde by data měla být.\\
 Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou strukturou.\\
 Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
@@ -350,6 +385,12 @@ Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k c
     \label{fig:files}
 \end{figure}
 
+\subsection{Korekce AVDP}
+
+\subsection{Korekce VDS}
+
+\subsection{Korekce LVID}
+
 \subsection{Detekce chyb na médiu}
 Detekce chyb na médiu je v tuto chvíli implementována pouze na úrovni porovnání kontrolních součtů a CRC.\\
 Kontrolní součty jsou implementovány mou funkcí\\
@@ -360,4 +401,5 @@ která přidává porovnání se checksum v tagu. Takto fukce vrací 0 při rozd
 CRC je počítáno funkcí sdílené knihovny, která je součástí balíku. Ta byla opět zapouzdřena funkcí\\
 \centerline{\texttt{\detokenize{int crc(void * desc, uint16_t size)}}}\\
 aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem je, že \textit{DescriptorTag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom, jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.)
+
 
