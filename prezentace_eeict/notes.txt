@@ -1,0 +1,45 @@
+KDE
+---
+
+Byl jste přiřazen ke komisi B5 - Automatizace, komunikační systémy     na čas 10:45.
+
+Konference EEICT se koná ve čtvrtek 23. dubna 2015 v budově Technická 12 od 9:00. Vaši komisi naleznete v místnosti SD3.102a již od 9:00.
+
+
+PREZENTACE
+----------
+
+1. představení, přivítání
+2. Obsah - co nás čeká a nemine
+	- Úvod
+	- Fyzické prostředky
+	- Řešení
+	- Heuristiky
+	- Závěr
+
+3. Úvod
+4. Cíl práce - Postavit autíčko na TFC (o TFC dále), návrh heuristik a algoritmů
+5. O TFC - závod autonomních vozidel, jeden proceor, kamera, neznámá trať, zadání tlačí konstrukci do mezí, dráha - bílá + krajní černé čáry
+
+6. Fyzické prostředky - co máme za prostředky a možnosti
+7. Podvozek - od Freescale, daný pro všechny, dva ss motory, plně odpružený, náhon zadních kol, zátáčení modelářským servem
+8. CCD kamera - 128x1px, monochromatická s analogovým výstupem, vada optiky
+9. FRDM k20D50M - 50MHz ARM Cortex M4, akcelerometr, IO, ADC, Programování přes USB
+10. Debug - BT2.0 link, python tool - vizualizace, logování
+11. Požadavky na řízení - v reálném čase, podle dat z kamery (30 - 60fps, reálně v dobrém světlě cca 45fps), bez vnější pomoci
+
+12. Řešení
+13. Zpracování obrazu - sobelův operátor, nelineární filtry (ořez, binarizace, slévání blízkách peaků), heuristiky - hledání od prostředku obrazu ke krajům
+14. Díly dráhy - koenčný počet dílů, 60cm široká, rovina, zatáčka, křižovatka, šikana, most, tunel, retardéry
+15. Stavový automat - hlavní řídicí struktura, stavy ROVNĚ, ZATÁČKA, KŘIŽOVATKA, jak mezi nimi ale přepínat, podle čeho se orientovat? To řeší heuristiky
+
+16. Heuristiky
+17. Jak jet? - Jinak řídíme po rovině a jinak v zatáčce. Po rovině se snažíme udržet mezi krajnicemi a stále jemně korigujeme řízení, v zatáčce se soustředíme na výjezd ze zatáčky a jedem "podle paměti"
+18. Jak poznat co nás čeká? - rovna - S turn - rovina, co jsou klíčové body? kde se snímá?
+19. V čem je háček? - V osvětlní, v napáejní, v kameře. Soutež je navržena komplexně a kdekoli se cokoli zjednoduší, vrátí se to jinde
+
+20. Závěr
+21. Závěr - Co se podařilo - mechanika, heuristiky, řízení, telemetrie
+			Zlepšní - opakovatelnost, jízdní vlastnosti
+22. Dotazy
+23. Konec

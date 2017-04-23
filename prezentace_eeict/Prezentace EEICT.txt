@@ -1,0 +1,21 @@
+Tělo přednášky: rozpoznávání vzorů v obrazu a odhad dalšího pohybu
+
+- obsah
+- uvod
+- nastínění problematiky
+- fyzické prostředky
+	- kamera
+	- procesor
+	- podvozek
+	- debug?
+- požadavky řízení - realtime, rychlé, na procesoru na autíčku
+- řešení - rozpoznávání vzorů
+- zpracování obrazu
+- díly dráhy - kombinace - vzory
+- stavový automat na segmemty
+- rozpoznávání dalších segmentů - heuristika
+- problémy?
+- výsledky
+- závěr 
+
+
