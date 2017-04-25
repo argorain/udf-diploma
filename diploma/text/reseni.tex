@@ -385,9 +385,72 @@ Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k c
     \label{fig:files}
 \end{figure}
 
+\subsection{Oprava deskriptoru}
+\label{sec:oprava-deskriptoru}
+Oprava deskriptoru při detekci chyby pomocí kontrolních mechanismů CRC, kontrolní součet nebo špaté pozice v \textit{Tag Location} probíhá v šesti krocích. Předpokladem takové opravy je existence správného zdrojového deskriptoru nebo dostatek dat pro jeho znovuvytvoření. Kroky opravy jsou tyto:
+\begin{enumerate}
+    \item Určení pozic zdrojového (správného) deskriptoru a cílového (defektního) deskriptoru.
+    \item Zkopírování zdrojového deskriptoru do paměti. Tímto vytvoříme nový cílový deskriptor.
+    \item Opravení položky \textit{Tag Location} v tagu nového cílového deskriptoru podle pozice původního cílového deskriptoru.
+    \item Výpočet CRC nad novým cílovým deskriptorem a uložení výsledku do tagu (Teoreticky nadbytečný krok, CRC by mělo být stejné jako u původního deskriptoru. Tento krok je užitečný pro vývoj kdy lze tímto oveřit, že byl zkorpírovaný celý zdrojový deskriptor.)
+    \item Výpočet kontrolního součtu tagu nového cílového deskriptoru a uložení výsledku do tagu (Zde již je nutné kontrolní součet spočítat, protože se změnila pozice uložená v tagu podle nového umístění deskriptoru.)
+    \item Zkopírování nového cílového deskriptoru na místo původního cílového deskriptoru.
+\end{enumerate}
+
+\subsection{Mapa chyb}
+\label{sec:mapa-chyb}
+Účelem takzvané mapy chyb (neboli struktury \texttt{\detokenize{vds_sequence_t}}) je zapouzdření chyb, které jsou deteknovány napříč médiem v deskriptorech, vyjma chyb v deskriptorech dat. Její struktura je v tabulce \ref{tab:err-seq}.\\
+Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{metadata_t}}. Ty jsou popsány tabulkou \ref{tab:metadata-t}. Jak je vidět, obsahuje pouze identifikátor deskriptoru (použité pouze u VDS, více v kapitole \ref{sec:oprava-vds}), pozici deskriptoru a bitové pole chyb. Význam jednotlivých bitů je popsán v tabulce \ref{tab:E-codes}.
+\begin{table}[hb]
+    \begin{tabular}{ | l | l | p{2cm} | l | p{5.5cm} | }
+        \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline
+        0       & 21          & anchor         & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v AVDP \\ \hline 
+        21      & 56          & main           & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v Hlavním VDS \\ \hline 
+        77      & 56          & reserve        & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v Záložním VDS \\ \hline 
+        133     & 7           & lvid           & \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v LVID \\ \hline 
+        140     & 7           & pd             & \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v PD \\ \hline 
+    \end{tabular}
+    \caption{Formát struktury \texttt{vds\_sequence\_t} (Mapa chyb)\label{tab:err-seq}}
+\end{table}
+\begin{table}[hb]
+    \begin{tabular}{ | l | l | p{4.5cm} | p{1.3cm} | p{5.5cm} | }
+        \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline
+        0       & 2          & tagIdent       & Uint16     & Identifikátor deskriptoru \\ \hline 
+        2       & 4          & tagLocation    & Uint32     & Pozice deskriptoru \\ \hline 
+        6       & 1          & error          & Uint8      & Bitové pole nalezených chyb (tabulka \ref{tab:E-codes}) \\ \hline 
+    \end{tabular}
+    \caption{Formát struktury \texttt{metadata\_t}\label{tab:metadata-t}}
+\end{table}
+\begin{table}
+    \begin{tabular}{ | l | l | l | }
+        \hline
+        Název & Maska & Význam \\ \hline
+        \texttt{E\_CHECKSUM} & \texttt{0b00000001} & Chyba v konrolním součtu \\ \hline
+        \texttt{E\_CRC}      & \texttt{0b00000010} & Chyba v CRC \\ \hline
+        \texttt{E\_POSITION} & \texttt{0b00000100} & Chyba v umístění deskriptoru\\ \hline
+        \texttt{E\_WRONGDESC}& \texttt{0b00001000} & Nenalezen očekávaný deskrioptor (použito pouze pro AVDP)\\ \hline
+        \texttt{E\_UUID}     & \texttt{0b00010000} & Chyba UUID souboru \\ \hline
+        \texttt{E\_TIMESTAMP}& \texttt{0b00100000} & Chyba časové značky souboru\\ \hline
+    \end{tabular}
+    \caption{Chybové kódy pro strukturu \texttt{metadata\_t} \ref{tab:metadata-t}\label{tab:E-codes}}
+\end{table}
 \subsection{Korekce AVDP}
+\label{sec:oprava-avdp}
+Oprava AVDP je možná pouze na uzavřených médiích. Důvodem je požadavek opravného algoritmu na přítomnost správného deskriptoru, který bude použit jako vzor pro opravu. Otevřená (neukončená) média mají pouze jeden AVDP, proto v případě jeho poškození není oprava snadno možná.\\
+Poté, co jsou nalezeny AVDP na svch pozicích (t.j. sektoru 256 a na posledním sektoru, případně na sektoru 512) a je určeno, který z nich je poškozený a který je v pořádku lze přistoupit k opravě, pokud je alespoň jeden v pořádku.\\
+Samotný opravný algoritmus je popsán v kapitole \ref{sec:oprava-deskriptoru}.
 
 \subsection{Korekce VDS}
+\label{sec:oprava-vds}
+Oprava \textit{Volume Descriptor Sequence} je podovná jako AVDP. Předpokladem úspěšné opravy je opět existence alespoň jednoho správného zdrojového deskriptoru od každého typu, který ve VDS je. Pokud je toto splněno, je oprava možná.\\
+Algoritmus je navržen takto:
+\begin{enumerate}
+    \item Během načítání VDS (jak hlavního, tak záložního) je vytvářena mapa chyb na jednotlivých deskriptorech. Formát mapy je popsán v tabulce \ref{tab:err-seq}. 
+    \item Na základě údajů mapy chyb je přistoupeno o opravě. Pokud je alespoň jeden z deskriptorů v pořádku, je použit algoritmus z kapitoly \ref{sec:oprava-deskriptoru}. Pokud ne, je vypsána chyba a pokračuje se k dalšímu deskriptoru.
+    \item Krok 2 se opakuje dokud není nalezen \textit{Terminating Descriptor}. Poté je oprava ukončena.
+\end{enumerate}
 
 \subsection{Korekce LVID}
 
