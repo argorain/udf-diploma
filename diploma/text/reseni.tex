@@ -72,6 +72,8 @@ Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Proje
 %\todo{Popsat filesystem, způsob uložení dat, ochrané mechanismy... UDF docs rulez!}
 Universal Disk Filesystem (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích, ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO 9660) ale není s ním kompatibilní. Jednou z výhod UDF oproti CDFS je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD a přepisovatelných disků.
 \todo{Popsat klíčové vlastnosti UDF}
+\section{Historie UDF}
+\todo{revize, standardy, erraty}
 
 \section{Struktura systému}
 Norma popisující UDF definuje dva druhy číslování. Prvním je \textit{Logical Sector Number} (LSN), které popisuje čísla jednotlivých sektorů. Je číslované od nuly a začíná na prvním fyzickém sektoru média. Jeho velikost by měla odpovídat fyzické velikosti sektoru. Jeho určením je fyzická navigace na médiu. Druhým je \textit{Logical Block Number} (LBN), které popisuje čísla jednotlivých logických bloků, které jsou mapovány na sektory. Jejich velikost by měla být stejná jako velikost LSN. Jsou číslované od nuly ale začínají až v oblasti dat. Jeho určením je na rozdíl od LSN navigace pouze v datech.\\
@@ -185,7 +187,29 @@ V případě adresáře jsou v \textit{AllocationDescriptors} uloženy \textit{F
 \textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4.\\
 Vzhledem k faktu, že cílem této struktury není adresovat data ale jen FE, obsahuje jen metadata metadat souboru. Například jestli adresované FE popisuje složku nebo soubor, jestli je soubor smazaný nebo jestli uživatel má vědět o existenci souboru. Dále tato struktura obsahuje identifikátor souboru v podobě textového řetězce (jméno souboru nebo složky). Samozřejmě obsahuje i umístění samotného FE.
 
+\section{TODO Závěr kapitoly}
 \todo{Zaver kapitoly}
+
+
+\chapter{Nástroje pro kontrolu konzistence UDF}
+
+Pro OS Linux jsou znám pouze nástroj \texttt{udfct\_1.5r4}. Tento nástroj byl vyvinut firmou Philips a jedná se o nástroj který je schopný zkontrolovat integritu souborového systému UDF. Chyby v implementaci UDF a případné chyby v datech vypisuje do terminálu ale není schopný je opravovat. Zásadním problémem tohoto nástroje je, že existuje pouze pod restriktivní licencí společnosti Philips a není jej tudíž možné použít jako výchozí bod dalšího vývoje i přes dostupnost zdrojových souborů. V současnosti je balíček se zdrojovými kódy dostupný již pouze díky službě Wayback Machine \cite{wayback}, zástupci společnosti Philips jej již nenabízí. Mou žádost o poskytnutí práva na přepoužití jejich kódu ignorovali.\\
+V BSD je \texttt{fsck} v podobném stavu jako v Linuxu ovšem komunita okolo BSD na problému pomalu pracuje. Našel jsem blog \cite{scottuvblog} od Scotta Longa z projektu FreeBSD kde má shrnutí své práce na UDF včetně jeho patchů do FreeBSD implementace UDF. Mezi jeho body k doplnění je i nástroj \texttt{fsck} a právě proto jsem ho oslovil s prosbou o informace. Právě Scott Long mne odkázal na projekt NetBSD, protože on sám nikdy na \texttt{fsck} nezačal pracovat, ale doslechl se, že v projektu NetBSD něco vzniká. Po hledání jsem nalezl mailing list z roku 2008, kde Reinoud Zandijk popisuje svůj postup práce na UDF implementaci. Na konci jeho zprávy je poznámka o \texttt{fsck} s informací, že bude "brzy". Žádná implementace se ovšem na svět nedostala, takže jsem mu napsal s prosbou o informace o  stavu jeho implementace \texttt{fsck}. Jeho odpověď byla vyčerpávající a potvrzovala mé podezření o stavu open source implementace. On sám má rozpracovanou implementaci \texttt{fsck} ale zveřejňovat ji zatím nebude, protože není dokončena, jeho slovy: 
+\begin{quote} 
+    \uv{I've created two UDF implementations: UDFclient \cite{13monkey} and the NetBSD UDF implementation. UDFclient was a kind of study into UDF and far too elaborate to be useful for my FSCK implementation, it'll need to be pruned first.}
+\end{quote} 
+Nikdo další žádnou jinou open source implementaci nemá vyjma projektu Open Solaris, což bylo panem Reinoudem Zandijkem okomentováno takto:
+\begin{quote}
+    \uv{As for \texttt{fsck\_udf}, there is only one opensource version and thats the OpenSolaris one. Before you get too excited, its fairly limited and will only check older media and even then only deals with recovering free space and get the directory tree in-order. Important but limited.}
+\end{quote}
+Implementace v projektu Open Solaris je tedy v současnosti jedinou dostupnou open source implementací \texttt{fsck}. Jejich kód je dostupný na serveru GitHub \cite{solaris-github}. Bohužel ani jejich implementace není kompletní a dokáže obnovit pouze volné místo a strom souborového systému ale bez dat. Dalším omezením je maximální verze UDF, která je omezena na verzi 2.01 ovladačem UDF. Nástroj jako takový exaktní omezení verze nemá. Ovšem i toto je dobrý výchozí bod pro další práci.\\
+Co se týká OSX od společnosti Apple, ti mají nástroje pro kontrolu UDF implementovanou v nástroji \texttt{fsck\_udf} pro všechny existující revize, ovšem zdrojové kódy nejsou veřejně dostupné, takže je možné jejich nástroje použít pouze jako referenční pro srovnání funkčnosti.\\
+Microsoft Windows má také implementovaný checkdisk pro UDF ale jeho zdrojový kód je bohužel uzavřený.\\
+
+\section{Stav projektu udftools}
+Projekt udftools byl založen roce 1999 na projektovém serveru SourceForge \cite{udftools-sourceforge} Bennem Fennemou. Byl implementován standard UDF 1.5 a byly vytvořeny nástroje pro paketový zápis na CD, vytvoření souborového systému UDF a pro přístup k němu. Nástroj pro kontrolu konzistence zůstal jako prázdný projekt, byly ovšem vytvořeny nástroje pro vytvoření souborového systému UDF, nástroje pro jeho zápis včetně paketového zápisu.\\
+V roce 2007 byly integrovány poslední patche a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} Palim Rohárem a znovu byl započat vývoj, převážně opravy starých chyb. Byla implementována verze UDF 2.01. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a tento stav přetrvává do současnosti.\\
+V tuto chvíli se komunita okolo projektu udftools skládá hlavně z Paliho Rohára a z Františka Kluknavského. Vzhledem k nepříliš vysoké popularitě UDF není projekt udftools aktivní. Sice je stále udržován panem Rohárem, ale aktivní vývoj v tuto chvíli pravděpodobně neprobíhá, nebo alespoň ne veřejně.
 
 \chapter{Definice chyb na souborovém systému}
 %\todo{Jak se to může pokazit? A co se s tím dá dělat?}
@@ -206,6 +230,9 @@ Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození.
 Způsobů jak detekovat chyby v případě jejich výskytu je celá řada a liší se požadavky na prostředky a čas. Za naivní přístup lze považovat například detekci porovnáním s referencí. Předpokládejme, že máme stejnou informaci uloženou dvakrát na různých místech (médiích) a v případě poruchy dat je možné data obnovit z referenčního média. Toto řešení je ale evidentně náročné na úložiště kvůli stoprocentní duplicitě dat. Výměnou za to poskytuje informaci nejen o přítomnosti chyby ale i o její poloze a původních datech. Předpokladem ovšem je znalost, které médium je správně.\\ 
 Dalším přístupem je vytváření kontrolních součtů. Tento přístup nám dává oproti předchozímu pouze informaci o přítomnosti chyby bez informace kde chyba je a jak ji opravit. V extrémním případě se můžou chyby dokonce navzájem vyrušit takže data nebudou konzistentní ale kontrolní součet bude stejný. I přes tyto nedostatky je kontrolní součet oblíbená metoda detekce chyb kvůli své jednoduchosti a nenáročnosti na paměť.\\
 Poněkud komplexnější variantou je CRC (\textit{Cyclic Redundancy Check}). Tento mechanismus, který původně vznikl pro kabelové přenosy našel uplatnění všude, kde je potřeba větší šance na detekci chyby než při použití kontrolního součtu. CRC je na výpočet složitější, jeho výstupem je několikabytové číslo a důvodem je větší citlivost na chyby a nižší šance na stejný výsledek při chybě v datech. 
+
+\subsection{Kontrolní součet}
+\todo{Napsat}
 
 \subsection{Cyclic Redundancy Check}
 \label{sec:crc}
@@ -256,7 +283,7 @@ Na tomto příkladu jsme demonstrovali výpočet 4-bitového CRC nad 20 bity dat
 Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrolního součtu prostým výpočtem CRC nad daty bez vlastního CRC a jejich porovnáním anebo hledáním chyby pomocí chybového vektoru. V případě, že jsou data správná, po operaci XOR nad celými daty včetně CRC musí vyjít chybový vektor 0. Ovšem pokud je datech chyba, vektor vyjde nenulový.
 
 \section{Použité kontrolní mechanismy v UDF}
-\label{sec:howtolabelthat}
+\label{sec:kontrolni-mechanismy}
 V UDF se využívá několika různých mechanismů, které jsou i v případě nutnosti kombinovány pro zvýšení robustnosti. Z obecných mechanismů se jedná o tyto:
 \begin{itemize}
     \item Redundace dat na médiu,
@@ -283,31 +310,10 @@ Pořadí úkonů zápisové operce na médium je toto:
     \item Ukončení zápisové operace nastavením \textit{Integrity Type} na \textit{Close}.
 \end{enumerate}
 Toto pořadí úkonů zajišťuje, že při přerušení zápisu dat zůstane systém v nekonzistentním stavu a bude možné detekovat, že zápis byl nekorektně přerušen.
-
 \chapter{Realizace nástroje pro detekci chyb}
 %\todo{Vlastní řešení.}
 %\todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
 \todo{Dopln text.}
-\section{Stav projektu udftools}
-Projekt udftools byl založen roce 1999 na projektovém serveru SourceForge \cite{udftools-sourceforge} Bennem Fennemou. Byl implementován standard UDF 1.5 a byly vytvořeny nástroje pro paketový zápis na CD, vytvoření souborového systému UDF a pro přístup k němu. Nástroj pro kontrolu konzistence zůstal jako prázdný projekt, byly ovšem vytvořeny nástroje pro vytvoření souborového systému UDF, nástroje pro jeho zápis včetně paketového zápisu.\\
-V roce 2007 byly integrovány poslední patche a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} Palim Rohárem a znovu byl započat vývoj, převážně opravy starých chyb. Byla implementována verze UDF 2.01. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a tento stav přetrvává do současnosti.\\
-V tuto chvíli se komunita okolo projektu udftools skládá hlavně z Paliho Rohára a z Františka Kluknavského. Vzhledem k nepříliš vysoké popularitě UDF není projekt udftools aktivní. Sice je stále udržován panem Rohárem, ale aktivní vývoj v tuto chvíli pravděpodobně neprobíhá, nebo alespoň ne veřejně.
-
-\section{Existující nástroje pro kontrolu konzistence UDF}
-Pro OS Linux jsou znám pouze nástroj \texttt{udfct\_1.5r4}. Tento nástroj byl vyvinut firmou Philips a jedná se o nástroj který je schopný zkontrolovat integritu souborového systému UDF. Chyby v implementaci UDF a případné chyby v datech vypisuje do terminálu ale není schopný je opravovat. Zásadním problémem tohoto nástroje je, že existuje pouze pod restriktivní licencí společnosti Philips a není jej tudíž možné použít jako výchozí bod dalšího vývoje i přes dostupnost zdrojových souborů. V současnosti je balíček se zdrojovými kódy dostupný již pouze díky službě Wayback Machine \cite{wayback}, zástupci společnosti Philips jej již nenabízí. Mou žádost o poskytnutí práva na přepoužití jejich kódu ignorovali.\\
-V BSD je \texttt{fsck} v podobném stavu jako v Linuxu ovšem komunita okolo BSD na problému pomalu pracuje. Našel jsem blog \cite{scottuvblog} od Scotta Longa z projektu FreeBSD kde má shrnutí své práce na UDF včetně jeho patchů do FreeBSD implementace UDF. Mezi jeho body k doplnění je i nástroj \texttt{fsck} a právě proto jsem ho oslovil s prosbou o informace. Právě Scott Long mne odkázal na projekt NetBSD, protože on sám nikdy na \texttt{fsck} nezačal pracovat, ale doslechl se, že v projektu NetBSD něco vzniká. Po hledání jsem nalezl mailing list z roku 2008, kde Reinoud Zandijk popisuje svůj postup práce na UDF implementaci. Na konci jeho zprávy je poznámka o \texttt{fsck} s informací, že bude "brzy". Žádná implementace se ovšem na svět nedostala, takže jsem mu napsal s prosbou o informace o  stavu jeho implementace \texttt{fsck}. Jeho odpověď byla vyčerpávající a potvrzovala mé podezření o stavu open source implementace. On sám má rozpracovanou implementaci \texttt{fsck} ale zveřejňovat ji zatím nebude, protože není dokončena, jeho slovy: 
-\begin{quote} 
-    \uv{I've created two UDF implementations: UDFclient \cite{13monkey} and the NetBSD UDF implementation. UDFclient was a kind of study into UDF and far too elaborate to be useful for my FSCK implementation, it'll need to be pruned first.}
-\end{quote} 
-Nikdo další žádnou jinou open source implementaci nemá vyjma projektu Open Solaris, což bylo panem Reinoudem Zandijkem okomentováno takto:
-\begin{quote}
-    \uv{As for \texttt{fsck\_udf}, there is only one opensource version and thats the OpenSolaris one. Before you get too excited, its fairly limited and will only check older media and even then only deals with recovering free space and get the directory tree in-order. Important but limited.}
-\end{quote}
-Implementace v projektu Open Solaris je tedy v současnosti jedinou dostupnou open source implementací \texttt{fsck}. Jejich kód je dostupný na serveru GitHub \cite{solaris-github}. Bohužel ani jejich implementace není kompletní a dokáže obnovit pouze volné místo a strom souborového systému ale bez dat. Dalším omezením je maximální verze UDF, která je omezena na verzi 2.01 ovladačem UDF. Nástroj jako takový exaktní omezení verze nemá. Ovšem i toto je dobrý výchozí bod pro další práci.\\
-Co se týká OSX od společnosti Apple, ti mají nástroje pro kontrolu UDF implementovanou v nástroji \texttt{fsck\_udf} pro všechny existující revize, ovšem zdrojové kódy nejsou veřejně dostupné, takže je možné jejich nástroje použít pouze jako referenční pro srovnání funkčnosti.\\
-Microsoft Windows má také implementovaný checkdisk pro UDF ale jeho zdrojový kód je bohužel uzavřený.\\
-
-\section{Implementace nástroje \texttt{udffsck}}
 Moje implementace nástroje \texttt{udffsck} v balíčku \texttt{udftools} navazuje na ostatní nástroje v tomto balíčku, využívá sdílené hlavičky s definicemi UDF a jeho cílem je být plnohodnotným \texttt{fsck} nástrojem pro UDF.\\
 Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct, kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch, co se týká opravování chyb v metadatech. Samotná data podle všeho opravit nepůjdou.\\
 Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven.\\
@@ -319,92 +325,18 @@ Myšlenkovou strukturu programu zachycuje obrázek \ref{fig:steps1}.
     \label{fig:steps1}
 \end{figure}
 
-\subsection{Výstup a ovládání nástroje}
-Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu bude odpovídat i jeho ovládání a výstup.\\
-Vstupy různých \texttt{fsck} nástrojů se liší podle jednotlivých souborových systémů, ale kvůli zapouzdřitelnosti musí dodržovat návratové hodnoty pro různé druhy chyb. Jedná se o tyto hodnoty:
-\begin{itemize}
-    \item 0 - Bez chyb 
-    \item 1 - Opraveny chyby na souborovém systému
-    \item 2 - Opraveny chyby na souborovém systému, doporučený reboot 
-    \item 4 - Chyby souborového systému zůstaly neopraveny
-    \item 8 - Chyba programu
-    \item 16 - Chybné vstupní parametry
-    \item 32 - Kontrola byla přerušena na základě uživatelského požadavku
-    \item 128 - Chyba sdílené knihovny
-\end{itemize}
-Návratová hodnota může být i součet těchto hodnot pokud nastalo více chyb zároveň.\\
-Má implementace v tuto chvíli nerespektuje tyto hodnoty z důvodů vývoje a vrací různé chybové kódy podle místa kde program skončil. Toto chování bude nahrazeno lepšími výpisy do standardního výstupu a chybového výstupu.\\
-Jedná se o terminálový program bez jakéhokoli grafického uživatelského rozhraní nebo i textového uživatelského rozhraní. Běh programu je možné ovlivnit pouze jeho vstupními parametry, které jsou dodány při jeho spuštění spolu s médiem ke kontrole. Jeho výstupy jsou směrovány na standardní výstup \texttt{stdout} a chybový výstup \texttt{stderr}. V tuto chvíli není výstup programu sjednocený do uživatelsky přívětivé podoby ale spíše pro vývojáře, protože se vypisuje vysoké množství ladicích a informativních údajů.\\
-Program v tuto chvíli vyžaduje k běhu informaci o velikosti sektoru média a médium samotné. Volání programu může vypadat například takto:\\ 
-\centerline{\texttt{./udffsck -b 2048 medium.img}}\\
-První je samotný program, poté následuje povinný parametr \texttt{-b} následovaný velikostí fyzického sektoru. Mezera mezi paramtrem a hodnotou není povinná. Posledním parametrem je samotné kontrolované médium. Jemu nepředchází žádný identifikátor.\\
-Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
+\section{Detekce chyb na médiu}
+Detekce chyb na médiu je v tuto chvíli implementována pouze na úrovni porovnání kontrolních součtů a CRC.\\
+Kontrolní součty jsou implementovány mou funkcí\\
+\centerline{\texttt{\detokenize{uint8_t calculate_checksum(descTag tag)}}}\\
+v souboru \texttt{udffsck.c}. Tato funkce pouze počítá checksum nad zadaným tagem a výsledek vrací. Proto je zapouzdřena do funkce\\ \todo{Doplnit kapitolu checksum}
+\centerline{\texttt{\detokenize{int checksum(descTag tag)}}}\\
+která přidává porovnání se checksum v tagu. Takto fukce vrací 0 při rozdílu a nenulovou hodnotu při shodě.\\
+CRC je počítáno funkcí sdílené knihovny, která je součástí balíku. Ta byla opět zapouzdřena funkcí\\
+\centerline{\texttt{\detokenize{int crc(void * desc, uint16_t size)}}}\\
+aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem je, že \textit{DescriptorTag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom, jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.)
 
-\subsection{Načtení média a jeho příprava na zpracování}
-\todo{Popsat flock, kontroly...}
-Kontrolované médium je otevřeno pomocí standardního systémového volání \texttt{open}, v tuto chvíli pouze pro čtení. Takto otevřené médium je vzápětí pomocí funkce \texttt{mmap} namapováno do paměti, aby se dalo s médiem pracovat jako s bytovým polem a ne jako se souborem. Posléze je soubor uzavřen, protože ve chvíli, kdy byl úspěšně namapován byla jeho reference zkopírována a začala být udržována operačním systémem, který ji zruší až nebudou žadné části souboru namapované do paměti (viz \cite{posix-mmap}). 
-
-\subsection{Kontrola přítomnosti souborového systému UDF}
-Po úspěšném načtení média je prvním krokem před jakoukoli další prací kontrola přítomnosti správného souborového systému, v tomto případě UDF. Tato kontrola probíhá kontrolou superbloku pomocí funkce \texttt{is\_udf}. Tato funkce načte blok na adrese \texttt{0x8000}, neboli 16.~sektor při velikosti sektoru 2048~B. Tato adresa je odvozena od souborového systému ISO~9660, který povoluje pouze jednu velikost sektoru a to 2048~B. Protože UDF navazuje na ISO~9660, je zachována zpětná kompatibilita a je umožněna koexistence obou souborových systémů.
-
-Kontrola samotná probíhá načtením struktur VRS kde se vyhledávají deskriptory popisující UDF, t.j. deskriptory obsahující identifikátor \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. Pokud je takovýto identifikátor nalezen, a spolu s ním je i nalezen identifikátor \texttt{TEA01} (\textit{Terminating Extended Area}) je médium prohlášeno za správné a může se přistoupit ke kontrole. Pokud je nalezena identifikace UDF ale ne kompletní \textit{Extended Area}, může to znamenat neuzavřené médium a to pro další kontrolu znamená jiné umístění AVDP. Kontrola je ale možná. Pakliže nebyl nalezen identifikátor UDF, kontrola končí chybou a program končí.
-
-\subsection{Načtení a kontrola AVDP}
-\todo{Popsat variantu unclosed and closed medium}
-AVDP je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému. Jak je uvedeno v kapitole \ref{sec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomny mohou být až tři na médiu.\\
-Jejich načítání pro potřeby další práce se souborovým systém lze popsat algoritmem na obrázku \ref{fig:avdp}. Algoritmus prochází možné lokace AVDP dokud neuspěje nebo nedojdou možnosti. Pro potřeby kontroly a opravy média je třeba po nalezení alespoň jednoho správného AVDP ostatní podle něj opravit.
-\begin{figure}[ht] 
-    \centering
-    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
-    \includegraphics[scale=0.4]{obrazky/avdp.eps}
-    \caption{Zjednodušený algoritmus načtení AVDP}
-    \label{fig:avdp}
-\end{figure}
-
-\subsection{Načtení a kontrola VDS}
-Po úspěšném nalezení funkčního AVDP je možné načíst \textit{Volume Descriptor Sequence} (VDS). Tato skupina metadat je uložena na dvou místech, typicky jedno na začátku a druhé na konci média. Pozice obou je uložena právě v AVDP.\\
-Tato skupina deskriptorů je popsána v kapitole \ref{sec:vds}. Deskriptory jsou uloženy za sebou v jednotlivých sektorech, přičemž poslední musí být vždy \textit{Terminating Descriptor}. Jak hlavní, tak záložní VDS by měly být ekvivalentní.\\
-Jednotlivé deskriptory jsou načítány a ukládány do struktur pro další zpracování. První kontrola během načítání spočívá v porovnání kontrolního součtu tagu deskriptoru. Pokud tato kontrola uspěje, je možné provést porovnání CRC, protože již máme díky ověřenému tagu jistou totožnost deskriptoru, jeho předpokládané CRC a polohu. Pokud kontrola CRC uspěje, zkontroluje se poloha deskriptoru vůči deklarovanému umístění v tagu. Pokud i tato kontrola je v pořádku, lze prohlásit tag za správný. Pokud by byly v pořádku jako kontrolní součet, tak CRC, ale bylo by špatně deklarované umístění, lze s tagem pracovat, protože data která nese jsou s největší pravděpodobností v pořádku, ale je nutné opravit jeho umístění a následně přepočítat kontrolní součet a CRC. 
-
-\subsection{Načtení a kontrola LVID}
-\label{sec:nacteni-a-kontrola-lvid}
-\textit{Logical Volume Integrity Descriptor} (LVID) je důležitou částí UDF. Je umístěné mimo VDS a jeho pozice je uložena v LVD pod položkou \textit{Integrity Sequence Extent}. LVID není redundantní, což zjednodušuje práci s ním, ale zároveň se kvůli tomu jedná o slabé místo UDF.\\
-Po kontrole kontrolního součtu a CRC je přistoupeno k samotnému načtení dat. Pro snažší práci s daty uloženými v LVID jsou data ukládána do struktury \texttt{filesystemStats}. Protože nadřazeným standardem je ECMA-167, jsou struktury popsány podle ní. Ovšem samotnou implementací je UDF standard a ten využívá pole \textit{Implementation Use}, kam ukládá tyto údaje:
-\begin{itemize}
-    \item Počet souborů na svazku
-    \item Počet adresářů na svazku
-    \item Minimální revize UDF, se kterou je možné médium číst
-    \item Minimální revize UDF, se kterou je možné na médium zapisovat
-    \item Maximální revize UDF, se kterou je možné na médium zapisovat
-\end{itemize}
-Podobná situace je u položky \textit{Logical Volume Contents Use}. UDF tuto položku používá k uložení \textit{Logical Volume Header Descriptor}, což je struktura popsaná pomocí standardu ECMA-167 s jediným cílem a tím je uložení dalšího \textit{Unique ID}, neboli unikátního identifikátoru, který nese každý soubor a adresář na médiu. Význam \textit{Unique ID} je popsán v kapitole \ref{sec:filetree}.\\
-Další částí je \textit{Free Space Table}, což je tabulka obsahující informaci o velikosti logického svazku a volného místa na něm. Oba údaje jsou v logických blocích, nikoli v bytech.\\
-Důležitou částí je i časová značka poslední modifikace logického svazku. Toto datum, uložené v UTC, by mělo být vždy nejmladší ze všech časových značek na svazku.\\
-Poslední položkou, která je důležitá pro prácí se svazkem je \textit{Integrity Type}. Ten může být buď otevřený (\textit{Open}) nebo uzavřený (\textit{Close}). Pokud je uzavřený, tak by měl být svazek v konzistentním stavu. Pakliže je otevřený, je možné že probíhá zápisová operace, nebo že byl svazek během ní nesprávně odebrán. Tento indikátor pomáhá vyvolat požadavek na kontrolu média v operačním systému a pro kontrolu to je důležitý ukazatel upozorňující na pravděpodbnou nesrovnalost mezi deklarovaným volným místem a skutečností. 
-
-\subsection{Kontrola a obnova stromu souborů}
-\label{sec:filetree}
-Obnova stromu uživatelských dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že \texttt{fsck} nemá za cíl detekovat chyby v datech samotných a UDF také neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani tudíž obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a určit místo, kde by data měla být.\\
-Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou strukturou.\\
-Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
-\begin{figure}[ht] 
-    \centering
-    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
-    \includegraphics[scale=0.36]{obrazky/files.eps}
-    \caption{Algoritmus načítání souborů}
-    \label{fig:files}
-\end{figure}
-Během průchodu se sleduje několik parametrů, které jsou nutné ať už pro kontrolu a opravu stromu nebo pro opravu metadat v LVID \ref{sec:oprava-lvid} a SBD \ref{sec:oprava-sbd}. Jedná se o tyto:
-\begin{itemize}
-    \item Je \textit{Unique ID} nenulové (nulové musí být pouze pro \textit{root})?
-    \item Je \textit{Unique ID} shodné pro FE a FID?
-    \item Je \textit{Unique ID} menší než hodnota uložená v LVID?
-    \item Jaký je čas poslední změny? Je tento čas později než je čas uložený v LVID? 
-\end{itemize}
-Pokud je kterýkoli dotaz zodpověděn záporně, je nastaven příznak chyby.\\
-Několikrát zmiňovaný je parametr \textit{Unique ID}. Jedná se o příznak, který je unikátní pro každý soubor nebo adresář. Je stejný pro FE a FID. Důvodem je šance na obnovu v případně katastrofického poškození souborového stromu. Pokud by se muselo přistoupit ke hledání jednotlivých FE ve všech sektorech logického svazku a párovat je s FID v adresářích, toto by byla jediná šance na obnovu. 
-
-\subsection{Oprava deskriptoru}
+\section{Oprava deskriptoru}
 \label{sec:oprava-deskriptoru}
 Oprava deskriptoru při detekci chyby pomocí kontrolních mechanismů CRC, kontrolní součet nebo špaté pozice v \textit{Tag Location} probíhá v šesti krocích. Předpokladem takové opravy je existence správného zdrojového deskriptoru nebo dostatek dat pro jeho znovuvytvoření. Kroky opravy jsou tyto:
 \begin{enumerate}
@@ -416,9 +348,9 @@ Oprava deskriptoru při detekci chyby pomocí kontrolních mechanismů CRC, kont
     \item Zkopírování nového cílového deskriptoru na místo původního cílového deskriptoru.
 \end{enumerate}
 
-\subsection{Mapa chyb}
+\section{Mapa chyb}
 \label{sec:mapa-chyb}
-Účelem takzvané mapy chyb (neboli struktury \texttt{\detokenize{vds_sequence_t}}) je zapouzdření chyb, které jsou deteknovány napříč médiem v deskriptorech, vyjma chyb v deskriptorech dat. Její struktura je v tabulce \ref{tab:err-seq}.\\
+Účelem takzvané mapy chyb (neboli struktury \texttt{\detokenize{vds_sequence_t}}) je zapouzdření chyb, které jsou detekovány napříč médiem v deskriptorech, vyjma chyb v deskriptorech dat. Její struktura je v tabulce \ref{tab:err-seq}.\\
 Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{metadata_t}}. Ty jsou popsány tabulkou \ref{tab:metadata-t}. Jak je vidět, obsahuje pouze identifikátor deskriptoru (použité pouze u VDS, více v kapitole \ref{sec:oprava-vds}), pozici deskriptoru a bitové pole chyb. Význam jednotlivých bitů je popsán v tabulce \ref{tab:E-codes}.
 \begin{table}[hb]
     \begin{tabular}{ | l | l | p{2cm} | l | p{5.5cm} | }
@@ -453,16 +385,67 @@ Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{meta
         \texttt{E\_UUID}     & \texttt{0b00010000} & Chyba UUID souboru \\ \hline
         \texttt{E\_TIMESTAMP}& \texttt{0b00100000} & Chyba časové značky souboru\\ \hline
     \end{tabular}
-    \caption{Chybové kódy pro strukturu \texttt{metadata\_t} \ref{tab:metadata-t}\label{tab:E-codes}}
+    \caption{Chybové kódy pro strukturu \texttt{metadata\_t}\label{tab:E-codes}}
 \end{table}
-\subsection{Korekce AVDP}
+
+\section{Výstup a ovládání nástroje}
+Nástroj \texttt{udffsck} je navržen po vzoru ostatních nástrojů z rodiny \texttt{fsck}. Tomu bude odpovídat i jeho ovládání a výstup.\\
+Vstupy různých \texttt{fsck} nástrojů se liší podle jednotlivých souborových systémů, ale kvůli zapouzdřitelnosti musí dodržovat návratové hodnoty pro různé druhy chyb. Jedná se o tyto hodnoty:
+\begin{itemize}
+    \item 0 - Bez chyb 
+    \item 1 - Opraveny chyby na souborovém systému
+    \item 2 - Opraveny chyby na souborovém systému, doporučený reboot 
+    \item 4 - Chyby souborového systému zůstaly neopraveny
+    \item 8 - Chyba programu
+    \item 16 - Chybné vstupní parametry
+    \item 32 - Kontrola byla přerušena na základě uživatelského požadavku
+    \item 128 - Chyba sdílené knihovny
+\end{itemize}
+Návratová hodnota může být i součet těchto hodnot pokud nastalo více chyb zároveň.\\
+Má implementace v tuto chvíli nerespektuje tyto hodnoty z důvodů vývoje a vrací různé chybové kódy podle místa kde program skončil. Toto chování bude nahrazeno lepšími výpisy do standardního výstupu a chybového výstupu.\\
+Jedná se o terminálový program bez jakéhokoli grafického uživatelského rozhraní nebo i textového uživatelského rozhraní. Běh programu je možné ovlivnit pouze jeho vstupními parametry, které jsou dodány při jeho spuštění spolu s médiem ke kontrole. Jeho výstupy jsou směrovány na standardní výstup \texttt{stdout} a chybový výstup \texttt{stderr}. V tuto chvíli není výstup programu sjednocený do uživatelsky přívětivé podoby ale spíše pro vývojáře, protože se vypisuje vysoké množství ladicích a informativních údajů.\\
+Program v tuto chvíli vyžaduje k běhu informaci o velikosti sektoru média a médium samotné. Volání programu může vypadat například takto:\\ 
+\centerline{\texttt{./udffsck -b 2048 medium.img}}\\
+První je samotný program, poté následuje povinný parametr \texttt{-b} následovaný velikostí fyzického sektoru. Mezera mezi paramtrem a hodnotou není povinná. Posledním parametrem je samotné kontrolované médium. Jemu nepředchází žádný identifikátor.\\
+Ukázkový výstup programu je v příloze \ref{lst:bs512} včetně komentáře jednotlivých částí výstupu. 
+
+\section{Načtení média a jeho příprava na zpracování}
+Životní cyklus média v mé implementaci začíná předáním cesty k médiu při spuštění programu. Ta musí vést přímo k zařízení jako takovému, nikoli k místu kam je připojeno.\\
+Médium je na základě cesty načteno. Jednou pomocí funkce \texttt{open(2)} \ref{posix-open} pro práci samotnou, podruhé pomocí \texttt{fopen(3)} \ref{posix-fopen} pro nalezení velikosti média. Volání \texttt{fopen(3)} je pouze pro čtení, protože po úspěšném zjištění velikosti média není dále potřeba. Volání \texttt{open(2)} se liší podle dalších argumentů při spuštění programu. Pokud je médium pouze kontrolování, je médium otevřeno pro čtení. Pokud je požadována i korekce (ať už automatická nebo interaktivní), je otevřeno pro čtení a zápis.\\
+Dalším krokem po načtení je zamčení média pomocí funkce \texttt{flock(2)} \ref{posix-flock}. Důvodem je zamezení paralelního přístupu k médiu při kontrole. Není žádoucí, aby médium mohlo být měněno během kontroly a korekce. Použití této funkce je implementováno jako neblokující. V případě nemožnosti uzamčít médium program skončí s chybou.\\
+Po úspěšném zamčení média následuje namapování média do paměti funkcí \texttt{mmap(2)} \ref{posix-mmap}. Ta přebírá referenci na médium z funkce \texttt{open(2)} a stejně tak se liší její parametry podle požadavků na kontrolu nebo i korekci. Pokud je médium úspěšně namapováno do paměti, je možné přistoupit k práci s médiem jako takovým.\\
+První otázka která vyvstává je duální otevření stejného souboru pouze pro zjištění velikosti média. Existuje funkce \texttt{fstat(2)} \ref{posix-fstat}, která slouží ke zjištění údajů o souboru a pracuje s referencí z volání \texttt{open(2)}. Tato funkce naplní strukturu \texttt{struct stat} a ta obsahuje údaje jako je velikost souboru nebo ideální velikost bloku. Problém je, že tato funkce selže při použití se surovým médiem (tímto je myšlen přístup přímo na úložiště přes cestu \texttt{/dev/sdX}). Pokud by program pracoval pouze s obrazy disků, které jsou uložené jako soubor na souborovém systému, použití této funkce by bylo ideální. Ovšem v tomto případě je nejpřijatelnější přístup načtení média znovu a použití funkce \texttt{fseeko(3)} \ref{posix-fseeko} s parametrem \texttt{SEEK\_END} a následně zjištění aktuální pozice funkcí \texttt{ftello(3)} \ref{posix-ftello}. Důvodem použití \texttt{fseeko(3)} a \texttt{ftello(3)} místo \texttt{fseek(3)} \ref{posix-fseek} a \texttt{ftell(3)} \ref{posix-ftell} je návratový typ \texttt{off\_t}, který narozdíl od \texttt{long} neumožňuje záporné hodnoty, tudíž je použití těchto funkcí preferované v nových projektech.\\
+Druhá otázka vyvstává u použití funkce \texttt{mmap(2)} a výhodám oproti funkcím \texttt{read(2)} \ref{posix-read} a \texttt{write(2)} \ref{posix-write}. Důvodů je několik, počínaje pohodlností použití. Pokud je soubor mapovanán do paměti, je s ním z hlediska programu pracováno jako s jednorozměrným polem o velikosti mapovaného souboru. Tím pádem lze přistupovat na libovolné místo souboru bez nutnosti používat \texttt{lseek(2)}, lze snadno referencovat kusy souboru do struktur a poté s ním pracovat ve struktuře místo nutnosti ho do struktury kopírovat. Rizikem tohoto přístupu je setření hranice mezi médiem a operační pamětí a tudíž opatrnost při zápistu zpět do média aby nedošlo k nežádoucí modifikaci souboru.
+
+\section{Kontrola přítomnosti souborového systému UDF}
+Po úspěšném načtení média je prvním krokem před jakoukoli další prací kontrola přítomnosti správného souborového systému, v tomto případě UDF. Tato kontrola probíhá kontrolou oblasti \textit{Volume Recogniton Sequence} (VRS) pomocí funkce \texttt{is\_udf()}. Tato funkce načte blok na sektoru 16. Tento blok je fixní místo na souborovém systému a je shodný pro UDF a ISO~9660, který je přímý předchůdce UDF. Zvláštností načítání VRS je velikost sektoru. Z důvodu zachování kompatibility s ISO~9660, který podporuje pouze velikost bloku 2048~B je tato velikost převzata jako konstanta, nezávisle na skutečné velikosti bloku média. Ovšem i tento axiom má výjimku a to že toto platí pouze do velikosti bloku 2048~B. Na médiích s větší velikostí bloku je již použita skutečná velikost bloku místo 2048~B. To je možné díky skutečnosti, že ISO~9660 nikdy nebude možné použít na takovém médiu. U médií s menší velikostí bloku by ISO~9660 stále použít šlo, stačí pouze zapisovat na více bloků místo jednoho při zápisu 2048~B.\\
+Kontrola samotná probíhá načtením struktur VRS kde se vyhledávají deskriptory popisující UDF, t.j. deskriptory obsahující identifikátor \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. Pokud je takovýto identifikátor nalezen, a spolu s ním je i nalezen identifikátor \texttt{TEA01} (\textit{Terminating Extended Area}) je médium prohlášeno za správné a může se přistoupit ke kontrole. Pokud je nalezena identifikace UDF ale ne kompletní \textit{Extended Area}, může to znamenat neuzavřené médium a to pro další kontrolu znamená jiné umístění AVDP. Kontrola je ale možná. Pakliže nebyl nalezen identifikátor UDF, kontrola končí chybou a program končí protože nebylo možné detekovat přítomnost UDF.\\
+Druhou činností, kterou funkce \texttt{is\_udf()} pokrývá je první pokus o detekci velikosti sektoru. Ta postupně zkouší načíst platné deskriptory pro různé povolené velikosti sektoru (hodnoty dělitelné beze zbytku 512, v praxi ovšem pouze omezená řada 512, 1024, 2048, 4096~B) a ukládá hodnotu kdy se to podaří. Prakticky by se to mělo podařit pouze pro velikost sektoru 2048~B a 4096~B. Pro velikosti sektoru média 2048~B včetně je obvykle detekovaná velikost sektoru 512~B (neboli nejnižší možná). S touto hodnotou poté dále pracuje detekce AVDP, která ji používá jako výchozí bodu svého hledání velikosti sektoru.
+
+\section{Načtení, kontrola a korekce AVDP}
+\todo{Popsat variantu unclosed and closed medium}
+AVDP je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému. Jak je uvedeno v kapitole \ref{sec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomny mohou být až tři na médiu.\\
+Jejich načítání pro potřeby další práce se souborovým systém lze popsat algoritmem na obrázku \ref{fig:avdp}. Algoritmus prochází možné lokace AVDP dokud neuspěje nebo nedojdou možnosti. Pro potřeby kontroly a opravy média je třeba po nalezení alespoň jednoho správného AVDP ostatní podle něj opravit.
+\begin{figure}[ht] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.4]{obrazky/avdp.eps}
+    \caption{Zjednodušený algoritmus načtení AVDP}
+    \label{fig:avdp}
+\end{figure}
+\todo{Korekce AVDP}
 \label{sec:oprava-avdp}
 Oprava AVDP je možná pouze na uzavřených médiích. Důvodem je požadavek opravného algoritmu na přítomnost alespoň jednoho nepoškozeného (správného) deskriptoru, který bude použit jako vzor pro opravu. Otevřená (neukončená) média mají pouze jeden AVDP, proto v případě jeho poškození není oprava snadno možná.\\
 Poté, co jsou nalezeny AVDP na svch pozicích (t.j. sektoru 256 a na posledním sektoru, případně na sektoru 512) a je určeno, který z nich je poškozený a který je v pořádku lze přistoupit k opravě, pokud je alespoň jeden v pořádku.\\
 Samotný opravný algoritmus je popsán v kapitole \ref{sec:oprava-deskriptoru}.\\
 Případné nalezené chyby jsou uloženy do struktur popsaných v kapitole \ref{sec:mapa-chyb}.\\
 
-\subsection{Korekce VDS}
+\section{Načtení, kontrola a korekce VDS}
+Po úspěšném nalezení funkčního AVDP je možné načíst \textit{Volume Descriptor Sequence} (VDS). Tato skupina metadat je uložena na dvou místech, typicky jedno na začátku a druhé na konci média. Pozice obou je uložena právě v AVDP.\\
+Tato skupina deskriptorů je popsána v kapitole \ref{sec:vds}. Deskriptory jsou uloženy za sebou v jednotlivých sektorech, přičemž poslední musí být vždy \textit{Terminating Descriptor}. Jak hlavní, tak záložní VDS by měly být ekvivalentní.\\
+Jednotlivé deskriptory jsou načítány a ukládány do struktur pro další zpracování. První kontrola během načítání spočívá v porovnání kontrolního součtu tagu deskriptoru. Pokud tato kontrola uspěje, je možné provést porovnání CRC, protože již máme díky ověřenému tagu jistou totožnost deskriptoru, jeho předpokládané CRC a polohu. Pokud kontrola CRC uspěje, zkontroluje se poloha deskriptoru vůči deklarovanému umístění v tagu. Pokud i tato kontrola je v pořádku, lze prohlásit tag za správný. Pokud by byly v pořádku jako kontrolní součet, tak CRC, ale bylo by špatně deklarované umístění, lze s tagem pracovat, protože data která nese jsou s největší pravděpodobností v pořádku, ale je nutné opravit jeho umístění a následně přepočítat kontrolní součet a CRC. 
+
+\todo{Korekce VDS}
 \label{sec:oprava-vds}
 Oprava \textit{Volume Descriptor Sequence} je podobná jako oprava AVDP. Předpokladem úspěšné opravy je opět existence alespoň jednoho správného zdrojového deskriptoru od každého typu, který ve VDS je. Pokud je toto splněno, je oprava možná.\\
 Algoritmus je navržen takto:
@@ -472,15 +455,23 @@ Algoritmus je navržen takto:
     \item Krok 2 se opakuje dokud není nalezen \textit{Terminating Descriptor}. Poté je oprava ukončena, protože byl nalezen konec VDS.
 \end{enumerate}
 
-\subsection{Korekce SBD}
-\label{sec:oprava-sbd}
-\textit{Space Bitmap Descriptor} je deskriptor popisující volné a obsazené místo na logickém svazku z hlediska umístění jednotlivých bloků. Jedná se o vektor bytů (\textit{Bitmap}) o délce $PocetLBN / 8$. Spolu s ním je uložena jeho délka (\textit{Number of Bytes}) a skutečný počet bloků (\textit{Number of Bits}).\\ 
-Každý jeden byte v tomto vektoru odpovídá osmi logickým blokům v přirozeném pořadí (nejméně významný bit odpovídá prvnímu bloku, nevíce významný bit odpovídá osmému bloku).\\
-Hodnota bitu označuje stav bloku. Logická 1 odpovídá volnému bloku, logická 0 obsazenému bloku. Přebývající bity v posledním bytu se označují jako obsazené.\\
-Korekce probíhá tak, že během průchodu souborovým stromem se vytváří nový vektor obsazenéhé místa o stejné velikosti jako původní. Ten slouží jako referenční mapa, která bude nakopírována na místo původní v případě nutnosti opravy.\\
-Oprava je vyvolána automaticky při opravě LVID (kapitola \ref{sec:oprava-lvid}), při rozdílu počtu použitých bloků oproti počtu ve vektoru nebo pokud při načítání došlo k chybě v kontrolním součtu nebo CRC.
+\section{Načtení, kontrola a korekce LVID}
+\label{sec:nacteni-a-kontrola-lvid}
+\textit{Logical Volume Integrity Descriptor} (LVID) je důležitou částí UDF. Je umístěné mimo VDS a jeho pozice je uložena v LVD pod položkou \textit{Integrity Sequence Extent}. LVID není redundantní, což zjednodušuje práci s ním, ale zároveň se kvůli tomu jedná o slabé místo UDF. Ovšem je potřeba vzít v potaz skutečnost, že LVID lze v případě nepoškozeného souborového systému vytvořit znovu zpětně. V případě poškozeného souborového systému jej lze vytvořit též, ale s rizikem ztráty dat z důvodu nekompletní informace o souborovém systému v jiných deskriptorech.\\
+Po kontrole kontrolního součtu a CRC je přistoupeno k samotnému načtení dat. Pro snažší práci s daty uloženými v LVID jsou data ukládána do struktury \texttt{filesystemStats}. Protože nadřazeným standardem je ECMA-167, jsou struktury popsány podle ní. Ovšem samotnou implementací je UDF standard a ten využívá pole \textit{Implementation~Use}, kam ukládá tyto údaje:
+\begin{itemize}
+    \item Počet souborů na svazku
+    \item Počet adresářů na svazku
+    \item Minimální revize UDF, se kterou je možné médium číst
+    \item Minimální revize UDF, se kterou je možné na médium zapisovat
+    \item Maximální revize UDF, se kterou je možné na médium zapisovat
+\end{itemize}
+Podobná situace je u položky \textit{Logical Volume Contents Use}. UDF tuto položku používá k uložení \textit{Logical Volume Header Descriptor}, což je struktura popsaná pomocí standardu ECMA-167 s jediným cílem a tím je uložení dalšího \textit{Unique ID}, neboli unikátního identifikátoru, který nese každý soubor a adresář na médiu. Význam \textit{Unique ID} je popsán v kapitole \ref{sec:filetree}.\\
+Další částí je \textit{Free Space Table}, což je tabulka obsahující informaci o velikosti logického svazku a volného místa na něm. Oba údaje jsou v logických blocích, nikoli v bytech.\\
+Důležitou částí je i časová značka poslední modifikace logického svazku. Tato značka, uložené v UTC, by mělo být vždy nejnovější ze všech časových značek na svazku.\\
+Poslední položkou, která je důležitá pro prácí se svazkem je \textit{Integrity Type}. Ten může být buď otevřený (\textit{Open}) nebo uzavřený (\textit{Close}). Princip otevřeného a uzavřeného média je popsán v kapitole \ref{sec:kontrolni-mechanismy}. Pokud je uzavřený, tak by měl být svazek v konzistentním stavu. Pakliže je otevřený, je možné že probíhá zápisová operace, nebo že byl svazek během ní nesprávně odebrán. Tento indikátor pomáhá vyvolat požadavek na kontrolu média v operačním systému a pro kontrolu to je důležitý ukazatel upozorňující na pravděpodbnou nesrovnalost mezi deklarovaným volným místem a skutečností. 
 
-\subsection{Korekce LVID}
+\todo{Korekce LVID}
 \label{sec:oprava-lvid}
 Korekce LVID je odlišná od ostatních korekcí z důvodu absence redundantního LVID. Z toho vyplývá, že LVID nelze v případě poškození jako takového opravit. LVID ale obsahuje důležité informace o konzistenci média jako takového (viz kapitola \ref{sec:lvid}) a proto je korekce soustředěna na ně.\\
 Opravují se tyto položky:
@@ -501,15 +492,48 @@ Korekce je spouštěna z několika různých důvodů, které sice ve většině
     \item Pokud byl \textit{Integrity Type} ponechán ve stavu \textit{Open}.
 \end{itemize}
 
-\subsection{Detekce chyb na médiu}
-Detekce chyb na médiu je v tuto chvíli implementována pouze na úrovni porovnání kontrolních součtů a CRC.\\
-Kontrolní součty jsou implementovány mou funkcí\\
-\centerline{\texttt{\detokenize{uint8_t calculate_checksum(descTag tag)}}}\\
-v souboru \texttt{udffsck.c}. Tato funkce pouze počítá checksum nad zadaným tagem a výsledek vrací. Proto je zapouzdřena do funkce\\ \todo{Doplnit kapitolu checksum}
-\centerline{\texttt{\detokenize{int checksum(descTag tag)}}}\\
-která přidává porovnání se checksum v tagu. Takto fukce vrací 0 při rozdílu a nenulovou hodnotu při shodě.\\
-CRC je počítáno funkcí sdílené knihovny, která je součástí balíku. Ta byla opět zapouzdřena funkcí\\
-\centerline{\texttt{\detokenize{int crc(void * desc, uint16_t size)}}}\\
-aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem je, že \textit{DescriptorTag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom, jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.)
 
 
+
+\section{Korekce SBD}
+\label{sec:oprava-sbd}
+\textit{Space Bitmap Descriptor} je deskriptor popisující volné a obsazené místo na logickém svazku z hlediska umístění jednotlivých bloků. Jedná se o vektor bytů (\textit{Bitmap}) o délce $PocetLBN / 8$. Spolu s ním je uložena jeho délka (\textit{Number of Bytes}) a skutečný počet bloků (\textit{Number of Bits}).\\ 
+Každý jeden byte v tomto vektoru odpovídá osmi logickým blokům v přirozeném pořadí (nejméně významný bit odpovídá prvnímu bloku, nevíce významný bit odpovídá osmému bloku).\\
+Hodnota bitu označuje stav bloku. Logická 1 odpovídá volnému bloku, logická 0 obsazenému bloku. Přebývající bity v posledním bytu se označují jako obsazené.\\
+Korekce probíhá tak, že během průchodu souborovým stromem se vytváří nový vektor obsazenéhé místa o stejné velikosti jako původní. Ten slouží jako referenční mapa, která bude nakopírována na místo původní v případě nutnosti opravy.\\
+Oprava je vyvolána automaticky při opravě LVID (kapitola \ref{sec:oprava-lvid}), při rozdílu počtu použitých bloků oproti počtu ve vektoru nebo pokud při načítání došlo k chybě v kontrolním součtu nebo CRC.
+
+
+
+\section{Kontrola a obnova stromu souborů}
+\label{sec:filetree}
+Obnova stromu uživatelských dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že \texttt{fsck} nemá za cíl detekovat chyby v datech samotných a UDF také neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat, ani tudíž obnovit. Je možné se pokusit zrekonstruovat adresářovou strukturu a určit místo, kde by data měla být.\\
+Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou strukturou.\\
+Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bylo by nutné přistoupit k obnově. 
+\begin{figure}[ht] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.36]{obrazky/files.eps}
+    \caption{Algoritmus načítání souborů}
+    \label{fig:files}
+\end{figure}
+Během průchodu se sleduje několik parametrů, které jsou nutné ať už pro kontrolu a opravu stromu nebo pro opravu metadat v LVID \ref{sec:oprava-lvid} a SBD \ref{sec:oprava-sbd}. Jedná se o tyto:
+\begin{itemize}
+    \item Je \textit{Unique ID} nenulové (nulové musí být pouze pro \textit{root})?
+    \item Je \textit{Unique ID} shodné pro FE a FID?
+    \item Je \textit{Unique ID} menší než hodnota uložená v LVID?
+    \item Jaký je čas poslední změny? Je tento čas později než je čas uložený v LVID? 
+\end{itemize}
+Pokud je kterýkoli dotaz zodpověděn záporně, je nastaven příznak chyby.\\
+Několikrát zmiňovaný je parametr \textit{Unique ID}. Jedná se o příznak, který je unikátní pro každý soubor nebo adresář. Je stejný pro FE a FID. Důvodem je šance na obnovu v případně katastrofického poškození souborového stromu. Pokud by se muselo přistoupit ke hledání jednotlivých FE ve všech sektorech logického svazku a párovat je s FID v adresářích, toto by byla jediná šance na obnovu.\\
+Základním předpokladem pro použití tohoto algoritmu je ztráta některého z adresářů (například kořenového adresáře). To způsobí nemožnost načíst strom souborů z důvodu chybějícího vstupního bodu do stromu souborů. Nutno podotknout, že tento algoritmus není zahrnut v implementaci, ale jeho myšlenková struktura je následující:
+\begin{enumerate}
+    \item Díky známé velikosti logického bloku a známému umístění deskriptorů v nich (vždy na jeho začátku) lze procházet logickým svazkem po blocích a na každém se pokusit načíst \textit{File Entry} (FE) nebo \textit{Extended File Entry} (EFE), verifikovat jeho platnost pomocí jeho polohy, CRC a kontrolního součtu.
+    \item Takto nalezený seznam FE a EFE bude vytvářet samostatné podstromy souborů (pokud médimu obsahovalo další adresáře) a zbylé soubory bez rodičovského adresáře. Tato část probíhá podobně jako procházení stromem souborů, zkráceně takto:
+    \begin{enumerate}
+        \item Každý nalezený FE nebo EFE je klasifikován jako soubor nebo adresář. Pokud se jedná o adresář, je prohledán pro přítomnost \textit{File Identifier Descriptor} (FID). Pokud jsou nalezeny, dojde k pokusu spárovat je podle \textit{Unique ID} s ostatními nalezenými FE a EFE. Každý takto spárovaný FE (EFE) je vyřazen ze seznamu nalezených FE (EFE) a je zařazen do podstromu. Pokud se jedná o soubor, neděje se nic a pokračuje s k dalšímu nalezenému FE (EFE).
+        \item Takto se vytvoří struktura podstromů a zbytku nezařazených FE a EFE.
+    \end{enumerate}
+    \item Nyní máme části původního stromu a zbytek FE (EFE). Ať už kořeny jednotlivých podstromů (nejvyšší adresář) nebo osamocené FE (EFE). Ty už není možné dále zařadit, proto budou zařazeny do chybějícího adresáře, který bude znovu vytvořen na místě původního. Jsou zde ovšem jistá omezení. Obnova není schopná zpětně získat názvy jednotlivých FE (EFE), protože ty jsou uloženy ve FID rodičovského adresáře. Stejně tak pokud by bylo nenávratně ztraceno více adresářů, nebylo by možné rozlišit, které FE (EFE) patří do kterého. 
+\end{enumerate}
+Jak je vidět ve výše popsaném algoritmu, obnova není absolutní, ale může poskytnout dobrý výchozí bod pro záchranu dat. 
