@@ -69,7 +69,7 @@ Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Proje
 
 \chapter{Universal Disk Format}
 \label{sec:udf}
-Universal Disk Format (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích, ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO~9660). S ním je kompatibilní pouze na úrovni možné koexistence na stejném médiu a ve formátu VRS.\\
+\textit{Universal Disk Format} (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích, ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO~9660). S ním je kompatibilní pouze na úrovni možné koexistence na stejném médiu a ve formátu VRS.\\
 %Jednou z výhod UDF oproti ISO~9660 je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD a přepisovatelných disků.
 Mezi základní vlastnosti UDF patří:
 \begin{itemize}
@@ -85,7 +85,20 @@ Mezi základní vlastnosti UDF patří:
 
 \section{Historie UDF}
 \label{sec:historie-udf}
-\todo{revize, standardy, erraty}
+První verze nového souborového systému \textit{Universal Disk Format} vznikla v roce 1995 ve společenství firem s názvem \textit{Optical Storage Technology Association} (OSTA). Důvody pro vznik nového souborového systému byly hlavně zvyšující se nároky na práci s optickými médii, kde souborový systém ISO~9660 přestával stačit.Jmenovitě se jednalo o blížící se příchod DVD a posléze CD-RW.\\
+Historie verzí UDF v chronologickém pořadí bylo toto. Jak je vidět, číslování není postupné, toto je kompletní výčet. Mezi jednotlivými verzemi vycházely tzv. DCN dokumenty, které pod jednotlivými čísly počínaje 5100 až po 5122, která vyšla v únoru 2005, popisují nalezené problémy a případná řešení jednotlivých verzí. Změny a opravy standardu UDF byly zanášeny na základě těchto dokumentů. Poslední verze je dostupná online \cite{dcn}.
+\begin{itemize}
+    \item verze 1.00 (24. října 1995) - první vydaná verze
+    \item verze 1.01 (3. listopadu 1995) - opravy chyb z verze 1.00, přidán dovětek týkající se použití na DVD-ROM
+    \item verze 1.02 (30. srpen 1996) - další opravy verze 1.01, začlěnení DVD-ROM a DVD-Video do specifikace, tato verze byla původně použita pro DVD-Video
+    \item verze 1.50 (4. února 1997) - přidána podpora pro CD-R a CD-RW (podpora VAT, správa chyb)
+    \item verze 2.00 (3. dubna 1998) - začlenění změn z revize 3 standardu ECMA-167 \cite{ecma-167}, přidání podpory tzv. \textit{Named Streams}, změna fungování VAT
+    \item verze 2.01 (15. března 2000) - opravy chyb verze 2.00
+    \item verze 2.50 (30. dubna 2003) - přidání \textit{Metadata partition}, navrženo pro HD-DVD a Blu-Ray
+    \item verze 2.60 (26. ledna 2005) - přidání pseudo-přepisu pro sekvenční média
+    \item verze 2.60 (1. března 2005) - redakční opravy
+\end{itemize}
+Jak je vidět u verze 2.00, UDF nevzniklo z ničeho, ale bylo vybudováno nad standardem ECMA-167 \cite{ecma-167}, který popisuje jednotlivé deskriptory systému a jejich navrhované použití. UDF přidává svou funkcionalitu do částí popsaných jako \textit{Contents Use}, případně \textit{Application Use}, což jsou části vyhrazené pro konkretizaci použití standardu ECMA-167. V době psaní prvního standardu UDF existovala ECMA-167, revize 2. S revizí 3 vznilo UDF 2.00 a od té doby nová revize nevyšla. 
 
 \section{Struktura systému}
 \label{sec:udf-struktura}
@@ -214,7 +227,7 @@ Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
 Nejdůležitější z vyjmenovaných parametrů je \textit{Partition Contents Use}. Ten v sobě podle \cite{osta-udf-0201}, kapitola 2.3.3 nese \textit{Partition Header Descriptor}, který obsahuje adresu \textit{Unallocated Space Bitmap}, což je \textit{Space Bitmap Descriptor} (SBD).\\
 Ten obsahuje bitový vektor reprezentující logický svazek, kde každý bit odpovídá jednomu logickému bloku. Ten může nabývat dvou hodnot, volný (logická 0) nebo obsazený (logická 1). Spolu s tím je uložen počet bytů a bitů. Tyto dva údaje jsou kritické pro správné fungování bitového vektoru. Důvod je granulita vektoru, která je odvozena od nejmenší možné jednotky a tou je byte, který obsahuje 8 bitů. Tím pádem, pokud oddíl (a potažmo vektor) nemá velikost dělitelnou beze zbytku osmi, zůstanou některé bity v posledním bytu nevyužité. To je nutné indikovat právě počtem bitů. Z tohoto vyplývá, že počet bitů může být buď stejný jako počet bytů nebo nanejvýš o 7 větší.\\
 Důležitost tohoto deskriptoru je při detekci zaalokovaného místa, které není nikde využito, tudíž indikace nedokončeného zápisu.\\
-Struktura PD je zachycena v tabulce \ref{tab:lvd}. Struktura SBD je zachycena v tabulce \ref{tab:sbd}. 
+Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v tabulce \ref{tab:sbd}. 
 \begin{table}[]
     \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
@@ -232,7 +245,7 @@ Struktura PD je zachycena v tabulce \ref{tab:lvd}. Struktura SBD je zachycena v 
         228 &128    &Implementation Use                 & bytes         & \\ \hline
         356 &156    &Rezerva                            &               & \\ \hline 
     \end{tabular}
-    \caption{Logical Volume Descriptor\label{tab:lvd}}
+    \caption{Partition Descriptor\label{tab:pd}}
 \end{table}
 \begin{table}
     \begin{tabular}{| l | l |}
@@ -309,12 +322,13 @@ Posledním faktem, který je nutno zdůraznit u FE je existence novější verze
 Účelem FID je zrychlení přístupu k metadatům souborů na sekvenčních médiích, kde přesun na jiné místo trvá delší dobu než u zařízení s náhodným přístupem (\textit{Random Access}). Takto jsou základní údaje o souboru (adresáři) shluknuty dohromady v rámci rodičovského adresáře a není potřeba je hledat na jiných místech média.\\
 Ze strutury FID stojí za zvýraznění \textit{File Identifier}, který udržuje jméno záznamu. Dále se jedná o \textit{File Characteristics}, které popisují vlastnsti záznamu z hlediska práce s ním. Kompletní výčet možností je v tabulce \ref{tab:fid-char}. Položka, kterou je také vhodné zmínit je \textit{Unique ID}. To by mělo být shodné s hodnotou, která je uložená v FE, na které ukazuje. Nejdůležitějším údajem je samozřejmě pozice samotného FE (nebo EFE). Ta je uložena v položce \textit{ICB}. 
 
-\section{TODO Závěr kapitoly}
-\todo{Zaver kapitoly}
-
+\section{Shrnutí kapitoly}
+V této kapitole byly nastíněny základní principy UDF, jeho strukutra a vlastnosti. Protože není cílem opsat existující dokumenty, není výčet kompletní a jedná se pouze o přehledovou část, ve které jsou zvýrazněny části důležité pro kontrolu a opravu konzistence.\\
+Nadřazenými dokumenty jsou standardy OSTA UDF do verze 2.01 \cite{osta-udf-0201} (přestože nejnovější je 2.60) a jemu nadřezený standard ECMA-167, revize 3 \cite{ecma-167}. Veškeré deskriptory byly popsány v duchu těchto dokumentů ve výše zmíněných verzích.\\
+Důvody pro omezení verze na UDF 2.01 jsou popsány v kapitole \ref{sec:stav-udftools}.
 
 \chapter{Nástroje pro kontrolu konzistence UDF}
-
+\label{sec:nastroje}
 Pro OS Linux jsou znám pouze nástroj \texttt{udfct\_1.5r4}. Tento nástroj byl vyvinut firmou Philips a jedná se o nástroj který je schopný zkontrolovat integritu souborového systému UDF. Chyby v implementaci UDF a případné chyby v datech vypisuje do terminálu ale není schopný je opravovat. Zásadním problémem tohoto nástroje je, že existuje pouze pod restriktivní licencí společnosti Philips a není jej tudíž možné použít jako výchozí bod dalšího vývoje i přes dostupnost zdrojových souborů. V současnosti je balíček se zdrojovými kódy dostupný již pouze díky službě Wayback Machine \cite{wayback}, zástupci společnosti Philips jej již nenabízí. Mou žádost o poskytnutí práva na přepoužití jejich kódu ignorovali.\\
 V BSD je \texttt{fsck} v podobném stavu jako v Linuxu ovšem komunita okolo BSD na problému pomalu pracuje. Našel jsem blog \cite{scottuvblog} od Scotta Longa z projektu FreeBSD kde má shrnutí své práce na UDF včetně jeho patchů do FreeBSD implementace UDF. Mezi jeho body k doplnění je i nástroj \texttt{fsck} a právě proto jsem ho oslovil s prosbou o informace. Právě Scott Long mne odkázal na projekt NetBSD, protože on sám nikdy na \texttt{fsck} nezačal pracovat, ale doslechl se, že v projektu NetBSD něco vzniká. Po hledání jsem nalezl mailing list z roku 2008, kde Reinoud Zandijk popisuje svůj postup práce na UDF implementaci. Na konci jeho zprávy je poznámka o \texttt{fsck} s informací, že bude "brzy". Žádná implementace se ovšem na svět nedostala, takže jsem mu napsal s prosbou o informace o  stavu jeho implementace \texttt{fsck}. Jeho odpověď byla vyčerpávající a potvrzovala mé podezření o stavu open source implementace. On sám má rozpracovanou implementaci \texttt{fsck} ale zveřejňovat ji zatím nebude, protože není dokončena, jeho slovy: 
 \begin{quote} 
@@ -329,11 +343,14 @@ Co se týká OSX od společnosti Apple, ti mají nástroje pro kontrolu UDF impl
 Microsoft Windows má také implementovaný checkdisk pro UDF ale jeho zdrojový kód je bohužel uzavřený.\\
 
 \section{Stav projektu udftools}
-Projekt udftools byl založen roce 1999 na projektovém serveru SourceForge \cite{udftools-sourceforge} Bennem Fennemou. Byl implementován standard UDF 1.5 a byly vytvořeny nástroje pro paketový zápis na CD, vytvoření souborového systému UDF a pro přístup k němu. Nástroj pro kontrolu konzistence zůstal jako prázdný projekt, byly ovšem vytvořeny nástroje pro vytvoření souborového systému UDF, nástroje pro jeho zápis včetně paketového zápisu.\\
-V roce 2007 byly integrovány poslední patche a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} Palim Rohárem a znovu byl započat vývoj, převážně opravy starých chyb. Byla implementována verze UDF 2.01. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a tento stav přetrvává do současnosti.\\
-V tuto chvíli se komunita okolo projektu udftools skládá hlavně z Paliho Rohára a z Františka Kluknavského. Vzhledem k nepříliš vysoké popularitě UDF není projekt udftools aktivní. Sice je stále udržován panem Rohárem, ale aktivní vývoj v tuto chvíli pravděpodobně neprobíhá, nebo alespoň ne veřejně.
+\label{sec:stav-udftools}
+Projekt udftools byl založen roce 1999 na projektovém serveru SourceForge \cite{udftools-sourceforge} Bennem Fennemou. Byl implementován standard UDF 1.5 a byly vytvořeny nástroje pro paketový zápis na CD, vytvoření souborového systému UDF a pro přístup k němu. Nástroj pro kontrolu konzistence zůstal jako prázdný projekt, byly ovšem vytvořeny nástroje pro vytvoření souborového systému UDF, nástroje pro jeho zápis včetně paketového zápisu (nástroj pro zapisování na CD-R přímo z OS bez nutnosti volat další programy.)\\
+V roce 2007 byly integrovány poslední záplaty a poté projekt zůstal ležet ladem. V roce 2014 byl projekt přemigrován na GitHub \cite{udftools-github} Palim Rohárem a znovu byl započat vývoj, převážně opravy starých chyb. Byla implementována verze UDF 2.01. Nástroj \texttt{fsck.udf} nebyl v tomto projektu nikdy vytvořen a tento stav přetrvává do současnosti.\\
+V tuto chvíli se o projekt udftools stará Pali Rohár, který je správce projektu. Vzhledem k nepříliš vysoké popularitě UDF není projekt udftools aktivní. Sice je stále udržován panem Rohárem, ale aktivní vývoj v tuto chvíli pravděpodobně neprobíhá, nebo alespoň ne veřejně.\\
+Protože bude moje práce navazovat na tento projekt, bude v tuto chvíli maximální možná verze omezena na UDF 2.01, stejně jako zbytek balíčku. Důvodem je sdílená knihovna se zbytkem balíčku obsahující hlavičky deskriptorů, kde by zásah způsobil změny v ostatních nástrojích a také nedostatek testovacích médií ve vyšších verzích.
 
 \chapter{Definice chyb na souborovém systému}
+\label{sec:definice-chyb}
 %\todo{Jak se to může pokazit? A co se s tím dá dělat?}
 Chyby na souborovém systému mohou vzniknout ze třech příčin. 
 \begin{enumerate}
@@ -342,16 +359,25 @@ Chyby na souborovém systému mohou vzniknout ze třech příčin.
     \item Fyzickým poškozením média (například stářím poškozené bloky flash paměti nebo poškrábané optické médium).
 \end{enumerate}
 První druh chyb se děje zřídka. Důvodem je skutečnost, že programy a kernelové moduly starající se o přístup k a práci se souborovými systémy bývají dobře odladěné a otestované. Koneckonců, právě data jsou to, co má v počítačích hodnotu.\\
-Chyby vzniklé nekorektním odpojením souborového systému se vyskytují velice často. Odebrání disku ve spěchu bez korektního odpojení může způsobit poškození souborového systému skrz přerušení probíhající zápisové operace. Systém poté zůstane v nekonzistentním stavu, protože se v něm nachází částečně zapsaný soubor. Případně může dojít k poškození metadat souboru. Do této kateogie spadají i chyby vzniklé havárií operačního systému.\\
-Třetí kategorií chyb jsou veškeré poruchy fyzického média. U optických disků a disket se první vybaví škrábance a rýhy. Tyto chyby poté bývají seskupeny do clusterů poškozených dat. U magnetických disků může dojít k poškození kolizí čtecích hlav s plotnou nebo k poškozením opotřebením. V dnešní době se dá předejít obojímu. Vyšší řady disků určených pro notebooky mají integrovaný akcelerometr a v případě většího zrychlení dojde k nouzovému zaparkování čtecích hlav. Chybám z opotřebení lze předcházet pomocí integrovaného systému S.M.A.R.T. který se stará o sběr telemetrických dat o disku a na jejich základě lze předvídat jeho poruchu. S příchodem FLASH technologie se objevil druh chyb ve formě vadných paměťových buněk, ať už z výroby nebo opotřebením.\\
-Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození.
+Chyby vzniklé nekorektním odpojením souborového systému se vyskytují velice často. Odebrání disku ve spěchu bez korektního odpojení může způsobit poškození souborového systému skrz přerušení probíhající zápisové operace. Systém poté zůstane v nekonzistentním stavu, protože se v něm nachází částečně zapsaný soubor. Případně může dojít k poškození metadat souboru. Do této kateogie spadají i chyby vzniklé havárií operačního systému. Toto riziko se ještě zvýšilo s USB flash disky, kde je velice výrazný vliv vyrovnávacích pamětí jak na straně řadiče, tak na straně disku a i když je disk odebrán ze systému, může ještě probíhat zápis právě z vyrovnávací paměti do flash paměti.\\
+Třetí kategorií chyb jsou veškeré poruchy fyzického média. U optických disků a disket se první vybaví škrábance a rýhy. Tyto chyby poté bývají seskupeny do clusterů poškozených dat. U magnetických disků může dojít k poškození kolizí čtecích hlav s plotnou nebo k poškozením opotřebením.\\
+Existuje určitá prevence některých těchto poruch. Vyšší řady notebooků mají integrovaný akcelerometr a v případě většího zrychlení dojde k nouzovému zaparkování čtecích hlav harddisku. Ovšem ani tato ochrana není absolutní a spíše zabraňuje samotné činnosti disku při pohybu (například při chůzi). Chybám z opotřebení lze předcházet pomocí integrovaného systému S.M.A.R.T. který se stará o sběr telemetrických dat o disku a na jejich základě lze předvídat jeho poruchu (ovšem ani zde není stoprocentní záruka.)\\
+Opravitelnost a analýza chyb je vždy otázkou míry a typu poškození. Od určité míry poškození je oprava buď nemožná, nebo ne úplná. Tuto skutečnost je třeba mít na paměti po celou dobu návrhu opravných aloritmů a je třeba si předem určit, jaký přístup zvolit, zda se spokojíme s částečnou opravou, nebo je oprava vyžadována pouze úplná.\\
+V dále popsané implementaci byl zvolen kompromis, který se spíše přiklání k úplné opravě nebo žádné opravě. Z tohoto jsou vyjmuty pouze deskriptory VDS, které mohou být opraveny jen částečně (t.j. lze pokračovat i s některými deskriptory neopravitelnými.)
 
 \section{Detekce chyb}
 \label{sec:errordetection}
-\todo{RAID1 neumí určit která data jsou správně a která špatně. Pouze že se liší. CRC neumí opravovat. Pouze kontrolovat. Oprava možná u jednobitových chyb na základě předpočítané tabulky zbytků.}
 Způsobů jak detekovat chyby v případě jejich výskytu je celá řada a liší se požadavky na prostředky a čas. Za naivní přístup lze považovat například detekci porovnáním s referencí. Předpokládejme, že máme stejnou informaci uloženou dvakrát na různých místech (médiích) a v případě poruchy dat je možné data obnovit z referenčního média. Toto řešení je ale evidentně náročné na úložiště kvůli stoprocentní duplicitě dat. Výměnou za to poskytuje informaci nejen o přítomnosti chyby ale i o její poloze a původních datech. Předpokladem ovšem je znalost, které médium je správně.\\ 
 Dalším přístupem je vytváření kontrolních součtů. Tento přístup nám dává oproti předchozímu pouze informaci o přítomnosti chyby bez informace kde chyba je a jak ji opravit. V extrémním případě se můžou chyby dokonce navzájem vyrušit takže data nebudou konzistentní ale kontrolní součet bude stejný. I přes tyto nedostatky je kontrolní součet oblíbená metoda detekce chyb kvůli své jednoduchosti a nenáročnosti na paměť.\\
-Poněkud komplexnější variantou je CRC (\textit{Cyclic Redundancy Check}). Tento mechanismus, který původně vznikl pro kabelové přenosy našel uplatnění všude, kde je potřeba větší šance na detekci chyby než při použití kontrolního součtu. CRC je na výpočet složitější, jeho výstupem je několikabytové číslo a důvodem je větší citlivost na chyby a nižší šance na stejný výsledek při chybě v datech. 
+Poněkud komplexnější variantou kontrolního součtu je CRC (\textit{Cyclic Redundancy Check}). Tento mechanismus, který původně vznikl pro kabelové přenosy našel uplatnění všude, kde je potřeba větší šance na detekci chyby než při použití kontrolního součtu. CRC je na výpočet složitější, jeho výstupem je několikabytové číslo a důvodem je větší citlivost na chyby a nižší šance na stejný výsledek při chybě v datech.\\
+Pokud se tyto metody zkonkretizují pro použití na UDF, zjistíme, že jsou použity všecny, ovšem nikoli jednotlivě, ale v kombinaci. To zvyšuje robustnost celého řešení. Tato logika je zachycena na obrázku \ref{fig:detch}. Na obrázku jsou dva deskriptory, hlavní a záložní (případ u VDS). Každý z nich (naznačeno to je pro přehlednost pouze u hlavního) zabezpečen kombinací CRC a kontrolního součtu následujícím způsobem: Tag, který identifikuje deskriptor je zabezpečen kontrolním součtem a nese si referenční hodnotu sám s sobě (aby nedošlo k rekurzivní chybě při výpočtu, je místo s referenční hodnotou kontrolního součtu pro jeho výpočet vynecháno). Zároveň zabezpečuje referenční hodnotu CRC pro celý tělo deskriptoru. Pokud je  jak kontrolní součet, tak CRC v pořádku, máme určitou jistotu, že deskriptor není poškozen. Tudíž lze pro obnovu vybrat správný jako vzor, pokud jsou k dispozici dva exempláře.\\
+Nutno podotknout, že toto pouze zajišťuje správnost z hlediska poškození média, nikoli algoritmickou chybu ovladače. Pokud ovladač změní obsah deskriptoru a správně přepočítá CRC a checksum, tento způsob detekce tuto chybu nemůže odhalit.
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.65]{obrazky/det-chyb.png}
+    \caption{Schéma kombinace detekcnich mechansimů UDF}
+    \label{fig:detch}
+\end{figure}
 
 \subsection{Kontrolní součet}
 \todo{Napsat}
