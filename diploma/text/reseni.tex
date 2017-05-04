@@ -149,17 +149,17 @@ Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskri
 \subsection{Anchor Volume Descriptor Pointer}
 \label{sec:avdp}
 \textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu VDS a jeho délku a to jak pro hlavní, tak pro záložní VDS. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému, proto je umístěn na předem známém místě. V případě uzavřených souborových systémů (více o \textit{Finalization} v kapiole \ref{sec:udf-struktura}) to je na sektoru 256, posledním sektoru média a nezřídka také na 256 sektoru od konce média. Podmínkou je, že AVDP musí být uloženo alespoň dvakrát. V případě otevřených souborových systémů je zde výjimka, protože AVDP je dočasně umístěno na sektoru 512 nebo 256 až do uzavření média, kdy je dopsáno na svá místa a opět alespoň ve dvou exemplářích, přičemž AVDP na adresee 512 se do tohoto počtu nezapočítává.\\
-Jeho struktura je popsána v tabulce \ref{tab-avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost celého souborového systému.
+Jeho struktura je popsána v tabulce \ref{tab:avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost celého souborového systému.
 \begin{table}[]
-    \begin{tabular}{ | l | l | p{4.5cm} | p{1.3cm} | p{5.5cm} | }
+    \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
-        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline
-        0       & 16          & DescriptorTag & struct        & Popis deskriptoru \\ \hline
-        16      & 8           & MainVolumeDescriptor SequenceExtent & struct & Sektor a délka \textit{Main Volume Descriptor Sequence} \\ \hline
-        24      & 8           & ReserveVolumeDescriptor SequenceExtent & struct & Sektor a délka \textit{Reserve Volume Descriptor Sequence} \\ \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
+        0       & 16          & Descriptor Tag & tag        & Popis deskriptoru \\ \hline
+        16      & 8           & Main Volume Descriptor Sequence Extent & extent\_ad & Sektor a délka \textit{Main Volume Descriptor Sequence} \\ \hline
+        24      & 8           & Reserve Volume Descriptor Sequence Extent & extent\_ad & Sektor a délka \textit{Reserve Volume Descriptor Sequence} \\ \hline
         32      & 480         & Rezerva & & \\ \hline
     \end{tabular}
-    \caption{Anchor Volume Descriptor Pointer\label{tab-avdp}}
+    \caption{Anchor Volume Descriptor Pointer\label{tab:avdp}}
 \end{table}
 
 \subsection{Volume Descriptor Sequence}
@@ -177,16 +177,89 @@ Samotné deskriptory jsou popsány ve standardu \cite{osta-udf-0201}, kapitola 2
 \end{itemize}
 Z nich je ovšem vhodné některé vyzdvihnout a popsat hlouběji kvůli přímému vlivu na funkci \texttt{fsck}.
 
+\subsubsection{Logical Volume Descriptor}
+\label{sec:lvd}
+\textit{Logical Volume Descriptor} (LVD) popisuje logický svazek jako celek. Pro použití ve \texttt{udfffsck} jsou důležité tyto:
+\begin{itemize}
+    \item \textit{Logical Block Size} - velikost logického bloku svazku. Měla by být shodná s velikostí sektoru. Pokud není, je to v rozporu se specifikací a kontrola není možná.
+    \item \textit{Integrity Sequence Extent} - zde je uloženo umístění \textit{Logical Volume Integrity Descriptor} \ref{sec:lvid}.
+    \item \textit{Logical Volume Identifier} - pojmenování logického svazku. Je to řetězec komprimovaného Unicode s maximální možnou délkou 128~B.
+    \item \textit{Logical Volume Contents Use} - zde je uloženo umístění \textit{File Set Descriptor} \ref{sec:fsd}.
+\end{itemize}
+Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
+\begin{table}[]
+    \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
+        \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
+        0   &16     & Descriptor Tag                    & tag           & Identifikátor deskriptoru \\ \hline
+        16  &4      & Volume Descriptor Sequence Number & Uint32        &  \\ \hline
+        20  &64     & Descriptor Character Set          & charspec      &  \\ \hline
+        84  &128    & \textbf{Logical Volume Identifier}& dstring       & \textbf{Jméno logického svazku} \\ \hline
+        212 &4      &\textbf{Logical Block Size}        & Uint32        & \textbf{Velikost logického bloku} \\ \hline
+        216 &32     &Domain Identifier                  & regid         &  \\ \hline
+        248 &16     &\textbf{Logical Volume Contents Use}& bytes         & \textbf{Umístění \textbf{File Set Descriptor}}\\ \hline
+        264 &4      &Map Table Length (=MT\_L)          & Uint32        & \\ \hline
+        268 &4      &Number of Partition Maps           & Uint32        & \\ \hline
+        272 &32     &Implementation Identifier          & regid         & ID vývojáře a operačního systému, který svazek vytvořil \\ \hline
+        304 &128    &Implementation Use                 & bytes         & \\ \hline
+        432 &8      &\textbf{Integrity Sequence Extent} & extent\_ad    & \textbf{Umístění LVID} \\ \hline
+        440 &MT\_L  &Partition Maps                     & bytes         & \\ \hline
+    \end{tabular}
+    \caption{Logical Volume Descriptor\label{tab:lvd}}
+\end{table}
+
 \subsubsection{Partition Descriptor a Space Bitmap Descriptor}
-\label{sec:pd}
-\textit{Partition Descriptor} popisuje vlastnosti logického svazku. Důležitým údajem je položka \textit{Partition Contents Use}, která popisuje jak se má zacházet s obsahem logického svazku. Obsah logického svazku je definován položkou \textit{Partition Contents}, která může nabývat hodnot uvedených v tabulce \ref{tab:pd-partition-contents}. Další důležitý údaj je v položce \textit{Access Type}, který určuje filozofii přístupu k zápisu na logický svazek (více v kapitole \ref{sec:udf-struktura}.)\\
-Nejdůležitější z vyjmenovaných parametrů je \textit{Partition Contents Use}. Ten v sobě podle \cite{osta-udf-0201}, kapitola 2.3.3 nese \textit{Partition Header Descriptor}, který obsahuje adresu \textit{Unallocated Space Bitmap}, což je \textit{Space Bitmap Descriptor}.\\
-Ten obsahuje bitový vektor reprezentující logický svazek, kde každý bit odpovídá jednomu logickému bloku. Ten může nabývat dvou hodnot, volný (logická 0) nebo obsazený (logická 1).\\
-Důležitost tohoto deskriptoru je při detekci zaalokovaného místa, které není nikde využito, tudíž indikace nedokončeného zápisu.
+\label{sec:pd-sbd}
+\textit{Partition Descriptor} (PD) popisuje vlastnosti logického svazku. Důležitým údajem je položka \textit{Partition Contents Use}, která popisuje jak se má zacházet s obsahem logického svazku. Obsah logického svazku je definován položkou \textit{Partition Contents}, která může nabývat hodnot uvedených v tabulce \ref{tab:pd-partition-contents}. Další důležitý údaj je v položce \textit{Access Type}, který určuje filozofii přístupu k zápisu na logický svazek (více v kapitole \ref{sec:udf-struktura}.)\\
+Nejdůležitější z vyjmenovaných parametrů je \textit{Partition Contents Use}. Ten v sobě podle \cite{osta-udf-0201}, kapitola 2.3.3 nese \textit{Partition Header Descriptor}, který obsahuje adresu \textit{Unallocated Space Bitmap}, což je \textit{Space Bitmap Descriptor} (SBD).\\
+Ten obsahuje bitový vektor reprezentující logický svazek, kde každý bit odpovídá jednomu logickému bloku. Ten může nabývat dvou hodnot, volný (logická 0) nebo obsazený (logická 1). Spolu s tím je uložen počet bytů a bitů. Tyto dva údaje jsou kritické pro správné fungování bitového vektoru. Důvod je granulita vektoru, která je odvozena od nejmenší možné jednotky a tou je byte, který obsahuje 8 bitů. Tím pádem, pokud oddíl (a potažmo vektor) nemá velikost dělitelnou beze zbytku osmi, zůstanou některé bity v posledním bytu nevyužité. To je nutné indikovat právě počtem bitů. Z tohoto vyplývá, že počet bitů může být buď stejný jako počet bytů nebo nanejvýš o 7 větší.\\
+Důležitost tohoto deskriptoru je při detekci zaalokovaného místa, které není nikde využito, tudíž indikace nedokončeného zápisu.\\
+Struktura PD je zachycena v tabulce \ref{tab:lvd}. Struktura SBD je zachycena v tabulce \ref{tab:sbd}. 
+\begin{table}[]
+    \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
+        \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
+        0   &16     & Descriptor Tag                    & tag           & Identifikátor deskriptoru \\ \hline
+        16  &4      &Volume Descriptor Sequence Number  & Uint32        & \\ \hline
+        20  &2      &Partition Flags                    & Uint16        & \\ \hline
+        22  &2      &Partition Number                   & Uint16        & \\ \hline
+        24  &32     &\textbf{Partition Contents}        & regid         & \textbf{Definuje obsah logického svazku} \\ \hline
+        56  &128    &\textbf{Partition Contents Use}    & bytes         & \textbf{Obsahuje \textit{Partition Header Descriptor}} \\ \hline
+        184 &4      &\textbf{Access Type}               & Uint32        & \textbf{Určuje filozofii zápisu} \\ \hline
+        188 &4      &Partition Starting Location        & Uint32        & \\ \hline
+        192 &4      &Partition Length                   & Uint32        & \\ \hline
+        196 &32     &Implementation Identifier          & regid         & \\ \hline
+        228 &128    &Implementation Use                 & bytes         & \\ \hline
+        356 &156    &Rezerva                            &               & \\ \hline 
+    \end{tabular}
+    \caption{Logical Volume Descriptor\label{tab:lvd}}
+\end{table}
+\begin{table}
+    \begin{tabular}{| l | l |}
+        \hline
+        Obsah & Interpretace \\ \hline\hline
+        +FDC01& Médium bylo vytvořeno podle standardu ECMA-107 \\ \hline
+        +CD001& Médium bylo vytvořeno podle standardu ECMA-119\\ \hline
+        +CDW02& Médium bylo vytvořeno podle standardu ECMA-168\\ \hline
+        \textbf{+NSR03}& \textbf{Médium bylo vytvořeno podle standardu ECMA-167/UDF}\\ \hline
+    \end{tabular}
+    \caption{Partition Contents reprezentace\label{tab:pd-partition-contents}}
+\end{table}
+\begin{table}[]
+    \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
+        \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
+        0   &16     & Descriptor Tag                    & tag           & Identifikátor deskriptoru \\ \hline
+        16  &4      & Number of Bits (=N\_BT)           & Uint32        & Počet použitých bitů \\ \hline
+        20  &4      & Number of Bytes (=N\_B)           & Uint32        & Velikost bitmapy \\ \hline
+        24  &N\_B   & Bitmap                            & bytes         & Samotná bitmapa \\ \hline
+    \end{tabular}
+    \caption{Space Bitmap Descriptor\label{tab:sbd}}
+\end{table}
 
 \subsection{Logical Volume Integrity Sequence}
 \label{sec:lvid}
-Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TE). Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Odpovídá na následující otázky:
+Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TE). Ty dohromady vytváří \textit{Logical Volume Intergrity Sequence}. Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Odpovídá na následující otázky:
 \begin{itemize}
     \item Je Logický svazek v konzistentním stavu?
     \item Kdy bylo naposledy cokoli na Logickém svazku modifikováno.
@@ -195,7 +268,15 @@ Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LV
     \item Byl obsah modifikován nějakou \textit{jinou} implementací od posledního přístupu implementace která svazek vytvořila?
 \end{itemize}
 Jak je vidět z tohoto výčtu, tato část je důležitá hlavně pro čtení a zápis, ale i pro kontrolu dat má svůj význam, například právě kvůli informaci o konzistenci svazku.\\ 
-Samotný formát struktury je opět v \cite{osta-udf-0201}, kapitola 2.2.6.
+Samotný formát struktury LVID je opět v \cite{osta-udf-0201}, kapitola 2.2.6 a v tabulce \ref{tab:lvid}.\\
+Pokud bychom měli zvýraznit některé položky, byly by to tyto:
+\begin{itemize}
+    \item \textit{Recording date and time} - časová značka posledního záznamu, který byl proveden na médiu.
+    \item \textit{Integrity Type} - stav svazku z hlediska probíhajících operací. Může být \textit{Open} (médium je používáno, možný probíhající zápis) nebo \textit{Close} (všechny trasakce byly dokončeny a médium je v konzistentním stavu.)
+    \item \textit{Free Space Table} - tabulka popisující volné místo na jednotlivých logických svazcích v logických blocích.
+    \item \textit{Size Table} - tabulka popisující velikost jednotlivých logických svazků v logických blocích.
+    \item \textit{Implementation Use} - oblast, nepopsaná ve standardu ECMA-167, byla standardem UDF použita k uložení počtu adresářů a souborů uložených na médiu. 
+\end{itemize}
 
 \section{File Structure}
 \label{sec:file-structure}
@@ -208,19 +289,25 @@ Souborová struktura UDF je postavena na třech deskriptorech, které se podíl�
 
 \subsection{File Set Descriptor}
 \label{sec:fsd}
-\textit{File Set Descriptor} (FSD) je výchozím bodem pro čtení dat. Jeho pozice je opět uložena v LVD. Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.2. Tato strukutra mimo jiné obsahuje umístění kořenového adresáře. Z hlediska kontroly dat nejsou ostatní údaje tolik významné.
+\textit{File Set Descriptor} (FSD) je výchozím bodem pro čtení dat. Jeho pozice je opět uložena v LVD (více v kapitole \ref{sec:lvd}). Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.2 a také v tabulce \ref{tab:fsd}. Tento deskriptor obsahuje hlavně umístění kořenového adresáře a název svazku na kterém je uložený. Další údaje uložené v tomto deskriptoru jsou umístění souborů obsahující copyright nebo abstrakt. Ty stojí mimo adresářovou strukturu a jsou využívány například na DVD s filmy.\\
+Kořenový adresář je jediný, který není uveden pomocí \textit{File Identifier Descriptor} ale přímo pomocí ICB mířícího na \textit{File Entry}. 
 
 \subsection{File Entry}
 \label{sec:fe}
-\textit{File Entry} (FE) je deskriptor, který popisuje samotný soubor. Jeho pozice je určena jeho \textit{rodičem}, což v případě kořenového adresáře je FSD, ale uvedený je opět kořenový adresář, v případě ostatních souborů a adresářů se jedná o adresář, v němž se nachází.\\
-Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.6, a z ní pouze vyberu některé důležité části. První důležitou informací je počet zapsaných bloků (\textit{LogicalBlocksRecorded}). Další důležitou částí jsou \textit{AllocationDescriptors}. Velikost této části je určena pomocí \textit{LengthofAllocationDescriptors} a obsahuje dva druhy dat, podle toho jestli se FE popisuje adresář nebo soubor.\\
-V případě souboru je v tomto místě uložena pozice dat souboru ve formě \textit{Long Allocation Descriptor} nebo \textit{Short Allocation Descriptor}. Vždy bude použit pouze jeden z nich a měl by být uložen pouze jeden, protože data jsou ukládána sekvenčně do bloků za sebou.\\
-V případě adresáře jsou v \textit{AllocationDescriptors} uloženy \textit{File Identifier Descriptor} (kapitola \ref{sec:fid}), přičemž každý jeden deskriptor nese informaci o jednom \textit{potomkovi} adresáře. Vždy je přítomen nejméně jeden FID a tím je \textit{rodičovský adresář}. 
+\textit{File Entry} (FE) je deskriptor, který, jak nazančuje název, popisuje jednotlivé záznamy v oblasti dat. Ke každému jednomu souboru nebo adresáři patří jeden FE. Jeho umístění je určeno jeho \textit{rodičovským adresářem}, respektive ji určuje \textit{File Identifier Descriptor} který je v něm uložen.\\
+Z tohoto pravidla existuje jedna výjimka a to v případě kořenového adresáře. Ten nemá nadřazený adresář (sám je nejvýše umístěný adresář) a jeho pozice je určena přímo pomocí FSD. To sebou nese druhou výjimku a tou je \textit{Unique ID}. To nabývá hodnot 1 až $2^{64}$, přičemž 0 je vyhrazena pro použití před nastavením \textit{Unique ID} a pro kořenový adresář, který jediný musí mít \textit{Unique ID} rovno 0.\\
+Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.6, a z ní pouze vyberu některé důležité části.\\
+První důležitou informací je počet zapsaných bloků \textit{Logical Blocks Recorded}. Tento údaj pomáhá vytvořit mapu obsazených sektorů pro srovnání s \textit{bitmap} z SBD \ref{sec:sbd} a také skutečný počet obsazených sektorů pro srovnání s \textit{Free Space Table} v LVID \ref{sec:lvid}.\\
+Klíčový údaj pro další práci s FE je rozlišení typu FE. K tomu slouží \textit{ICB tag}, který obsahuje položku \textit{File Type}. Ta může nabývat celé řady hodnot, zajímavé pro nás jsou dvě a to \textit{Directory} a \textit{Regular}. Právě údaj z této části pomáhá rozlišit adresáře od souborů. Další hodnoty jsou speciální druhy záznamů, jako jsou symbolické odkazy, stream adresáře a podobné.\\ 
+Další důležitou částí jsou \textit{Allocation Descriptors}. Velikost této části je určena pomocí \textit{Length of Allocation Descriptors} a obsahuje dva druhy dat, podle toho jestli se FE popisuje adresář nebo soubor. V případě souboru je v tomto místě uložena pozice dat souboru ve formě \textit{Long Allocation Descriptor} (\texttt{long\_ad}) nebo \textit{Short Allocation Descriptor} (\texttt{short\_ad}). Od adresy uvedené v těchto deskriptorech jsou sekvenčně za sebou ukládána data. V případě adresáře jsou v \textit{Allocation Descriptors} uloženy \textit{File Identifier Descriptor} (kapitola \ref{sec:fid}), přičemž každý jeden deskriptor nese informaci o jednom \textit{potomkovi} adresáře. Vždy je přítomen nejméně jeden FID a tím je \textit{rodičovský adresář} aktuálního FE.\\
+Zde je opět výjimka týkající se kořenového adresáře. Tou je reference na \textit{rodičovský adresář}, která nemůže vést na FSD, tak je zavedena autoreferenčně na FE kořenového adresáře.\\
+Posledním faktem, který je nutno zdůraznit u FE je existence novější verze \textit{File Entry} a tou je \textit{Extended File Entry} (EFE). Ta přišla s verzí UDF 2.00 a je doporučené je používat místo FE. Ovšem pro zachování zpětné kompatibility je možné nechat FE na médiu a nadále je používat a nové soubory ukládat pomocí EFE. To s sebou nese nutnost rozlišovat mezi FE a EFE v rámci média, protože EFE pouze nerozšiřuje FE, ale mění i jeho strukturu, takže původní položky jsou sice shodně pojmenované a nesou stejnou informaci, ale mají jiné umístění. 
 
 \subsection{File Identifier Descriptor}
 \label{sec:fid}
-\textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4.\\
-Vzhledem k faktu, že cílem této struktury není adresovat data ale jen FE, obsahuje jen metadata metadat souboru. Například jestli adresované FE popisuje složku nebo soubor, jestli je soubor smazaný nebo jestli uživatel má vědět o existenci souboru. Dále tato struktura obsahuje identifikátor souboru v podobě textového řetězce (jméno souboru nebo složky). Samozřejmě obsahuje i umístění samotného FE.
+\textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4 a v tabulce \ref{tab:fid}.\\
+Účelem FID je zrychlení přístupu k metadatům souborů na sekvenčních médiích, kde přesun na jiné místo trvá delší dobu než u zařízení s náhodným přístupem (\textit{Random Access}). Takto jsou základní údaje o souboru (adresáři) shluknuty dohromady v rámci rodičovského adresáře a není potřeba je hledat na jiných místech média.\\
+Ze strutury FID stojí za zvýraznění \textit{File Identifier}, který udržuje jméno záznamu. Dále se jedná o \textit{File Characteristics}, které popisují vlastnsti záznamu z hlediska práce s ním. Kompletní výčet možností je v tabulce \ref{tab:fid-char}. Položka, kterou je také vhodné zmínit je \textit{Unique ID}. To by mělo být shodné s hodnotou, která je uložená v FE, na které ukazuje. Nejdůležitějším údajem je samozřejmě pozice samotného FE (nebo EFE). Ta je uložena v položce \textit{ICB}. 
 
 \section{TODO Závěr kapitoly}
 \todo{Zaver kapitoly}
