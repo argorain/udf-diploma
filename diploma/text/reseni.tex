@@ -68,7 +68,7 @@ Pro masivně používané souborové systémy tyto nástroje existují. Pro \tex
 Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt s názvem udftools \cite{udftools-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat a proto se v dalších částech práce soustředím právě na tento souborový systém. 
 
 \chapter{Universal Disk Format}
-\label{sec:udf}
+\label{ch:udf}
 \textit{Universal Disk Format} (UDF) je souborový systém navržený pro použití na CD, DVD a Blu-Ray discích, ale díky jeho univerzálnosti je možné jej použít i na jiných médiích. Jeho návrh vyšel ze systému CDFS (ISO~9660). S ním je kompatibilní pouze na úrovni možné koexistence na stejném médiu a ve formátu VRS.\\
 %Jednou z výhod UDF oproti ISO~9660 je například možnost dodatečného zápisu na CD anebo naopak mazání dat z CD a přepisovatelných disků.
 Mezi základní vlastnosti UDF patří:
@@ -130,7 +130,7 @@ Deskriptory souborového systému, neboli metadata souborového systému jsou kl
 Vzhledem k velkému překryvu informací popsaných mnout s informacemi, které jsou uvedeny ve standardu UDF~2.01 \cite{osta-udf-0201} a jeho nadřazeném standardu ECMA-167, revize 3 \cite{ecma-167} je tato část pojata pouze jako přehledová a neklade si za cíl absolutně popsat UDF. Cílem je pouze informativně vyzdvihnout důležité deskriptory UDF.
 
 \subsection{Volume Recognition Sequence}
-\label{sec:vrs}
+\label{subsec:vrs}
 \textit{Volume Recognition Sequence} (VRS) je sekce určená k rozpoznání obsaženého souborového systému. Může být velká až 6 sektorů a obsahuje deskriptory identifikující souborový systém. Jeho poloha je fixní na sektoru 16.\\
 Důvodem, proč je poloha VRS na sektoru 16 je zpětná kompatibilita a možná koexistence se souborovým systémem ISO~9660. ISO~9660 používá tuto oblast také jako VRS, tudíž je pochopitelné, že ji UDF převzalo. Nese to sebou i některé výjimky právě kvůli kompatibilitě, například co se týká velikosti sektoru, která je použitá v této oblasti. Problematika načítání a zpracování VRS je popsána v kapitole \ref{sec:kontrola-pritomonosti-udf}.
 Struktura deskriptorů použutých ve VRS je zachycena v tabulce \ref{tab:vrs}.
@@ -160,7 +160,7 @@ Poslední položkou je \textit{Version} která obsahuje informaci o verzi deskri
 Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskriptor obsahující \textit{Identifier} s hodnotou \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. V opačném případě se nejedná o UDF.
 
 \subsection{Anchor Volume Descriptor Pointer}
-\label{sec:avdp}
+\label{subsec:avdp}
 \textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu VDS a jeho délku a to jak pro hlavní, tak pro záložní VDS. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému, proto je umístěn na předem známém místě. V případě uzavřených souborových systémů (více o \textit{Finalization} v kapiole \ref{sec:udf-struktura}) to je na sektoru 256, posledním sektoru média a nezřídka také na 256 sektoru od konce média. Podmínkou je, že AVDP musí být uloženo alespoň dvakrát. V případě otevřených souborových systémů je zde výjimka, protože AVDP je dočasně umístěno na sektoru 512 nebo 256 až do uzavření média, kdy je dopsáno na svá místa a opět alespoň ve dvou exemplářích, přičemž AVDP na adresee 512 se do tohoto počtu nezapočítává.\\
 Jeho struktura je popsána v tabulce \ref{tab:avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost celého souborového systému.
 \begin{table}[]
@@ -176,7 +176,7 @@ Jeho struktura je popsána v tabulce \ref{tab:avdp}. Jak je vidět, obsahuje uka
 \end{table}
 
 \subsection{Volume Descriptor Sequence}
-\label{sec:vds}
+\label{subsec:vds}
 \textit{Volume Descriptor Sequence} (VDS) je skupina deskriptorů popisující veškeré vlastnosti souborového systému UDF. Jsou seřazeny postupně na jednotlivých sektorech počínaje adresou udanou z AVDP (viz. kapitola \ref{sec:avdp}) a končí po počtu logických sektorů uloženém opět v AVDP. Jsou uloženy postupně po sektorech od výchozí adresy a končí \textit{Terminating Descriptor}, což je prázdný deskriptor, který obsahuje pouze \textit{Descriptor Tag}. Samotné pořadí deskriptorů není pevné a samotné deskriptory jsou identifikovány právě pomocí \textit{Descriptor Tag}.\\
 Jak je vidět v AVDP, i tato část je uložena duplicitně pro zvýšení robustnosti. Rezervní VDS je uložena ve stejném tvaru jako primární tentokrát však od jiné adresy, opět uvedené v AVDP.\\
 Samotné deskriptory jsou popsány ve standardu \cite{osta-udf-0201}, kapitola 2.2. Pro kompletnost zde uvedu jejich výčet ze standardu verze 2.01.
@@ -191,7 +191,7 @@ Samotné deskriptory jsou popsány ve standardu \cite{osta-udf-0201}, kapitola 2
 Z nich je ovšem vhodné některé vyzdvihnout a popsat hlouběji kvůli přímému vlivu na funkci \texttt{fsck}.
 
 \subsubsection{Logical Volume Descriptor}
-\label{sec:lvd}
+\label{subsec:lvd}
 \textit{Logical Volume Descriptor} (LVD) popisuje logický svazek jako celek. Pro použití ve \texttt{udfffsck} jsou důležité tyto:
 \begin{itemize}
     \item \textit{Logical Block Size} - velikost logického bloku svazku. Měla by být shodná s velikostí sektoru. Pokud není, je to v rozporu se specifikací a kontrola není možná.
@@ -222,7 +222,7 @@ Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
 \end{table}
 
 \subsubsection{Partition Descriptor a Space Bitmap Descriptor}
-\label{sec:pd-sbd}
+\label{subsec:pd-sbd}
 \textit{Partition Descriptor} (PD) popisuje vlastnosti logického svazku. Důležitým údajem je položka \textit{Partition Contents Use}, která popisuje jak se má zacházet s obsahem logického svazku. Obsah logického svazku je definován položkou \textit{Partition Contents}, která může nabývat hodnot uvedených v tabulce \ref{tab:pd-partition-contents}. Další důležitý údaj je v položce \textit{Access Type}, který určuje filozofii přístupu k zápisu na logický svazek (více v kapitole \ref{sec:udf-struktura}.)\\
 Nejdůležitější z vyjmenovaných parametrů je \textit{Partition Contents Use}. Ten v sobě podle \cite{osta-udf-0201}, kapitola 2.3.3 nese \textit{Partition Header Descriptor}, který obsahuje adresu \textit{Unallocated Space Bitmap}, což je \textit{Space Bitmap Descriptor} (SBD).\\
 Ten obsahuje bitový vektor reprezentující logický svazek, kde každý bit odpovídá jednomu logickému bloku. Ten může nabývat dvou hodnot, volný (logická 0) nebo obsazený (logická 1). Spolu s tím je uložen počet bytů a bitů. Tyto dva údaje jsou kritické pro správné fungování bitového vektoru. Důvod je granulita vektoru, která je odvozena od nejmenší možné jednotky a tou je byte, který obsahuje 8 bitů. Tím pádem, pokud oddíl (a potažmo vektor) nemá velikost dělitelnou beze zbytku osmi, zůstanou některé bity v posledním bytu nevyužité. To je nutné indikovat právě počtem bitů. Z tohoto vyplývá, že počet bitů může být buď stejný jako počet bytů nebo nanejvýš o 7 větší.\\
@@ -271,7 +271,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
 \end{table}
 
 \subsection{Logical Volume Integrity Sequence}
-\label{sec:lvid}
+\label{subsec:lvid}
 Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TE). Ty dohromady vytváří \textit{Logical Volume Intergrity Sequence}. Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Odpovídá na následující otázky:
 \begin{itemize}
     \item Je Logický svazek v konzistentním stavu?
@@ -301,12 +301,12 @@ Souborová struktura UDF je postavena na třech deskriptorech, které se podíl�
 \end{itemize}
 
 \subsection{File Set Descriptor}
-\label{sec:fsd}
+\label{subsec:fsd}
 \textit{File Set Descriptor} (FSD) je výchozím bodem pro čtení dat. Jeho pozice je opět uložena v LVD (více v kapitole \ref{sec:lvd}). Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.2 a také v tabulce \ref{tab:fsd}. Tento deskriptor obsahuje hlavně umístění kořenového adresáře a název svazku na kterém je uložený. Další údaje uložené v tomto deskriptoru jsou umístění souborů obsahující copyright nebo abstrakt. Ty stojí mimo adresářovou strukturu a jsou využívány například na DVD s filmy.\\
 Kořenový adresář je jediný, který není uveden pomocí \textit{File Identifier Descriptor} ale přímo pomocí ICB mířícího na \textit{File Entry}. 
 
 \subsection{File Entry}
-\label{sec:fe}
+\label{subsec:fe}
 \textit{File Entry} (FE) je deskriptor, který, jak nazančuje název, popisuje jednotlivé záznamy v oblasti dat. Ke každému jednomu souboru nebo adresáři patří jeden FE. Jeho umístění je určeno jeho \textit{rodičovským adresářem}, respektive ji určuje \textit{File Identifier Descriptor} který je v něm uložen.\\
 Z tohoto pravidla existuje jedna výjimka a to v případě kořenového adresáře. Ten nemá nadřazený adresář (sám je nejvýše umístěný adresář) a jeho pozice je určena přímo pomocí FSD. To sebou nese druhou výjimku a tou je \textit{Unique ID}. To nabývá hodnot 1 až $2^{64}$, přičemž 0 je vyhrazena pro použití před nastavením \textit{Unique ID} a pro kořenový adresář, který jediný musí mít \textit{Unique ID} rovno 0.\\
 Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.6, a z ní pouze vyberu některé důležité části.\\
@@ -317,7 +317,7 @@ Zde je opět výjimka týkající se kořenového adresáře. Tou je reference n
 Posledním faktem, který je nutno zdůraznit u FE je existence novější verze \textit{File Entry} a tou je \textit{Extended File Entry} (EFE). Ta přišla s verzí UDF 2.00 a je doporučené je používat místo FE. Ovšem pro zachování zpětné kompatibility je možné nechat FE na médiu a nadále je používat a nové soubory ukládat pomocí EFE. To s sebou nese nutnost rozlišovat mezi FE a EFE v rámci média, protože EFE pouze nerozšiřuje FE, ale mění i jeho strukturu, takže původní položky jsou sice shodně pojmenované a nesou stejnou informaci, ale mají jiné umístění. 
 
 \subsection{File Identifier Descriptor}
-\label{sec:fid}
+\label{subsec:fid}
 \textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4 a v tabulce \ref{tab:fid}.\\
 Účelem FID je zrychlení přístupu k metadatům souborů na sekvenčních médiích, kde přesun na jiné místo trvá delší dobu než u zařízení s náhodným přístupem (\textit{Random Access}). Takto jsou základní údaje o souboru (adresáři) shluknuty dohromady v rámci rodičovského adresáře a není potřeba je hledat na jiných místech média.\\
 Ze strutury FID stojí za zvýraznění \textit{File Identifier}, který udržuje jméno záznamu. Dále se jedná o \textit{File Characteristics}, které popisují vlastnsti záznamu z hlediska práce s ním. Kompletní výčet možností je v tabulce \ref{tab:fid-char}. Položka, kterou je také vhodné zmínit je \textit{Unique ID}. To by mělo být shodné s hodnotou, která je uložená v FE, na které ukazuje. Nejdůležitějším údajem je samozřejmě pozice samotného FE (nebo EFE). Ta je uložena v položce \textit{ICB}. 
@@ -350,7 +350,7 @@ V tuto chvíli se o projekt udftools stará Pali Rohár, který je správce proj
 Protože bude moje práce navazovat na tento projekt, bude v tuto chvíli maximální možná verze omezena na UDF 2.01, stejně jako zbytek balíčku. Důvodem je sdílená knihovna se zbytkem balíčku obsahující hlavičky deskriptorů, kde by zásah způsobil změny v ostatních nástrojích a také nedostatek testovacích médií ve vyšších verzích.
 
 \chapter{Definice chyb na souborovém systému}
-\label{sec:definice-chyb}
+\label{ch:definice-chyb}
 %\todo{Jak se to může pokazit? A co se s tím dá dělat?}
 Chyby na souborovém systému mohou vzniknout ze třech příčin. 
 \begin{enumerate}
@@ -380,10 +380,43 @@ Nutno podotknout, že toto pouze zajišťuje správnost z hlediska poškození m
 \end{figure}
 
 \subsection{Kontrolní součet}
-\todo{Napsat}
-
+\label{subsec:checksum}
+Výpočet kontrolního součtu (\textit{checksum}) patří k nejzákladnějším kontrolním mechanismům.\\
+Mějme číslenou sekvenci nad kterou chceme vypočítat kontrolní součet. Postupně přičítejme k výchozí hodnotě (typicky 0) hodnoty z číselné sekvence. Výsledné číslo je kontrolní součet, neboli součet všech hodnot původní sekvence.\\
+V implementaci ve výpočetní technice je toto obvykle realizováno nad sekvencí z nejmenšího datového typu, t.j. nad bytem, který může nabývat hodnot $<0;2^{8}-1>$. Datový typ kontrolního součtu bývá také o velikosti 1~B, ale může být i větší. Pokud hodnota součtu překoná maximální velikost použitého datového typu, výsledek je oříznut a je zachována jeho méně významná část.\\
+Příklad výpočtu kontrolního součtu pro 5~B dlouhou sekvenci $S$ a 1~B checksum $C$.
+\begin{equation} \label{eq:st0}
+    \begin{split}
+        S &= \{10, 25, 130, 221, 85\}\\
+        C &= 0
+    \end{split}
+\end{equation}
+Na řádku \ref{eq:st0} je vidět výchozí stav výpočtu. 
+\begin{equation} \label{eq:st1}
+    C = C + S(1) = 10
+\end{equation}
+\begin{equation} \label{eq:st2}
+    C = C + S(2) = 35
+\end{equation}
+\begin{equation} \label{eq:st3}
+    C = C + S(3) = 165
+\end{equation}
+Na řádcích \ref{eq:st1}, \ref{eq:st2} a \ref{eq:st3} proběhlo postupné přičítání hodnot sekvence $S$.
+\begin{equation} \label{eq:st4}
+    \begin{split}
+    C &= C + S(4) = 516 > 256\\
+    C &= C - 256 = 260 > 256\\
+    C &= C - 256 = 4
+    \end{split}
+\end{equation}
+Na řádku \ref{eq:st4} došlo po přičtení další hodnoty k přetečení povoleného rozsahu. Proto bylo nutné jej oříznout (odečíst) dokud nebyla hodnota nižší než povolená. Poté výpočet pokračuje dál.
+\begin{equation} \label{eq:st5}
+    C = C + S(5) = 89
+\end{equation}
+Na řádku \ref{eq:st5} je přičtení poslední hodnoty a výsledek. Kontrolní součet je tedy v tomto případě $C=89$.
 \subsection{Cyclic Redundancy Check}
-\label{sec:crc}
+\label{subsec:crc}
+\textit{Cyclic Redundancy Check} (CRC) je složitější varianta kontrolního součtu. 
 \todo{Přepsat}
 Cyclic Redundancy Check je narozdíl od ostatních metod poněkud složitější a proto si zaslouží vysvětlení. CRC se skládá z několika částí. Výchozí částí je generační polynom (GP), který určuje na jaké chyby bude naše CRC citlivé. Generační polynom je vytvořen jako sekvence jedniček a nul o stejné délce jako výsledné CRC. Pro polynom $GP=1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0$ odpovídá podle koeficientů GP 1010.\\
 Výchozí operací která je jádrem CRC je logická funkce XOR. Pro demonstraci výpočtu CRC si nadefinujeme řetězec dat, pro která je potřeba CRC spočítat.
@@ -435,12 +468,13 @@ Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrol
 V UDF se využívá několika různých mechanismů, které jsou i v případě nutnosti kombinovány pro zvýšení robustnosti. Z obecných mechanismů se jedná o tyto:
 \begin{itemize}
     \item Redundace dat na médiu,
-    \item checksum,
+    \item kontrolní součet (checksum),
     \item CRC.
 \end{itemize}
-V tomto výčtu jsou zachyceny všechny obecné kontrolní mechanismy na úrovni UDF. Kontrolní součty jsou popsány v kapitolách \todo{Doplnit kapitolu o Checksum} \ref{sec:errordetection} a \ref{sec:crc}. Konkrétně je checksum použit pro kontrolu \textit{DescriptorTag} a CRC pro kontrolu samotného deskriptoru, přičemž jeho referenční výsledek je uložený v již zkotrolovaném tagu.\\
-Redundace deskriptorů byla zmíněna v kapitole \ref{sec:udf}. Lze si povšimnout, že čím je deskriptor důležitější pro samotnou funkci souborového systému, tím je jeho fyzická vzdálenost mezi jednotlivými výskyty na médiu větší. V případě AVDP, které je klíčové pro funkci je jeho vzdálenost téměř maximální možná vzhledem k velikosti média (poprvé je uložen na sektoru 256 a poté na konci média). Další případ redundance je v případě VDS.\\
-Vedle těchto obecných mechanismů jsou implementovány některé další, konkrétní pro UDF.
+V tomto výčtu jsou zachyceny všechny obecné kontrolní mechanismy na úrovni deskriptorů UDF. Kontrolní součty jsou popsány v kapitole \ref{subsec:checksum}, CRC je popsáno v kapitole \ref{subsec:crc}.\\
+Kontrolní součet je použit pro kontrolu \textit{DescriptorTag} a CRC pro kontrolu samotného těla deskriptoru, přičemž jeho referenční výsledek je uložený v již zkotrolovaném tagu. Tento princip je zachycen v kapitole \ref{sec:errordetection}.\\
+Redundance deskriptorů je mechanismus, kterým standard ECMA-167 ošetřil nejdůležitější deskriptory souborového systému a to AVDP (více v kapitole \ref{subsec:avdp}) a skupinu VDS (více v kapitole \ref{subsec:vds}). V případě AVDP byla redundance ještě podtržena fyzickou vzdáleností, kdy je první AVDP uloženo na sektoru 256 a druhý na konci média.\\
+Vedle těchto obecných mechanismů jsou implementovány některé další, konkrétní pro UDF, byť stále vycházející ze standardu ECMA-167.
 \begin{itemize}
     \item Použití \textit{Unique ID} pro zabezpečení párovatelnosti metadat souborů k patřičným adresářům. Více v kapitole \ref{sec:filetree}. 
     \item Udržování časových značek indikující poslední práci se souborovým systémem. Více v kapitole \ref{sec:oprava-lvid}.
@@ -458,31 +492,32 @@ Pořadí úkonů zápisové operce na médium je toto:
     \item Ukončení zápisové operace nastavením \textit{Integrity Type} na \textit{Close}.
 \end{enumerate}
 Toto pořadí úkonů zajišťuje, že při přerušení zápisu dat zůstane systém v nekonzistentním stavu a bude možné detekovat, že zápis byl nekorektně přerušen.
+
 \chapter{Realizace nástroje pro detekci chyb}
-%\todo{Vlastní řešení.}
-%\todo{https://github.com/illumos/illumos-gate/tree/master/usr/src/cmd/fs.d/udfs/fsck}
-\todo{Dopln text.}
-Moje implementace nástroje \texttt{udffsck} v balíčku \texttt{udftools} navazuje na ostatní nástroje v tomto balíčku, využívá sdílené hlavičky s definicemi UDF a jeho cílem je být plnohodnotným \texttt{fsck} nástrojem pro UDF.\\
-Implementace samotná je rozdělena do dvou fází. V první fázi je cílem vytvořit nástroj pro detekci chyb. Jeho cílem není ani obnovovat data ani opravovat chyby v metadatech, ale pouze říct, kde je jaká část poškozená, čili víceméně to, co umí nástroj z distribuce Open Solaris. Ve druhé fázi je cílem nalezené chyby opravit, pokud to bude možné. Vzhledem k poměrně vysoké robustnosti samotného UDF díky jeho návrhu pro optická média, kde se předpokládá poškození nosiče, je relativně vysoká šance na úspěch, co se týká opravování chyb v metadatech. Samotná data podle všeho opravit nepůjdou.\\
-Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven.\\
-Myšlenkovou strukturu programu zachycuje obrázek \ref{fig:steps1}. 
+\label{ch:realizace}
+Implementace nástroje \texttt{udffsck} je provedena v rámci balíčku \texttt{udftools}. Navazuje tak na existující sdílenou knihovnu, která obsahuje sdílené hlavičky s definicemi deskriptorů podle standardu ECMA-167.\\
+Struktura nástroje je rozdělena do třech částí. V první části probíhá načtení média a parsování vstupních parametrů. Druhá část detekuje přítomnost UDF, načítá deskriptory souborového systému a strom souborů a detekuje chyby v nich. Třetí část opravuje chyby na základě výsledků z předchozí části.\\
+Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých funkcí implementace. Tato struktura je zachycena v obrázku \ref{fig:steps1}.
+Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. Tento krok předpokládá funkční a v rámci možností otestovaný nástroj s vytvořenou manuálovou stránkou a testovacím nástrojem pro automatické zachování funkčnosti po začlenění.\\
+\todo{opravit obrázek na novou verzi}
 \begin{figure}[ht] 
     \centering
     \includegraphics[scale=0.4]{obrazky/steps1.eps}
-    \caption{Zjednodušený algoritmus činnosti programu}
+    \caption{Algoritmus činnosti nástroje}
     \label{fig:steps1}
 \end{figure}
 
-\section{Detekce chyb na médiu}
-Detekce chyb na médiu je v tuto chvíli implementována pouze na úrovni porovnání kontrolních součtů a CRC.\\
+\section{Realizace detekce chyb v deskriptoru}
+\label{sec:realizace-detekce}
+Detekce chyb v deskriptorech je implementována na úrovni porovnání kontrolních součtů a CRC. Další mechanismus, který je využíván je ověření deklarovaného umístění deskriptoru vůči skutečnosti.\\
 Kontrolní součty jsou implementovány mou funkcí\\
 \centerline{\texttt{\detokenize{uint8_t calculate_checksum(descTag tag)}}}\\
-v souboru \texttt{udffsck.c}. Tato funkce pouze počítá checksum nad zadaným tagem a výsledek vrací. Proto je zapouzdřena do funkce\\ \todo{Doplnit kapitolu checksum}
+v souboru \texttt{udffsck.c}. Tato funkce pouze počítá kontrolní součet (viz. kapitola \ref{subsec:checksum}) nad zadaným tagem a výsledek výpočetu je vrácen jako návratová hodnota. Proto je zapouzdřena do funkce\\ 
 \centerline{\texttt{\detokenize{int checksum(descTag tag)}}}\\
-která přidává porovnání se checksum v tagu. Takto fukce vrací 0 při rozdílu a nenulovou hodnotu při shodě.\\
+která přidává porovnání s referenční hodnotou kontrolního součtu, který je uložen v tagu. Takto fukce vrací 0 při rozdílu a nenulovou hodnotu při shodě.\\
 CRC je počítáno funkcí sdílené knihovny, která je součástí balíku. Ta byla opět zapouzdřena funkcí\\
 \centerline{\texttt{\detokenize{int crc(void * desc, uint16_t size)}}}\\
-aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem je, že \textit{DescriptorTag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom, jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.)
+aby vracela tentokrát 0 při neshodě a nenulovou hodnotu při shodě. Oproti funkci pro výpočet kontrolního součtu je třeba funkci pro výpočet CRC dodat i délku. Důvodem tohoto oproti výpočetu kontrolního součtu pro \textit{DescriptorTag} je, že \textit{tag} má fixní délku a tu lze zjistit ze struktury, která jej popisuje pomocí funkce \texttt{sizeof()}. Deskriptory ovšem tuto vlastnost nemají. Jsou deskriptory, které mají délku fixní, ale část má délku proměnnou podle dat, která nesou (například délka struktury \textit{File Entry} se závislá na tom, jestli se jedná o soubor nebo adresář a v případě adresáře ještě kolik dalších deskriptorů je uvnitř.) Stejně tak není možné počítat nad celou délkou sektoru, protože CRC se liší podle délky, i když je zbytek vstupní sekvence složen pouze z nulových hodnot. Více o tomto je popsáno v kapitole \ref{subsec:crc}.
 
 \section{Oprava deskriptoru}
 \label{sec:oprava-deskriptoru}
