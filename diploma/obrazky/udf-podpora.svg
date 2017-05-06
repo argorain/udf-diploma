@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   inkscape:label="Pozadí"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="Nový dokument 11">
+  <defs
+     id="defs5060" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="433.28146"
+     inkscape:cy="697.50619"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1024"
+     inkscape:window-x="1366"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5063">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ff0000;fill-opacity:0.11764706;stroke:#000000;stroke-width:1.31024444;stroke-opacity:1"
+       d="m 426.67084,254.1584 c 40.51246,70.41041 -74.86448,165.29303 -164.72233,165.29303 -89.85785,0 -74.07409,-81.43056 -33.4025,-140.03921 40.67159,-58.60866 157.61236,-95.66423 198.12483,-25.25382 z"
+       id="path5574"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zszz" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="132.35461"
+       y="250.50798"
+       id="text5601"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5603"
+         x="132.35461"
+         y="250.50798">MS Windows</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#479e00;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="486.35678"
+       y="228.03952"
+       id="text5605"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5607"
+         x="486.35678"
+         y="228.03952">Apple macOS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="522.9986"
+       y="394.60864"
+       id="text5609"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5611"
+         x="522.9986"
+         y="394.60864">GNU/Linux</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffdd00;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="129.51492"
+       y="437.01923"
+       id="text5613"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5615"
+         x="129.51492"
+         y="437.01923">Solaris</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#eb00ff;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="355.33136"
+       y="533.85022"
+       id="text5617"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5619"
+         x="355.33136"
+         y="533.85022">BSD</tspan></text>
+    <path
+       style="fill:#479e00;fill-opacity:0.11764706;stroke:#000000;stroke-width:1.28395498;stroke-opacity:1"
+       d="m 446.38354,398.77132 c -91.95028,0.40726 -133.35947,-43.32215 -133.35947,-122.93053 0,-79.60839 113.59965,-60.74912 195.98892,-33.02696 82.38927,27.72216 29.32083,155.55023 -62.62945,155.95749 z"
+       id="path5574-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zszz" />
+    <path
+       style="fill:#ffdd00;fill-opacity:0.11764706;stroke:#000000;stroke-width:1.28395498;stroke-opacity:1"
+       d="m 301.49995,466.62027 c -30.75867,-35.56716 20.85258,-185.56 86.89244,-148.18436 38.84675,21.98555 34.99851,112.2813 19.09095,147.86431 -15.90757,35.58302 -75.22472,35.88721 -105.98339,0.32005 z"
+       id="path5574-5-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zszz" />
+    <path
+       style="fill:#eb00ff;fill-opacity:0.11764706;stroke:#000000;stroke-width:1.28395498;stroke-opacity:1"
+       d="m 369.81667,510.54643 c -128.06155,4.53712 -186.70978,-13.5023 -167.66598,-97.67672 18.49952,-81.76871 166.47033,-134.3682 219.36415,-92.46396 43.25874,34.27101 10.37599,32.81005 10.86434,88.36185 0.48835,55.5518 47.47724,97.52201 -62.56251,101.77883 z"
+       id="path5574-5-6-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csszc" />
+    <path
+       transform="matrix(1.323399,0,0,1.2456866,-21.577326,81.092241)"
+       style="fill:#000000;fill-opacity:0.11764706;stroke:#000000;stroke-opacity:1"
+       d="m 410.35023,284.21513 c 0,63.90723 -40.18249,54.08434 -107.64013,54.08434 -67.45764,0 -135.88229,13.06657 -135.88229,-50.84066 0,-63.90724 70.71455,-116.52521 138.17219,-116.52521 67.45764,0 105.35023,49.37429 105.35023,113.28153 z"
+       id="path5574-5-6-8-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssss" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="353.55341"
+       y="259.39243"
+       id="text5756"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5758"
+         x="353.55341"
+         y="259.39243">ExFAT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass Semi-Bold"
+       x="348.50262"
+       y="338.18433"
+       id="text5760"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5762"
+         x="348.50262"
+         y="338.18433"
+         style="font-weight:600;-inkscape-font-specification:Overpass Semi-Bold">UDF</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="349.51273"
+       y="358.38739"
+       id="text5764"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5766"
+         x="349.51273"
+         y="358.38739">FAT32</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="453.5585"
+       y="376.57013"
+       id="text5768"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5770"
+         x="453.5585"
+         y="376.57013">HFS+</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="247.48735"
+       y="378.59042"
+       id="text5772"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5774"
+         x="247.48735"
+         y="378.59042">NTFS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="319.20819"
+       y="458.39249"
+       id="text5776"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5778"
+         x="319.20819"
+         y="458.39249">ZFS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="451.53818"
+       y="348.28589"
+       id="text5780"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5782"
+         x="451.53818"
+         y="348.28589">EXT4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="358.60416"
+       y="429.09805"
+       id="text5784"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5786"
+         x="358.60416"
+         y="429.09805">UFS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="475.78186"
+       y="282.62595"
+       id="text5788"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5790"
+         x="475.78186"
+         y="282.62595">appFS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="463.66"
+       y="442.23004"
+       id="text5792"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5794"
+         x="463.66"
+         y="442.23004">btrfs</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 621.24382,400.81379 -93.94419,0 -7.52175,13.02805"
+       id="path5796"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 606.09153,234.13862 -111.11678,0 -4.04061,4.04061"
+       id="path5798"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 133.34014,257.37213 108.08632,0 5.05076,5.05076"
+       id="path5800"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 130.30968,441.21989 57.57869,0 103.03556,-14.14213"
+       id="path5802"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 391.93919,537.18438 -39.39595,0 -7.07107,-26.26396"
+       id="path5804"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

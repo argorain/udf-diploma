@@ -17,31 +17,31 @@ Důvodem pro rozdělení na oddíly může být oddělení uživatelských dat o
 \section{Logical Volume Manager (LVM)}
 %\todo{https://wiki.archlinux.org/index.php/LVM}
 Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (\cite{arch-lvm}).\\
-LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na následujícím obrázku:
-\pagebreak
-\begin{verbatim}
-Disk1 (/dev/sda):
- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-|Partition1 50GB (Physical volume) |Partition2 80GB (Physical volume)     |
-|/dev/sda1                         |/dev/sda2                             |
-|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |
-                                                     
-Disk2 (/dev/sdb):
- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-|Partition1 120GB (Physical volume)                 |
-|/dev/sdb1                                          |
-| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _|
-\end{verbatim}
-Jak je vidět, situace obsahuje dva disky, každý o jiné velikosti a formátu. Pokud bychom chtěli vytvořit diskový oddíl, museli bychom sáhnout po řešení RAID 0 a disky posléze naformátovat dle potřeby. V případě změny velikosti by bylo nutné uložiště přeformátovávat. Ovšem při použití LVM situace vypadá například takto:
-\begin{verbatim}
-Volume Group1 (/dev/MyStorage/ = /dev/sda1 + /dev/sda2 + /dev/sdb1):
- _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-|Logical volume1 15GB  |Logical volume2 35GB    |Logical volume3 200GB    |
-|/dev/MyStorage/rootvol|/dev/MyStorage/homevol  |/dev/MyStorage/mediavol  |
-|_ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _|
-\end{verbatim}
-Všechny oddíly byly sloučeny do jedné logické skupny s názvem \texttt{MyStorage} s velikostí 250~GB a to bylo následně pouze logicky rozděleno na oddíly jak je vidět na obrázku. Tyto logické oddíly posléze budou naformátovány libovolným souborovým systémem.\\
-Zásadní rozdíl oproti RAID 0 je v možnostech změny struktury úložiště. V případě RAID 0 se změna promítá do formátování RAID úložiště, v případě LVM se jedná o změnu velikosti logické jednotky pouze za předpokladu existence nějakého volného místa, nezávisle na jeho místě na disku. Tudíž není třeba přesouvat oddíly pro potřeby jejich zvětšení.
+LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na obrázku \ref{fig:lvm1}. Jedná se o skupinu dvou pevných disků (\texttt{/dev/sda} a \texttt{/dev/sdb}), které jsou z nějakých důvodů, které nejsou podstatné, rozděleny na zobrazené oddíly.
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.42]{obrazky/lvm1.eps}
+    \caption{Výchozí situace z hlediska rozložení diskových oddílů}
+    \label{fig:lvm1}
+\end{figure}
+Náším cílem je vytvořit tři diskové oddíly s velikostmi 15~GB, 55~GB a 180~GB. Možnosti jsou dvě. První je RAID~0 a druhou je LVM. Pokud se rozhodneme pro řešení RAID~0, sloučíme disky dohromady do pole a naformátujeme je na požadované oddíly. Totéž můžeme vyrobit i pomocí LVM, jak je naznačeno na obrázku \ref{fig:lvm2}. Řešení pomocí RAID~0 by vypadalo podobně.
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.42]{obrazky/lvm2.eps}
+    \caption{Namapování diskových oddílů na LVM}
+    \label{fig:lvm2}
+\end{figure}
+Pokud se nyní soustředíme trochu více na LVM, můžeme si všimnout, že všechny oddíly byly sloučeny do jednoho logického oddílu \texttt{/dev/Store} s velikostí 250~GB. To bylo posléze logicky rozděleno na jednotlivé oddíly. Ty mohou poté být naformátovány libovolným souborovým systémem.\\
+Zásadní rozdíl oproti RAID 0 je v možnostech změny struktury úložiště. V případě RAID~0 se změna promítá do formátování RAID úložiště, v případě LVM se jedná o změnu velikosti logické jednotky pouze za předpokladu existence nějakého volného místa, nezávisle na jeho fyzickém umístění na disku. Tudíž není třeba přesouvat oddíly pro potřeby jejich zvětšení. Toto je demonstrováno na obrázku \ref{fig:lvm3}.
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.32]{obrazky/lvm3.eps}
+    \caption{Ukázka přidání nového disku a zvětšení oddílu na LVM}
+    \label{fig:lvm3}
+\end{figure}
+V situaci na obrázku došlo k přidání nového disku \texttt{/dev/sdc} do logického oddílu \ref{/dev/Store} a přiřazení nově vzniklého místa již existujícímu oddílu. Povšimněte si oranžově zvýrazněného oddílu \texttt{/dev/Store/homevol} na obrázku \ref{fig:lvm2} a nyní na obrázku \ref{fig:lvm3}. Jeho umístění první části zůstalo zachováno a nové místo se pouze připojilo. Stejně tak oddíl \texttt{/dev/Store/mediavol} nebylo třeba přesouvat. Jediný zásah, který je nutný pro používání nového místa je na straně soubového systému, t.j. jeho zvětšení na celý logický oddíl.\\
+Samozřejmně není nutnost veškeré místo přiřadit pouze jedinému oddílu, místo můžeme dle libosti přiřazovat oddílům, či vytvářet oddíly nové.\\
+Nutno podotknout, že toto řešení nenahrazuje RAID. Ten má stále svou sílu ve svých hardwarových řadičích, tudíž jeho výkonnost je vyšší, ale to je daň za jeho nižší flexibilitu.
 
 \section{Srovnání souborových systémů}
 Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých souborových systémů stejně tak jako jich bylo mnoho implementováno z ostatních operačních systémů. Některé z nich jsou používány i v současnosti, některé byly opuštěny nebo nahrazeny.\\
@@ -83,6 +83,13 @@ Mezi základní vlastnosti UDF patří:
     \item Jména souborů mohou mít délku až 254~B a jsou uložena v Unicode.
     \item Podporuje symbolické odkazy (symlink)
 \end{itemize}
+Na obrázku \ref{fig:udf-podpora} je zobrazena podpora vybraných souborových systémů ve vybraných operačních systémech. Jak je vidět, pouze UDF a FAT32 jsou jediné, které jsou podporované napříč všemi operačními systémy. Důvodem, proč je UDF nadřazené FAT32 robustonost celého souborového systému, která je daná návrhem standardu, který UDF popisuje.
+\begin{figure}[hb] 
+    \centering
+    \includegraphics[scale=0.82]{obrazky/udf-podpora.eps}
+    \caption{Podpora souborových systémů napříč operačními systémy}
+    \label{fig:udf-podpora}
+\end{figure}
 
 \section{Historie UDF}
 \label{sec:historie-udf}
@@ -494,25 +501,29 @@ Chyby které jsou detekovány vždy jsou chyby v kotrolních mechanismech deskri
 Na základě těchto požadavků vznikla struktura programu pro detekci těchto chyb. Její zjednodušená strukutura je zachycena na obrázku \ref{fig:steps-detekce}. 
 \begin{figure}[h] 
     \centering
-    \includegraphics[scale=0.4]{obrazky/steps1.eps}
+    \includegraphics[scale=0.4]{obrazky/steps1b.eps}
     \caption{Zjednodušený algoritmus detekce}
     \label{fig:steps-detekce}
 \end{figure}
-
+Zjednodušený z toho důvodu, že v něm není zachycena počáteční detekce velikosti sektoru a průchod stromem souborů je zjednodušen na jedinou operaci. Obecně se pod \textit{Load} rozumí načtení deskriptoru z média do operační paměti a pod \textit{Check} kontrola všech výše zmíněných chyb, pokud jsou v daném kroku aplikovatelné.\\
+V algoritmu jsou kroky barevně rozlišeny do třech kategorií podle důležitosti, respektive podle jejich vlivu na další činnost pokud jejich načtení nebo kontrola selže. Červené kroky jsou kritické pro činnost a jejich selhání znamená selhání programu. Oranžové kroky jsou s závislé na míře poškození. Pokud v PVD bude alespoň od každého druhu jeden deskriptor v pořádku, je možné pokračovat. Zelené kroky je možné vynechat ale může to být na úkor některých detekcí (v případě SBD by byla vynechána kontrola rozložení obsazeného místa).\\
+Návrh algoritmu pro korekci spočíval v navázání na existující detekční algoritmus. To spočívalo ve vytvoření mechanismu pro předání nalezených chyb druhé části algoritmu a způsobu jejich opravy. Tato část byla myšlenkově rozdělena opět na tři části a to na opravu deskriptorů jako takových, opravu volného místa a opravu stromu souborů. Struktura algoritmu korekce je zachycena na obrázku \ref{fig:steps-korekce}
+\begin{figure}[h] 
+    \centering
+    \includegraphics[scale=0.4]{obrazky/steps-korekce.eps}
+    \caption{Zjednodušený algoritmus detekce a korekce}
+    \label{fig:steps-korekce}
+\end{figure}
+V tomto obrázku, který navazuje na předchozí je cílem naznačit posloupnost jednotlivých operací a ukázat toky chybových stavů z detekcí ke korekcím (červené tečkované šipky). Modrý rámeček je část detekční, která je popsaná v předchozí části a zelený rámeřek je část korekční. Jak je vidět, protínají se u práce s deskriptorem FSD a se souborovým stromem. Důvodem je předejití zbytečnému dvojímu procházení souborovým stromem. Proto jsou chyby v něm opravovány jak jsou nacházeny. Zbytek oprav již je ve svých oddělených krocích.\\
+Důležitým detailem, který není v obrázku pro jednoduchost naznačen, je skutečnost, že každá korekce (t.j. zápis na médium) musí být autorizována uživatelem nebo apriori schválena při spuštění programu. Tudíž libovolná oprava může být přeskočena.
 
 \section{Implementace nástroje pro detekci a korekci chyb}
 \label{sec:implementace}
 Implementace nástroje \texttt{udffsck} je provedena v rámci balíčku \texttt{udftools}. Navazuje tak na existující sdílenou knihovnu, která obsahuje sdílené hlavičky s definicemi deskriptorů podle standardu ECMA-167.\\
-Struktura nástroje je rozdělena do třech částí. V první části probíhá načtení média a parsování vstupních parametrů. Druhá část detekuje přítomnost UDF, načítá deskriptory souborového systému a strom souborů a detekuje chyby v nich. Třetí část opravuje chyby na základě výsledků z předchozí části.\\
-Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých funkcí implementace. Tato struktura je zachycena v obrázku \ref{fig:steps1}.
-Závěrem implementace je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. Tento krok předpokládá funkční a v rámci možností otestovaný nástroj s vytvořenou manuálovou stránkou a testovacím nástrojem pro automatické zachování funkčnosti po začlenění.\\
-\todo{opravit obrázek na novou verzi}
-\begin{figure}[ht] 
-    \centering
-    \includegraphics[scale=0.4]{obrazky/steps1.eps}
-    \caption{algoritmus činnosti nástroje}
-    \label{fig:steps}
-\end{figure}
+Struktura nástroje je rozdělena do třech částí. V první části probíhá načtení média a parsování vstupních parametrů. Druhá část detekuje přítomnost UDF, načítá deskriptory souborového systému a strom souborů a detekuje chyby v nich. Třetí část opravuje chyby na základě výsledků z předchozí části. Návrh samotný je popsán v předchozí kapitole \ref{sec:navrh}.\\
+Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých kroků implementace. Ta postupovala podle algoritmu popsaném v předchozí kapitole, viz obrázek \ref{fig:steps-korekce}.
+Závěrem implementační fáze je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. Tento krok předpokládal funkční a v rámci možností otestovaný nástroj s vytvořenou manuálovou stránkou a testovacím nástrojem pro automatické zachování funkčnosti po začlenění. Více o publikaci nástroje je v kapitole \ref{ch:publikace}.\\
+Jednotlivé části implementace jsou popsány v následujících podkapitolách.
 
 \section{Realizace detekce chyb v deskriptoru}
 \label{sec:realizace-detekce}
