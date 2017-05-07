@@ -393,7 +393,8 @@ Výpočet kontrolního součtu (\textit{checksum}) patří k nejzákladnějším
 Mějme číslenou sekvenci nad kterou chceme vypočítat kontrolní součet. Postupně přičítejme k výchozí hodnotě (typicky 0) hodnoty z číselné sekvence. Výsledné číslo je kontrolní součet, neboli součet všech hodnot původní sekvence.\\
 V implementaci ve výpočetní technice je toto obvykle realizováno nad sekvencí z nejmenšího datového typu, t.j. nad bytem, který může nabývat hodnot $<0;2^{8}-1>$. Datový typ kontrolního součtu bývá také o velikosti 1~B, ale může být i větší. Pokud hodnota součtu překoná maximální velikost použitého datového typu, výsledek je oříznut na N-bitů a jsou zachovány jeho méně významné bity.\\
 Příklad výpočtu kontrolního součtu pro 5~B dlouhou sekvenci $S=\{10, 25, 130, 221, 85\}$ a 1~B checksum $C$.
-\begin{table}[]
+V tabulce \ref{tab:checksum-example} je příklad výpočtu nad sekvencí $S$. Kontrolní součet je tedy v tomto případě $C=89$.
+\begin{table}[h]
     \begin{tabular}{ | l | l | l | l | }
         \hline
         Iterace $i$ & Byte $B$  & \makecell{Kontrolní součet\\$C_{i}=(C_{i-1}+B) \bmod 256$}  & Popis \\ \hline\hline
@@ -407,56 +408,33 @@ Příklad výpočtu kontrolního součtu pro 5~B dlouhou sekvenci $S=\{10, 25, 1
     \label{tab:checksum-example}
     \caption{Příklad výpočtu kontrolního součtu}
 \end{table}
-V tabulce \ref{tab:checksum-example} je příklad výpočtu nad sekvencí $S$. Kontrolní součet je tedy v tomto případě $C=89$.
 
 \subsection{Mechanismus Cyclic Redundancy Check}
 \label{subsec:crc}
-\textit{Cyclic Redundancy Check} (CRC) je složitější varianta kontrolního součtu. 
-\todo{Přepsat}
-Cyclic Redundancy Check je narozdíl od ostatních metod poněkud složitější a proto si zaslouží vysvětlení. CRC se skládá z několika částí. Výchozí částí je generační polynom (GP), který určuje na jaké chyby bude naše CRC citlivé. Generační polynom je vytvořen jako sekvence jedniček a nul o stejné délce jako výsledné CRC. Pro polynom $GP=1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0$ odpovídá podle koeficientů GP 1010.\\
-Výchozí operací která je jádrem CRC je logická funkce XOR. Pro demonstraci výpočtu CRC si nadefinujeme řetězec dat, pro která je potřeba CRC spočítat.
-\begin{verbatim}
-Data: 0100 1011 0001 1111 1100
-\end{verbatim}
-K těmto datům je potřeba připojit tolik nul, kolik má být délka výsledného CRC, takže výsledek vypadá následovně.
-\begin{verbatim}
-Data: 0100 1011 0001 1111 1100 0000
-                               ----
-\end{verbatim}
-Nyní je potřeba spočítat samotné CRC. To se provádí postupným XORem nad daty a posléze mezivýsledky tak dlouho, dokud nedojdeme s generačním polynomem až na konec dat. Důležitá poznámka je, že generační polynom se vždy zarovnává s nejbližší jedničkou a až poté probíhá XOR. Poté to co zbylo je naše CRC a to se přidá k datům do vyhrazené oblasti, kterou jsme přidali v předchozím kroku.
-\begin{verbatim}
-     0100 1011 0001 1111 1100 0000
-XOR   101 0
-1.   -----------------------------
-     0001 1011 0001 1111 1100 0000
-XOR     1 010
-2.   -----------------------------
-     0000 1111 0001 1111 1100 0000
-XOR       1010
-3.   -----------------------------
-     0000 0101 0001 1111 1100 0000
-XOR        101 0
-4.   -----------------------------
-     0000 0000 0001 1111 1100 0000
-XOR               1 010
-5.   -----------------------------
-     0000 0000 0000 1011 1100 0000
-XOR                 1010 
-6.   -----------------------------
-     0000 0000 0000 0001 1100 0000
-XOR                    1 010
-7.   -----------------------------
-     0000 0000 0000 0000 1000 0000
-XOR                      1010
-8.   -----------------------------
-     0000 0000 0000 0000 0010 0000
-XOR                        10 10
-9.   -----------------------------
-     0000 0000 0000 0000 0000 1000
-                              ----
-\end{verbatim}
-Na tomto příkladu jsme demonstrovali výpočet 4-bitového CRC nad 20 bity dat. Výsledné CRC je 1000.\\
-Detekce chyby může být provedena dvěma způsoby. Buď stejně jako u kontrolního součtu prostým výpočtem CRC nad daty bez vlastního CRC a jejich porovnáním anebo hledáním chyby pomocí chybového vektoru. V případě, že jsou data správná, po operaci XOR nad celými daty včetně CRC musí vyjít chybový vektor 0. Ovšem pokud je datech chyba, vektor vyjde nenulový.
+\textit{Cyclic Redundancy Check} (CRC) je složitější varianta kontrolního součtu. Matematické odůvodnění jeho funkce je v \cite{crc-prednasky}.\\
+Důvody pro nasazení CRC oproti kontrolnímu součtu jsou hlavně odolnost vůči chybám vzniklým prohozením bytů, které kontrolní součet z evidentních důvodů nezachytí, zatímco CRC ano. Dalším důvodem je různá výsledná hodnota pro různé délky vstupních dat přestože jsou všechny vstupní hodnoty nulové.\\
+Ústředním bodem CRC je generační polynom $GP$. Ten určuje na jaký druh chyb bude CRC citlivé, zdůvodnění opět v \cite{crc-prednasky}. Základní operací, která je při výpočtu CRC použita je logická operace XOR, která postupně maskuje vstupní sekvenci s cílem ji vynulovat. Z tohoto důvodu je vždy $GP$ vždy zarovnaný nejvíce významným bitem s nejvíce významným bitem dat.\\
+Samotný výpočet je naznačen v tabulce \ref{tab:crc-example}. Je zde aplikován výpočet 4-bitového CRC s generačním polynomem $GP=1 \cdot x^3 + 0 \cdot x^2 + 1 \cdot x^1 + 0 \cdot x^0$, neboli dle koeficientů \textit{GP=1010}. Pro ukázku jsou použita vstupní data \texttt{0100 1011 0001 1111 1100}. Ta jsou rozšířena o délku požadovaného CRC, tedy o čtyři bity s hodnotou 0 (viz. iterace 0 v tabulce.) Podtržená část naznačuje aktuální umístění $GP$, t.j. které bity jsou aktuálně eliminovány.\\
+Na konci výpočtu zbude 4-bitové číslo, které je hledaná hodnota CRC. Detekce zda došlo k chybě probíhá stejným způsobem. K datům je připojena část o délce CRC a je vypočítáno znovu. Pokud se výsledky shodují, data jsou v pořádku.\\
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ | l | l | l | }
+        \hline
+        Iterace $i$ & \makecell{CRC\\$C_{i}=C_{i-1} \bigoplus GP$}  & Popis \\ \hline\hline
+        0           & \texttt{0\underline{100 1}011 0001 1111 1100 0000}         & Výchozí stav \\ \hline
+        1           & \texttt{000\underline{1 101}1 0001 1111 1100 0000}         & První XOR s $GP$ \\ \hline
+        2           & \texttt{0000 \underline{1111} 0001 1111 1100 0000}         & \\ \hline
+        3           & \texttt{0000 0\underline{101 0}001 1111 1100 0000}                & \\ \hline
+        4           & \texttt{0000 0000 000\underline{1 111}1 1100 0000}                & \\ \hline
+        5           & \texttt{0000 0000 0000 \underline{1011} 1100 0000}                & \\ \hline
+        6           & \texttt{0000 0000 0000 000\underline{1 110}0 0000}                & \\ \hline
+        7           & \texttt{0000 0000 0000 0000 \underline{1000} 0000}                & \\ \hline
+        8           & \texttt{0000 0000 0000 0000 00\underline{10 00}00}                & \\ \hline
+        9           & \texttt{0000 0000 0000 0000 0000 \underline{1000}}           & Výsledné CRC\\ \hline
+    \end{tabular}
+    \label{tab:crc-example}
+    \caption{Příklad výpočtu kontrolního součtu}
+\end{table}
 
 \section{Použité kontrolní mechanismy v UDF}
 \label{sec:kontrolni-mechanismy}
@@ -642,7 +620,6 @@ Druhou činností, kterou funkce \texttt{is\_udf()} pokrývá je první pokus o 
 
 \section{Načtení, kontrola a korekce deskriptoru AVDP}
 \label{sec:nacteni-a-oprava-avdp}
-\todo{Predelat obrazek}
 \textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčovou částí UDF, protože určuje výchozí bod pro čtení souborového systému (na rozdíl od VRS, které pouze určuje přítomnost UDF). Jak je uvedeno v kapitole \ref{subsec:avdp}, UDF rozlišuje čtyři možná umístění AVDP, přičemž přítomné na mediu může být jedno nebo až tři.\\
 Jejich načítání pro potřeby další práce se souborovým systém lze popsat algoritmem na obrázku \ref{fig:avdp}. Algoritmus prochází možné lokace AVDP dokud neuspěje nebo nedojdou možnosti. Pro potřeby kontroly a opravy média je třeba po nalezení alespoň jednoho správného AVDP ostatní podle něj opravit.\\
 Jak je uvedeno, je možné aby bylo na médiu AVDP uloženo jednou nebo až třikrát. Toto souvisí se stavem finalizace média. Více o finalizaci je v kapitole \ref{sec:udf-struktura}.\\
@@ -661,6 +638,7 @@ Případné nalezené chyby jsou uloženy do struktur popsaných v kapitole \ref
 
 \section{Načtení, kontrola a korekce deskriptoru VDS}
 \label{sec:nacteni-a-oprava-vds}
+\todo{dopln obrazek}
 Po úspěšném nalezení funkčního AVDP je možné načíst \textit{Volume Descriptor Sequence} (VDS). Tato skupina metadat je uložena na dvou místech, typicky jedno na začátku a druhé na konci média (ale není to pravidlem). Pozice obou je uložena právě v AVDP.\\
 Tato skupina deskriptorů je popsána v kapitole \ref{subsec:vds}. Deskriptory jsou uloženy za sebou v jednotlivých sektorech, přičemž poslední musí být vždy \textit{Terminating Descriptor}. Jak hlavní, tak záložní VDS by měly být ekvivalentní (ačkoli ne nutně ve stejném pořadí.)\\
 Jednotlivé deskriptory jsou načítány a ukládány do struktur pro další zpracování. První kontrola během načítání spočívá v porovnání kontrolního součtu tagu deskriptoru (viz kapitola \ref{sec:errordetection}). Pokud tato kontrola uspěje, je možné provést porovnání CRC, protože již máme díky ověřenému tagu jistou totožnost deskriptoru, jeho předpokládané CRC a polohu. Pokud kontrola CRC uspěje, zkontroluje se poloha deskriptoru vůči deklarovanému umístění v tagu. Pokud i tato kontrola je v pořádku, lze prohlásit tag za správný. Pokud by byly v pořádku jako kontrolní součet, tak CRC, ale bylo by špatně deklarované umístění, lze s tagem pracovat, protože data která nese jsou s největší pravděpodobností v pořádku, ale je nutné opravit jeho umístění a následně přepočítat kontrolní součet a CRC. 
@@ -720,12 +698,25 @@ Nutno podotknout, že SBD nemusí být vůbec na médiu přítomno. Jeho určen�
 
 \section{Kontrola a obnova stromu souborů}
 \label{sec:filetree}
-\todo{opravit obrazek}
 Obnova stromu uživatelských dat je klíčová část programu. Bez ní nemá tento nástroj význam. Vzhledem k faktu, že \texttt{fsck} nemá za cíl detekovat chyby v datech samotných a UDF také neimplementuje ochranné algoritmy na data samotná ale jen na metadata, není bohužel možné poškozená data ani detekovat a tudíž ani opravit. Je možné se pokusit zrekonstruovat adresářovou strukturu a určit místo, kde by data měla být.\\
 Důvodem vynechání dat z detekce a korekce na úrovni \texttt{fsck} je skutečnost, že fyzické médium má integrované ochranné mechanismy v sobě, například v podobě ECC bloků. Proto se předpokládá, že pokud jsou data jednou korektně uložena, médium se postará o jejich správnost.\\
 Ústředními deskriptory u stromu souborů jsou deskriptory \textit{(Extended) File Entry} (FE/EFE), který je popsaný v kapitole \ref{subsec:fe} a \textit{File Identifier Descriptor} (FID), který je popsaný v kapitole \ref{subsec:fid}.\\ 
-Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře (proto algoritmus začíná čtením FE). Pokud je toto úspěšné, pokračuje se k čtení FID a takto se postupně projde celou adresářovou strukturou.\\
-Místa na obrázku označená jako \textit{ERROR} značí místa, kde došlo k chybě některého z kontrolních mechanismů a bude nutné přistoupit k opravě. 
+\begin{figure}[] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.36]{obrazky/get-file.eps}
+    \caption{Algoritmus načítání descriptorů FE}
+    \label{fig:files}
+\end{figure}
+\begin{figure}[] 
+    \centering
+    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
+    \includegraphics[scale=0.36]{obrazky/inspect-fid.eps}
+    \caption{Algoritmus načítání descriptorů FID}
+    \label{fig:fid}
+\end{figure}
+Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře, která je předána algoritmu. Od tohoto bodu probíhá algoritmus zachycený na obrázku. Předpokladem úspěšného průchodu je správnost všech kontrolních mechansimů. Ty není možné opravit, pouze je možné detekovat chybu. Ovšem pokud je deskriptor identifikován a selhala kontrola CRC, je uživateli v interaktivním režimu poskytnuta možnost tuto chybu ignorovat. Opravitelné chyby jsou chyby týkající se \textit{Unique ID} a časových značek. Po fázi detekce chyb následuje fáze hledání následující části stromu. Existuje několik druhů alokačních deskriptorů. Liší se způsobem jakým udržují informaci a kam mohou ukazovat. Povolené varianty jsou \textit{Long Allocation Descriptor} (LongAD), který ukazuje na logický blok v libovolném oddílu. \textit{Short Allocation Descriptor} (ShortAD) naopak může ukazovat na logický blok pouze ve svém oddílu. Poslední variantou je uložení deskriptorů FID přímo v FE (varianta ADinICB). Tato větev využívá volného místa, které vzniká za většinou deskriptorů, takže jsou FID uloženy přímo. Je zde použit deskriptor \textit{Extended Attribute Header Descriptor}, který v sobě nese buď nějaká implmenetační data, nebo sekvenci deskriptorů FID. Deskriptory FID jsou v obou případech procházeny iterativně dokud neskončí jeho načtení chybou (ať už protože je poškozený, tudíž není možné strom dále projít nebo proto že sekvence skončila.) Zpracování samotných deskriptorů FID je popsáno ve vlastním algoritmu, který je na obrázku \ref{fig:fid}.\\
+Algoritumus pro načítání deskriptorů FID je přímější. Začátek algoritmu je stejný jako v předchozím případě. Poté následuje sekvence dotazů, kdy nemá význam FID sledovat. Jedná se o příznak smazání, referenci na rodičovský adresář, sebe sama a kořenový adresář. Vzhledem k faktu, že chceme postupovat do hloubky, tyto reference nás nezajímají a proto algoritmus v tomto bodě končí (t.j. v algoritmu na obrázku \ref{fig:files} se přejde ke kontrole dalšího FID). Pokud touto částí algoritmus projde, přistoupí se k uložení aktuálního \textit{Unique ID} pro porovnání s FE a jeho kontrola na nulovost. Ta je případně opravena. Poté už následuje načtení pozice nového deskriptoru FE a jeho zpracování. Tím se algoritmus vrací opět k předchozímu algoritmu na obrázku \ref{fig:files}.\\
 Během průchodu se sleduje několik parametrů, které jsou nutné ať už pro kontrolu a opravu stromu nebo pro opravu metadat v LVID \ref{sec:nacteni-a-oprava-lvid} a SBD \ref{sec:nacteni-a-oprava-sbd}. Jedná se o tyto:
 \begin{itemize}
     \item Je \textit{Unique ID} nenulové (nulové musí být pouze pro kořenový adresář)?
@@ -746,13 +737,6 @@ Základním předpokladem pro použití tohoto algoritmu je ztráta některého 
     \item Nyní máme části původního stromu a zbytek FE (EFE). Ať už kořeny jednotlivých podstromů (nejvyšší adresář) nebo osamocené FE (EFE). Ty už není možné dále zařadit, proto budou zařazeny do chybějícího adresáře, který bude znovu vytvořen na místě původního. Jsou zde ovšem jistá omezení. Obnova není schopná zpětně získat názvy jednotlivých FE (EFE), protože ty jsou uloženy ve FID rodičovského adresáře. Stejně tak pokud by bylo nenávratně ztraceno více adresářů, nebylo by možné rozlišit, které FE (EFE) patří do kterého. 
 \end{enumerate}
 Jak je vidět ve výše popsaném algoritmu, obnova není absolutní, ale může poskytnout dobrý výchozí bod pro záchranu dat. 
-\begin{figure}[] 
-    \centering
-    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
-    \includegraphics[scale=0.36]{obrazky/files.eps}
-    \caption{Algoritmus načítání souborů}
-    \label{fig:files}
-\end{figure}
 
 \chapter{Výsledky a testování nástroje pro detekci a korekci chyb}
 \label{ch:results}
