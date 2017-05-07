@@ -1,3 +1,139 @@
+\chapter{Výčet podporovaných OS souborovým systémem UDF}
+\label{ch:podpora}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ | l | l | l | }
+        \hline
+        Třída OS& Identifikátor OS  & Operační systém  \\ \hline\hline
+        0       & Libovolné         & Nedefinváno \\ \hline 
+        1       & 0                 & DOS/Windows 3.x\\ \hline 
+        2       & 0                 & OS/2\\ \hline 
+        3       & 0                 & Macintosh OS 9 a starší\\ \hline 
+        3       & 1                 & Macintosh OS X a novější\\ \hline 
+        4       & 0                 & obecný UNIX\\ \hline 
+        4       & 1                 & UNIX -- IBM AIX\\ \hline 
+        4       & 2                 & UNIX -- SUN OS/Solaris\\ \hline 
+        4       & 3                 & UNIX -- HP/UX\\ \hline 
+        4       & 4                 & UNIX -- Silicon Graphics Irix\\ \hline 
+        4       & 5                 & UNIX -- Linux\\ \hline 
+        4       & 6                 & UNIX -- MKLinux\\ \hline 
+        4       & 7                 & UNIX -- FreeBSD\\ \hline 
+        4       & 8                 & UNIX -- NetBSD\\ \hline 
+        5       & 0                 & Windows 9x -- obsahuje i Windows 98/ME\\ \hline 
+        6       & 0                 & \makecell{Windows NT -- obsahuje Windows 2000, XP, Server 2003\\ a pozdější na stejné bázi}\\ \hline 
+        7       & 0                 & OS/400\\ \hline 
+        8       & 0                 & BeOS\\ \hline 
+        9       & 0                 & Windows CE\\ \hline 
+    \end{tabular}
+    \caption{Seznam oficiálně podporovaných OS\label{tab:os-types}}
+\end{table}
+
+\chapter{Manuálová stránka k \texttt{udffsck}}
+\label{ch:manpage}
+\begin{Verbatim}[fontsize=\footnotesize]
+UDFFSCK(8)               System Manager's Manual               UDFFSCK(8)
+
+
+
+NAME
+       udffsck - check and correction for UDF filesystem
+
+SYNOPSIS
+       udffsck [-vvvciph] [-B BLOCKSIZE] medium
+
+DESCRIPTION
+       udffsck  is used to check and correct UDF file systems.  There are
+       known limitations regarding UDF version, which is now  limited  to
+       2.01 or older.
+
+       medium  is  the  device  file  where  file  system is stored (e.g.
+       /dev/sda1).
+
+       Please note it is not safe run udffsck  on  mounted  file  system.
+       Even  if  you  think  it is safe to run it on mounted file system,
+       whole report is invalid.  You should never never make any  changes
+       on  mounted  file  system, so if udffsck asks to do so, only valid
+       answer is ,,no'', otherwise you can break your filesystem instead.
+
+OPTIONS
+       -B BLOCKSIZE
+              Force udffsck to use this blocksize instead  of  autodetec-
+              tion.   This  value  is  in bytes.  Default is autodetected
+              value by finding VRS and AVDP positions.
+
+       -c     Only check medium and print found errors.  This is  default
+              behavior.
+
+       -i     Interactively  fix  medium.   In  this mode all corrections
+              must be authorized by user.
+
+       -p     Automatical corrections. This is like -i, but all questions
+              are answered yes.
+
+       -h     Short help message.
+
+       -v     Warning  verbosity  level.   Errors  and  warning  will  be
+              printed.
+
+       -vv    Message verbosity level.   Errors,  warnings  and  messages
+              will be printed.  Recomended for manual usage.
+
+       -vvv   Debug Verbosity level.  Only for development and debug pur-
+              poses.  And for nosy users.
+
+EXIT CODE
+       The exit code returned by udffsck is the sum of the following con-
+       ditions:
+              0      - No errors
+              1      - File system errors corrected
+              2      - File system errors corrected, system should
+                       be rebooted (not used at this moment)
+              4      - File system errors left uncorrected
+              8      - Operational error
+              16     - Usage or syntax error
+              32     - udffsck canceled by user request
+              128    - Shared library error (not used at this moment)
+
+EXAMPLES
+       Check medium and show it structure to user:
+
+              udffsck -vvc /dev/sda2
+
+       Check and fix medium image automatically, show only errors:
+
+              udffsck -p udf_image_file.img
+
+BUGS
+       Reading  and correcting is supported on UDF filesystems up to ver-
+       sion 2.01.  More recent filesystems are not currently covered  and
+       udffsck will end with exit code 8.
+
+REPORTING BUGS
+       Almost  any  piece  of  software will have bugs.  If you manage to
+       find a filesystem which causes udffsck to crash, or which  udffsck
+       is unable to  repair,  please report it to the author.
+
+       Please  include as much information as possible in bug report.  It
+       helps to analyze bug and hopefuly fix it.
+
+       Necessary information in bug report are udffsck  version  (obtain-
+       able  by -h option) and OS information (uname -a).  Also if possi-
+       ble attach compressed medium image which  made  udffsck  fail  and
+       complete log from stdout and stderr at debug verbosity (obtainable
+       by -vvv option).
+
+AUTHOR
+       This  version  of  udffsck  was   written   by   Vojtech   Vladyka
+       <vojtech.vladyka@gmail.com>
+
+SEE ALSO
+       cdrwtool(1), fsck(8), mkudfs(8), pktsetup(8), wrudf(8)
+
+
+
+UDFTOOLS 1.3                     May 2017                      UDFFSCK(8)
+\end{Verbatim}
+
 \chapter{Ukázkový výpis programu \texttt{udffsck}}
 \begin{lstlisting}[frame=single,caption={Ukázka výstupu programu pro médium s veliostí sektoru 512~B},label=lst:bs512,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left]
 Device block size: 512
