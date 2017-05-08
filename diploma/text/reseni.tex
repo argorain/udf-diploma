@@ -143,6 +143,7 @@ Vzhledem k velkému překryvu informací popsaných mnout s informacemi, které 
 Důvodem, proč je poloha VRS na sektoru 16 je zpětná kompatibilita a možná koexistence se souborovým systémem ISO~9660. ISO~9660 používá tuto oblast také jako VRS, tudíž je pochopitelné, že ji UDF převzalo. Nese to sebou i některé výjimky právě kvůli kompatibilitě, například co se týká velikosti sektoru, která je použitá v této oblasti. Problematika načítání a zpracování VRS je popsána v kapitole \ref{sec:kontrola-pritomonosti-udf}.
 Struktura deskriptorů použutých ve VRS je zachycena v tabulce \ref{tab:vrs}.
 \begin{table}
+    \centering
     \begin{tabular}{ | l | l | l | l | l | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline
@@ -172,6 +173,7 @@ Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskri
 \textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu VDS a jeho délku a to jak pro hlavní, tak pro záložní VDS. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému, proto je umístěn na předem známém místě. V případě uzavřených souborových systémů (více o \textit{Finalization} v kapiole \ref{sec:udf-struktura}) to je na sektoru 256, posledním sektoru média a nezřídka také na 256 sektoru od konce média. Podmínkou je, že AVDP musí být uloženo alespoň dvakrát. V případě otevřených souborových systémů je zde výjimka, protože AVDP je dočasně umístěno na sektoru 512 nebo 256 až do uzavření média, kdy je dopsáno na svá místa a opět alespoň ve dvou exemplářích, přičemž AVDP na adresee 512 se do tohoto počtu nezapočítává.\\
 Jeho struktura je popsána v tabulce \ref{tab:avdp}. Jak je vidět, obsahuje ukazatele na hlavní a záložní VDS což zvyšuje robustnost celého souborového systému.
 \begin{table}[]
+    \centering
     \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
@@ -209,6 +211,7 @@ Z nich je ovšem vhodné některé vyzdvihnout a popsat hlouběji kvůli přím�
 \end{itemize}
 Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
 \begin{table}[]
+    \centering
     \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
@@ -237,6 +240,7 @@ Ten obsahuje bitový vektor reprezentující logický svazek, kde každý bit od
 Důležitost tohoto deskriptoru je při detekci zaalokovaného místa, které není nikde využito, tudíž indikace nedokončeného zápisu.\\
 Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v tabulce \ref{tab:sbd}. 
 \begin{table}[]
+    \centering
     \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
@@ -256,6 +260,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
     \caption{Partition Descriptor\label{tab:pd}}
 \end{table}
 \begin{table}
+    \centering
     \begin{tabular}{| l | l |}
         \hline
         Obsah & Interpretace \\ \hline\hline
@@ -267,6 +272,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
     \caption{Partition Contents reprezentace\label{tab:pd-partition-contents}}
 \end{table}
 \begin{table}[]
+    \centering
     \begin{tabular}{ | l | l | p{4.2cm} | p{1.8cm} | p{5.5cm} | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
@@ -444,6 +450,7 @@ V implementaci ve výpočetní technice je toto obvykle realizováno nad sekvenc
 Příklad výpočtu kontrolního součtu pro 5~B dlouhou sekvenci $S=\{10, 25, 130, 221, 85\}$ a 1~B checksum $C$.
 V tabulce \ref{tab:checksum-example} je příklad výpočtu nad sekvencí $S$. Kontrolní součet je tedy v tomto případě $C=89$.
 \begin{table}[h]
+    \centering
     \begin{tabular}{ | l | l | l | l | }
         \hline
         Iterace $i$ & Byte $B$  & \makecell{Kontrolní součet\\$C_{i}=(C_{i-1}+B) \bmod 256$}  & Popis \\ \hline\hline
@@ -790,6 +797,94 @@ Jak je vidět ve výše popsaném algoritmu, obnova není absolutní, ale může
 \label{ch:results}
 \todo{sepsat. popsat tesovaná data, jejich výrobu, objem (10 GB), výsledky, shrnout do grafu}
 
+\section{Testovací data}
+\label{sec:data}
+Testovacími daty jsou myšlena různá média, která jsou naformátována souborovým systémem UDF. Tato média, různých parametrů jsou záměrně poškozována a následně analyzována.\\
+Testovací sada obsahuje média všech povolených velikostí sektorů (t.j od 512~B do 4096~B) a různých verzí (od 1.02 do 2.60 přičemž většina testů je mířena proti 2.01.) Poškozování médií probíhalo dvě způsoby: synteticky a nahodile.\\
+Syntetické poškození média probíhalo ručním přepsáním některých vybraných částí média pro vytvoření chyby v daném deskriptoru. Takto byly testovány kontrolní součty a CRC a posléze opravy takto poškozených deskriptorů.
+Nahodilé poškození média bylo vytvořeno záměrným přerušením zápisu na médium odebráním zařízení. Nahodilé proto, že není předem jasné co bude poškozeno a jak. Tyto testy cílí na obonovu stromu souborů a opravu a uzavření LVID.\\
+Tímto způsobem bylo vytvořeno přes 10~GB testovacích dat ve 28 vzorcích.\\
+Pro zjištění chyb na médiích a pro zjištění úspěšnosti detekce a následné korekce byl použit nástroj společnosti Philips \texttt{udfct} \cite{wayback} určený ke kontrole dodržování standardu UDF.
+
+\section{Metodika testování}
+\label{sec:metodika}
+Metodika testování je navržena následovně:
+\begin{enumerate}
+    \item Vytvoří se čerstvá kopie testovacích dat.
+    \item Spustí se referenční nástroj \texttt{udfct} \cite{wayback} pro zjištění aktuálního stavu média pro následné srovnání.
+    \item Spustí se nástroj \texttt{udffsck} v kontrolním režimu a porovnají se výstupy s referencí.
+    \item Pokud médium obsahuje chyby, spustí se nástroj \texttt{udffsck} v opravném režimu.
+    \item Nástroj \texttt{udffsck} je spuštěn opět v kontrolním režimu. Pokud došlo v předchozím kroku k plné opravě (návratová hodnota 1), mělo by médium být nyní bez chyb (návratová hodnota 0)
+    \item Spustí se referenční nástroj \texttt{udfct} a opět se porovnají výstupy. Pokud byla oprava úspěšná, médium by nemělo nyní vykazovat chyby.
+\end{enumerate}
+Tato metodika byla navržena pro potřeby vývoje nástroje a pro zajištění maximálního možného pokrytí případných chyb média (obzvláště u nahodile poškozených médií.) Zjednodušená verze tohoto testu byla implementována pro potřeby automatického testování. Ta je omezena pouze na testování vlastného nástroje bez rerefernce a testuje vůči předpokládaným návratovým hodnotám. V principu jde o vynechání kroků 2 a 6 z předchozí sekvence.
+
+\section{Srovnání s ostatními řešeními}
+\label{sec:srovnani}
+Pro ověření správné funkce nástroje byla vybraná média otestována i na jiných operačních systémech pro srovnání funkce. Jako ukázku tohoto přístupu lze zvolit médium, které vzniklo na MS~Windows pro flash disk (tedy \textit{Overwritable} médium) a následně bylo záměrně poškozeno přerušením zápisu.\\
+Byla provedena kontrola disku na MS~Windows 7 pomocí nástroje \textit{CHKDSK}. Výsledek jeho kontroly před jakoukoli opravou je na obrázku \ref{fig:chkdsk}. 
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.38]{obrazky/chkdsk.png}
+    \caption{Výsledek kontroly poškozeného média progrmem \texttt{CHKDSK}}
+    \label{fig:chkdsk}
+\end{figure}
+Podobný výsledek byl získán v Apple macOS programem \texttt{fsck\_udf}. Přepis jeho výstupu je ve výpisu \ref{lst:fsck-udf-mac}. Z obou výstupů je vidět, že oba nástroje došly ke stejným poruchám na médiu.
+\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média programem \texttt{fsck\_udf}},label=lst:fsck-udf-mac,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
+fsck_udf: * * * File <0, 989> seems to have already-allocated blocks! * * *
+fsck_udf: * * * File <0, 989> seems to have fewer blocks (2116354) than expected (19202) * * *
+fsck_udf: * * * File <0, 989> seems to have fewer data bytes (1083573248) than expected (9830400) * * *
+fsck_udf: * * * File <0, 989> seems to have fewer bytes (1083573248) than expected (9830400) * * *
+1 errors total
+** Checking Hierarchy
+** Filesystem error: Bad extent in file
+** Filesystem error: 2017-01-16-191632.webm
+** Filesystem is dirty and non-repairable
+LVID = {
+    blkNum = 128
+    numFiles = 2
+    numDirs = 1
+    minReadRevision = 201
+    minWriteRevision = 201
+    maxWriteRevision = 201
+    numFreeBlks[0] = 3253614
+    numFreeBlks[1] = 0
+    numFreeBlks[2] = 0
+    numTotalFreeBlks = 3253614
+    numPart = 1
+    nextUniqueId = 0
+}
+\end{lstlisting}
+\section{Dosažené výsledky}
+\label{sec:vysledky}
+
+
+
 \chapter{Publikace nástroje v GNU komunitě}
 \label{ch:publikace}
-\todo{popsat proces integrace zpět do zdrojového balíčku a jeho dopad}
+Publikace v GNU komunitě proběhla díky začlenění vývojové větve zpět do zdrojového balíčku \texttt{udftools}. Předpoklady a kroky vedoucí k úspěšnému začlenění včetně dopadu po začlenění jsou popsány v následujcích sekcích.
+
+\section{Integrace do balíčku \texttt{udftools}}
+\label{sec:integrace}
+Proces integrace do zdrojového balíčku je důležitou částí práce. Bez ní zůstane má práce pouze jako vývojová větev a nikdy se nedostane k uživatelům. Proto byla na začátku práce navázána komunikace s aktuálním správcem balíčku \texttt{udftools}, panem Palim Rohárem, který vlastní repozitář balíčku.\\
+Vzhledem k nízké aktivitě ze strany vývojářů na balíčku \texttt{udftools} neexistuje seznam požadavků pro přispívání do balíčku, jako to je u jiných (aktivnějších) projektů. Tyto požadavky byly vyjednány s panem Rohárem a jednalo se o tyto:
+\begin{itemize}
+    \item Funkční řešení přeložitelné pomocí GCC s využitím GNU Autotools. 
+    \item Kód okomentovaný a náležitě zdokumentovaný pro budoucí udržování.
+    \item Vytvoření testů pro otestování funkčnosti v budnoucnosti. Není potřeba vytvářet unit testy, ačkoli jsou vítány.
+    \item Vytvoření manuálové stránky k programu.
+\end{itemize}
+Protože vývoj probíhá na serveru GitHub, samotná práce probíhala ve vlastní větvi, která vznikla rozdělením od původního projektu (\textit{Fork}) a opačný proces, který větv začlení zpět je nazýván \textit{Pull Request}. To znamená, že vlastník repozitáře je vyzván ke sloučení vývojové větve s hlavní (\textit{Merge}). To může proběhnout bez konfliktů, což je ideální stav nebo dojde ke konfliktu se změnami ve hlavní větvi. Pokud jsou konflikty vyřešeny a změny odpovídají požadavkům vlastníka repozitáře, změny jsou začleněny a vývojová větev je integrována. 
+
+\section{Dopad integrace do balíčku \texttt{udftools}}
+\label{sec:dopad}
+Práce na \texttt{udffsck} byla od počátku koncipována jako součást existujícího balíšku \texttt{udftools}. Ten je začleněn ve většině distribucích GNU/Linux, potíž je, že často ve startých verzích, které jsou navázané na starý repozitář \cite{udftools-sourceforge} místo stávajícího \cite{udftools-github}.\\
+Pokud bychom tedy přepokládali integraci pouze do distribucí, které aktuálně používají verzi z nového repozitáře \texttt{udftools}, získali bychom tento seznam:
+\begin{itemize}
+    \item\textbf{Debian} -- aktuálně je balíček ve verzích Debian Testing a Debian Unstable. Více v \cite{udftools-debian}.
+    \item\textbf{Gentoo} -- starší verze balíčku je v tuto chvíli Stable, poslední vydaná je Testing. Více v \cite{udftools-gentoo}.
+    \item\textbf{Arch Linux} -- balíček je dodáván pomocí komunitního repozitáře AUR \cite{udftools-arch}.
+    \item\textbf{Ubuntu} -- balíček je dodáván pomocí PPA. Je podporován ve verzích Ubuntu Zesty a Ubuntu Artful \cite{udftools-ubuntu}.
+    \item\textbf{Red Hat Enterprise, Fedora, OpenSuse} -- tato trojice distribucí má v oficiálních repozitářích starou verzi balíčku, ale v \cite{udftools-rhel} je k dispozici předkompilovaný balíček.
+\end{itemize}
+Jak je vidět, po začlenění se nástroj \texttt{udffsck} poměrně rychle dostane ke svým uživatelům skrz oficiální nebo komunitní distribuční kanály. 
