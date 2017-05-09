@@ -1164,7 +1164,7 @@ Directory: <root>
 -   There is no guarantee that the number of errors and
 -   warnings as shown by the UDF verifier is correct.
 \end{lstlisting}
-
+\pagebreak
 \begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct} po opravě nástrojem \texttt{CHKDSK}},label=lst:udfct-chkdsk,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
 UDF Conformance Testing Application
 (c) Koninklijke Philips Electronics N.V. 1999-2006
@@ -1663,7 +1663,7 @@ Directory: <root>
 -   There is no guarantee that the number of errors and
 -   warnings as shown by the UDF verifier is correct.
 \end{lstlisting}
-
+\pagebreak
 \begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct} po pokusu o jeho opravu po \texttt{CHKDSK} mým nástrojem \texttt{udffsck}},label=lst:udfct-chkdsk-po-oprave,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
 UDF Conformance Testing Application
 (c) Koninklijke Philips Electronics N.V. 1999-2006
@@ -1679,13 +1679,13 @@ Medium info options parsing:
     -blocksize 512
 
 Device options parsing:
-    ../../../udf-samples/bs512_windows7_udf0201_chkdsk.img
+    /dev/sdb
 
-No image configuration file ../../../udf-samples/bs512_windows7_udf0201_chkdsk.cfg
+No image configuration file /dev/sdb.cfg
 
 
 Created image device
-  image file blocks : 3913728  ../../../udf-samples/bs512_windows7_udf0201_chkdsk.img
+  image file blocks : 3913728  /dev/sdb
      blocks, bytes  : 3913728  2003828736
 
 
@@ -1728,7 +1728,7 @@ Verification start medium info
   medium CL type    : unknown finalization state
 
 ====>   Start verification
-    Start time   : 2017-05-09 12:09:08 +02:00 (east of UTC)
+    Start time   : 2017-05-09 13:19:12 +02:00 (east of UTC)
     Verbose level: 100
     Message limit: 20
     Fake read enabled
@@ -1824,7 +1824,7 @@ Verification start medium info
     TD  
 
 ====>   Read Reserve VDS extent: 3913721, length:   8192
-    Error: Last sector 3913736 of VDS extent beyond Volume Space, ECMA 3/8.5.
+    !\colorbox{yellow}{Error: Last sector 3913736 of VDS extent beyond Volume Space, ECMA 3/8.5.}!
 3913721 read block
     PVD   VDS Number: 1
     PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
@@ -1911,11 +1911,17 @@ Verification start medium info
     Read LVID sequence extent: 160, length: 8192
     160 read block
     LVID  - Close
-    LVID Recording Time: 2017-05-09 10:08:09 +02:00
+    LVID Recording Time: 2017-05-09 12:32:10.768729 +02:00
+  ==>   LVID 88  New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows     "
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+      Implementation Use : #00 #00 #06 #01 #01 #00
     161 read block
     TD  
 
-    Next UniqueID: #0000000000000012,
+    Next UniqueID: #0000000000000013,
     from LVID Logical Volume Header Descriptor.
 
 
@@ -1954,22 +1960,26 @@ Verification start medium info
     Read Root Directory
    1276 read block
     EFE  file type DIR    name: <root>
+    EFE  216 Embedded data, 260 bytes
+
+  ==>   (max) depth:  1  1  Expand directory: <root>
+
+    EFE  216 Verify embedded FIDs, 260 bytes
+    FID   cid:       name: /<parent FID>, refers to: <root>
+    FID   cid:   8   name: "gtd.mp4"
+    FID   cid:   8   name: "2017-01-16-191632.webm"
+    FID   cid: 255 D name: "Nov#00E1 slo#017Eka"
+    Note: deleted FID, compression ID 255
+- ==>   Message printed once, ignored from now.
+    FID   cid:   8   name: "asd"
+    Add FIDs to directory hierarchy and read FEs
+    289 read block
+    EFE  file type FILE   name: "gtd.mp4"
   ==>   EFE  168 New Entity Identifier (regid):
     Implementation Entity Identifier
       Identifier         : "*Linux UDFFS"
       OS Class       : #04  UNIX
       OS Identifier      : #05  UNIX - Linux
-    EFE  216 Embedded data, 152 bytes
-
-  ==>   (max) depth:  1  1  Expand directory: <root>
-
-    EFE  216 Verify embedded FIDs, 152 bytes
-    FID   cid:       name: /<parent FID>, refers to: <root>
-    FID   cid:   8   name: "gtd.mp4"
-    FID   cid:   8   name: "2017-01-16-191632.webm"
-    Add FIDs to directory hierarchy and read FEs
-    289 read block
-    EFE  file type FILE   name: "gtd.mp4"
     cnt:  extent type,      size,  location,part,     body, total alloc
       1: short_ad   0  327345425      39131 0    327345425  327345664
    1277 read block
@@ -1977,12 +1987,17 @@ Verification start medium info
     cnt:  extent type,      size,  location,part,     body, total alloc
       1: long_ad    0    9830400        990 0      9830400    9830400
       2: long_ad    1       1024      20190 0      9830400    9831424
+    290 read block
+    EFE  file type DIR    name: "asd"
+    EFE  216 Embedded data, 40 bytes
 
 Directory: <root>
 
-.d.p.e..........:..rwx:..rwx:..rwx DIR   1 2017-05-05 15:58        152 /<parent FID>, refers to: <root>
+.d.p.e..........:..rwx:..rwx:..rwx DIR   2 2017-05-09 10:32        260 /<parent FID>, refers to: <root>
 .....S..........:..rwx:..rwx:..rwx FILE  1 2009-11-12 19:46  327345425 "gtd.mp4"
 .....L..........:..rw.:..r..:..r.. FILE  1 2017-05-05 16:15    9830400 "2017-01-16-191632.webm"
+.dD.............      <unused FID>                                     "Nov#00E1 slo#017Eka"
+.d...e..........:darwx:darwx:darwx DIR   1 2017-05-09 10:32         40 "asd"
 
     file body read: "gtd.mp4"
   39419 fake read 639347 blocks
@@ -1991,16 +2006,30 @@ Directory: <root>
     file tail read: "2017-01-16-191632.webm"
   20478 fake read 2 blocks
 
-    Expand complete, max depth  1 for directory: <root>
--              2 files   0 directories
--    overall total:    2 files   1 directory  
+  ==>   (max) depth:  2  2  Expand directory: "asd"
 
-    Maximum directory depth: 1
+    EFE  216 Verify embedded FIDs, 40 bytes
+    FID   cid:       name: "asd"/<parent FID>, refers to: <root>
+    Add FIDs to directory hierarchy and read FEs
+
+Directory: /"asd"
+
+.d.p.e..........:..rwx:..rwx:..rwx DIR   2 2017-05-09 10:32        260 "asd"/<parent FID>, refers to: <root>
+
+
+    Expand complete, max depth  2 for directory: "asd"
+-              0 files   0 directories
+
+    Expand complete, max depth  2 for directory: <root>
+-              2 files   1 directory  
+-    overall total:    2 files   2 directories
+
+    Maximum directory depth: 2
 
     End of directory tree expansion
     Excluding deleted FIDs with cleared ICB
 
-====>   Testing File Link Count by cross reference of 4 paths.
+====>   Testing File Link Count by cross reference of 6 paths.
     File Link Count errors will be identified here by the
     physical address of the File Entry as well as all
     paths identifying the File Entry.
@@ -2022,7 +2051,7 @@ Directory: <root>
   ==>   Compare partition p0 calculated bitmap to recorded Space Set
       using: Unallocated Space Bitmap
 
-      Error: 2 used blocks marked as unallocated or freed
+      !\colorbox{yellow}{Error: 2 used blocks marked as unallocated or freed}!
   20478   logical block    20190 thru    20191,       2 blocks
 
       No unused blocks marked as allocated.
@@ -2032,25 +2061,25 @@ Directory: <root>
   ==>   overwritable Physical Partition p0 Space summary:
                       Partition Length    : 3913152
                  LVID Partition Size      : 3913152
-                 LVID Partition Free Space: 3253645
-       Unallocated Space Bitmap free space: 3253645
-              Verifier expected free space: 3253643
+                 LVID Partition Free Space: 3253644
+       Unallocated Space Bitmap free space: 3253644
+              Verifier expected free space: 3253642
         Used by UDF but unallocated blocks:       2
 
-    LVID 80  FreeSpaceTable error: Physical Partition p0 Free Space: 3253645,
--        expected: 3253643, see Space summary above and
--        maybe use -showalloc output, UDF 2.2.6.2, ECMA 3/10.10.
+    !\colorbox{yellow}{LVID 80  FreeSpaceTable error: Physical Partition p0 Free Space: 3253644,}!
+-        !\colorbox{yellow}{expected: 3253642, see Space summary above and}!
+-        !\colorbox{yellow}{maybe use -showalloc output, UDF 2.2.6.2, ECMA 3/10.10.}!
 -   Note: The verifier may be unable to find the correct values for
 -         some of these LVID/VAT tests because of previous errors.
 
   ==>          LVID status summary:
-    Last modification Time    : 2017-05-09 10:08:09 +02:00 (east of UTC)
-    Last written Developer Id : "*Microsoft Windows"
-    Next UniqueID             : #0000000000000012 => from LVID
-    max used FE  UniqueID     : #0000000000000011
-    max used FID UniqueID     :         #00000011
+    Last modification Time    : 2017-05-09 12:32:10.768729 +02:00 (east of UTC)
+    Last written Developer Id : "*Microsoft Windows     "
+    Next UniqueID             : #0000000000000013 => from LVID
+    max used FE  UniqueID     : #0000000000000012
+    max used FID UniqueID     :         #00000012
     Number of Files           :        2
-    Number of Directories     :        1
+    Number of Directories     :        2
     Min UDF Read   Revision   : UDF 2.01
     Min UDF Write  Revision   : UDF 2.01
     Max UDF Write  Revision   : UDF 2.01
@@ -2085,14 +2114,19 @@ Directory: <root>
       UDF revision       : 2.01
       OS Class       : #06  Windows NT
       OS Identifier      : #00  Windows NT - generic
-    3   Implementation Entity Identifier
+    2   Implementation Entity Identifier
       Identifier         : "*Linux UDFFS"
       OS Class       : #04  UNIX
       OS Identifier      : #05  UNIX - Linux
-    9   Implementation Entity Identifier
+    8   Implementation Entity Identifier
       Identifier         : "*Microsoft Windows"
       OS Class       : #06  Windows NT
       OS Identifier      : #00  Windows NT - generic
+    3   Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows     "
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+      Implementation Use : #00 #00 #06 #01 #01 #00
     2   Application Entity Identifier
       <empty>
     2   Application Entity Identifier

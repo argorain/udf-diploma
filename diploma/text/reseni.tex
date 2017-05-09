@@ -146,7 +146,7 @@ Struktura deskriptorů použutých ve VRS je zachycena v tabulce \ref{tab:vrs}.
     \centering
     \begin{tabular}{ | l | l | l | l | l | }
         \hline
-        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
         0       & 1             & Type           & int8          & Typ deskriptoru \\ \hline
         1       & 5             & Identifier & string        & Identifikátor typu souborového systému \\ \hline
         6       & 1             & Version         & int8          & Verze deskriptoru \\ \hline
@@ -588,9 +588,9 @@ Oprava deskriptoru při detekci chyby pomocí kontrolních mechanismů CRC, kont
 Účelem takzvané mapy chyb (neboli struktury \texttt{\detokenize{vds_sequence_t}}) je zapouzdření chyb, které jsou detekovány napříč médiem v deskriptorech, vyjma chyb v deskriptorech dat. Její struktura je v tabulce \ref{tab:err-seq}.\\
 Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{metadata_t}}. Ty jsou popsány tabulkou \ref{tab:metadata-t}. Jak je vidět, obsahuje pouze identifikátor deskriptoru (použité pouze u VDS, více v kapitole \ref{sec:nacteni-a-oprava-vds}), pozici deskriptoru a bitové pole chyb. Význam jednotlivých bitů je popsán v tabulce \ref{tab:E-codes}.
 \begin{table}[hb]
-    \begin{tabular}{ | l | l | p{2cm} | l | p{5.5cm} | }
+    \begin{tabular}{ | l | l | p{2.3cm} | p{3.6cm} | p{5.5cm} | }
         \hline
-        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline\hline
         0       & 21          & anchor         & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v AVDP \\ \hline 
         21      & 56          & main           & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v Hlavním VDS \\ \hline 
         77      & 56          & reserve        & pole \detokenize{metadata_t} \ref{tab:metadata-t} & Chyby v Záložním VDS \\ \hline 
@@ -600,9 +600,9 @@ Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{meta
     \caption{Formát struktury \texttt{vds\_sequence\_t} (Mapa chyb)\label{tab:err-seq}}
 \end{table}
 \begin{table}[hb]
-    \begin{tabular}{ | l | l | p{4.5cm} | p{1.3cm} | p{5.5cm} | }
+    \begin{tabular}{ | l | l | p{2.3cm} | p{3.6cm} | p{5.5cm} | }
         \hline
-        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline
+        Adresa  & Délka [B]   & Jméno položky & Datový typ & Popis \\ \hline\hline
         0       & 2          & tagIdent       & Uint16     & Identifikátor deskriptoru \\ \hline 
         2       & 4          & tagLocation    & Uint32     & Pozice deskriptoru \\ \hline 
         6       & 1          & error          & Uint8      & Bitové pole nalezených chyb (tabulka \ref{tab:E-codes}) \\ \hline 
@@ -612,7 +612,7 @@ Jak je vidět, je složena z malých struktur s názvem \texttt{\detokenize{meta
 \begin{table}
     \begin{tabular}{ | l | l | l | }
         \hline
-        Název & Maska & Význam \\ \hline
+        Název & Maska & Význam \\ \hline\hline
         \texttt{E\_CHECKSUM} & \texttt{0b00000001} & Chyba v konrolním součtu \\ \hline
         \texttt{E\_CRC}      & \texttt{0b00000010} & Chyba v CRC \\ \hline
         \texttt{E\_POSITION} & \texttt{0b00000100} & Chyba v umístění deskriptoru\\ \hline
@@ -800,7 +800,8 @@ V mé implementaci jsem zaujal přístup smazání daného souboru vzhledem k fa
 
 \chapter{Výsledky a testování nástroje pro detekci a korekci chyb}
 \label{ch:results}
-\todo{sepsat. popsat tesovaná data, jejich výrobu, objem (10 GB), výsledky, shrnout do grafu}
+%\todo{sepsat. popsat tesovaná data, jejich výrobu, objem (10 GB), výsledky, shrnout do grafu}
+V této kapitole jsou popsána testovací data, metodika testování a dosažené výsledky. Kapitola je koncipována informativně a pracuje s vyběrovou množinou médií, která neobsahuje všechny možné varianty vzhledem k vysoké variabilitě UDF. Byl zvolen přístup otestování vůči nejběžnějším variantám médií, což bývá výchozí nastavení nástrojů pro vytvoření UDF, obvykle se lišící pouze nosným médiem, velikostí bloku a verzí UDF. Toto bylo ověřeno vůči médiím, které vznikly na platformách \mbox{GNU/Linux}, Microsoft Windows a Apple macOS. 
 
 \section{Testovací data}
 \label{sec:data}
@@ -820,20 +821,21 @@ Metodika testování je navržena následovně:
     \item Spustí se nástroj \texttt{udffsck} v kontrolním režimu a porovnají se výstupy s referencí.
     \item Pokud médium obsahuje chyby, spustí se nástroj \texttt{udffsck} v opravném režimu.
     \item Nástroj \texttt{udffsck} je spuštěn opět v kontrolním režimu. Pokud došlo v předchozím kroku k plné opravě (návratová hodnota 1), mělo by médium být nyní bez chyb (návratová hodnota 0)
-    \item Spustí se referenční nástroj \texttt{udfct} a opět se porovnají výstupy. Pokud byla oprava úspěšná, médium by nemělo nyní vykazovat chyby.
+    \item Spustí se referenční nástroj \texttt{udfct} a opět se porovnají výstupy. Pokud byla oprava úspěšná, médium by nemělo nyní vykazovat chyby, nebo pokud chyby vykazuje, neměly by ovlivňovat funkci souborvého systému.
 \end{enumerate}
-Tato metodika byla navržena pro potřeby vývoje nástroje a pro zajištění maximálního možného pokrytí případných chyb média (obzvláště u nahodile poškozených médií.) Zjednodušená verze tohoto testu byla implementována pro potřeby automatického testování. Ta je omezena pouze na testování vlastného nástroje bez rerefernce a testuje vůči předpokládaným návratovým hodnotám. V principu jde o vynechání kroků 2 a 6 z předchozí sekvence.
+Tato metodika byla navržena pro potřeby vývoje nástroje a pro zajištění maximálního možného pokrytí případných chyb média (obzvláště u nahodile poškozených médií.) Zjednodušená verze tohoto testu byla implementována pro potřeby automatického testování služobou Travis CI. Ta je omezena pouze na testování vlastného nástroje bez reference a testuje vůči předpokládaným návratovým hodnotám. V principu jde o vynechání kroků 2 a 6 z předchozí sekvence.\\
+Tento přístup pomohl odhalit řadu potíží během vývoje, kdy opravením jedné chyby byla vytvořena omylem chyba jiná. Takto byla chyba podchycena okamžitě po vzniku, takže mohla být okamžitě vyřešena bez opakované analýzy problému. 
 
 \section{Srovnání s ostatními řešeními}
 \label{sec:srovnani}
-Pro ověření správné funkce nástroje byla vybraná média otestována i na jiných operačních systémech pro srovnání funkce. Jako ukázku tohoto přístupu lze zvolit médium, které vzniklo na MS~Windows pro flash disk (tedy \textit{Overwritable} médium) a následně bylo záměrně poškozeno přerušením zápisu.\\
-Byla provedena kontrola disku na MS~Windows~7 pomocí nástroje \textit{CHKDSK}. Výsledek jeho kontroly před jakoukoli opravou je na obrázku \ref{fig:chkdsk}. Kontrola byla provedena i na MS~Windows~10 se stejným výsledkem. Podle nástroje \texttt{CHKDSK} je médium opravitelně poškozeno.\\
 \begin{figure}[] 
     \centering
     \includegraphics[scale=0.38]{obrazky/chkdsk.png}
     \caption{Výsledek kontroly poškozeného média progrmem \texttt{CHKDSK}}
     \label{fig:chkdsk}
 \end{figure}
+Pro ověření správné funkce nástroje byla vybraná média otestována i na jiných operačních systémech pro srovnání funkce. Jako ukázku tohoto přístupu lze zvolit médium, které vzniklo na MS~Windows pro flash disk (tedy \textit{Overwritable} médium) a následně bylo záměrně poškozeno přerušením zápisu.\\
+Byla provedena kontrola disku na MS~Windows~7 pomocí nástroje \textit{CHKDSK}. Výsledek jeho kontroly před jakoukoli opravou je na obrázku \ref{fig:chkdsk}. Kontrola byla provedena i na MS~Windows~10 se stejným výsledkem. Podle nástroje \texttt{CHKDSK} je médium opravitelně poškozeno.\\
 Podobný výsledek byl získán v Apple macOS programem \texttt{fsck\_udf}. Přepis jeho výstupu je ve výpisu \ref{lst:fsck-udf-mac}. Z obou výstupů je vidět, že oba nástroje došly ke stejným poruchám na médiu.
 \begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média programem \texttt{fsck\_udf}},label=lst:fsck-udf-mac,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
 fsck_udf: * * * File <0, 989> seems to have already-allocated blocks! * * *
@@ -861,7 +863,7 @@ LVID = {
 }
 \end{lstlisting}
 Médium bylo v této fázi zazálohováno pro srovnání různých variant. První varianta je oprava pomocí mého nástroje \texttt{udffsck}. Druhá varianta je oprava pomocí nástroje MS~\texttt{CHKDSK}. Oprava pomocí \texttt{fsck\_udf} z Apple macOS není možná, protože nástroj nemá implementovány žádné opravné algoritmy. Pro referenční srovnání je přiložen výstup z programu \texttt{udfct} společnosti Philips, jehož výstup je vzhledem k jeho délce v příloze \ref{lst:udfct-broken}.\\
-\begin{lstlisting}[frame=single,caption={Výsledek opravy poškozeného média programem \texttt{udffsck}},label=lst:udffsck-pass,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
+\begin{lstlisting}[frame=single,caption={Výsledek opravy poškozeného média programem \texttt{udffsck}},label=lst:udffsck-pass,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
 Verbosity increased to WARNING.
 Verbosity increased to MESSAGE.
 We try to fix medium automaticaly.
@@ -875,11 +877,11 @@ Medium file tree
 ----------------
 .....:..rwx.:.rwx.:.rwx DIR     2017-05-05 15:58:54.804378+00:00       152  <ROOT>
   .....:..rwx.:.rwx.:.rwx FILE    2009-11-12 19:46:14.000000+00:00  327345425  "gtd.mp4"
-[ERROR] (2017-01-16-191632.webm) Tag Serial Number differs.
-(2017-01-16-191632.webm) Tag Serial Number was fixed.
-[ERROR] (2017-01-16-191632.webm) File size mismatch. Probably unfinished file write.
-Removing unfinished file...
-(2017-01-16-191632.webm) Unifinished file was removed.
+!\colorbox{yellow}{[ERROR] (2017-01-16-191632.webm) Tag Serial Number differs.}!
+!\colorbox{green}{(2017-01-16-191632.webm) Tag Serial Number was fixed.}!
+!\colorbox{yellow}{[ERROR] (2017-01-16-191632.webm) File size mismatch. Probably unfinished file write.}!
+!\colorbox{green}{Removing unfinished file...}!
+!\colorbox{green}{(2017-01-16-191632.webm) Unifinished file was removed.}!
 
 Filesystem status
 -----------------
@@ -901,9 +903,9 @@ Partition size: 2003533824 (3913152)
 Expected Used Space: 337668608 (659509)
 Expected Used Blocks: 882490
 Expected Unused Blocks: 3030662
-[ERROR] 19203 blocks is unused but not marked as unallocated in Free Space Table.
-[ERROR] Correct free space: 3272846
-[ERROR] 242184 blocks is unused but not marked as unallocated in SBD.
+!\colorbox{yellow}{[ERROR] 19203 blocks is unused but not marked as unallocated in Free Space Table.}!
+!\colorbox{yellow}{[ERROR] Correct free space: 3272846}!
+!\colorbox{yellow}{[ERROR] 242184 blocks is unused but not marked as unallocated in SBD.}!
 
 VDS verification status
 -----------------------
@@ -913,27 +915,27 @@ VDS verification status
 [3] USD is fine. No fixing needed.
 [4] IUVD is fine. No fixing needed.
 [5] TD is fine. No fixing needed.
-[ERROR] Opened integrity type. Some writes may be unfinished.
-[ERROR] Number of files or directories is not corresponding to counted number
-[ERROR] Free Space table is not corresponding to reality.
-PD SBD recovery was successful.
-LVID recovery was successful.
+!\colorbox{yellow}{[ERROR] Opened integrity type. Some writes may be unfinished.}!
+!\colorbox{yellow}{[ERROR] Number of files or directories is not corresponding to counted number}!
+!\colorbox{yellow}{[ERROR] Free Space table is not corresponding to reality.}!
+!\colorbox{green}{PD SBD recovery was successful.}!
+!\colorbox{green}{LVID recovery was successful.}!
 All done
 \end{lstlisting}
-\begin{figure}[] 
+\begin{figure}[b] 
     \centering
     \includegraphics[scale=0.42]{obrazky/win7-error.png}
     \caption{Chyba při pokusu o zápis na médium opravené nástrojem \texttt{CHKDSK}}
     \label{fig:win7-err}
 \end{figure}
 Výsledek z nástroje \texttt{udffsck} je vidět na výpisu \ref{lst:udffsck-pass}. Jak je vidět, byla nalezena řada chyb a všechny byly opraveny. Funkčnost souborového systému byla posléze ověřena připojením k MS~Windows~7, kde na něj byla úspěšně nakopírována data. Stejně tak výstup z programu MS~\texttt{CHKDSK} nedetekoval žádné problémy. Nabízí se otázka, proč nebyla funkce souborového systému ověřena i na OS~Linux. Důvodem je benevolence implementace ovladače v OS~Linux, který dokáže bez potíží zapisovat i na defektní souborový systém. Problém je, že ho tím dále poškozuje. Proto byl jako kontrolní test zvolen MS~Windows~7, který přistupuje k připojení souborového systému striktněji.\\
-Nyní pokud se vrátíme k zálohované variantě a zkusíme pro srovnání provést obnovu pomocí MS~\texttt{CHKDSK}. Na konci opravy, kdy program hlásí že opravil všechny nalezené chyby zkusíme taktéž médium připojit a nahrát data. Nyní ale dochází k selhání, viz obrázek \ref{fig:win7-err}. Opětovná kontrola pomocí \texttt{CHKDSK} nenalezne žádné chyby. Verdikt je, že médium je nenávratně poškozeno, ačkoli \texttt{CHKDSK} nenalézá chybu. Po kontrole referenčním nástrojem \texttt{udfct}, jehož výstup je opět v příloze \ref{lst:udfct-chkdsk}, je vidět, že program \texttt{CHKDSK} sice opravil nalezené chyby, ale také vytvořil nové. K jeho opravě by bylo nutné částečné přeskupení struktur na médiu, což ostatně svým během on udělal a právě tím médium poškodil, protože tak neprovedl v souladu se specifikací. Pokud použijeme můj nástroj \texttt{udffsck}, zjistíme, že někeré z chyb jsou opravitelné, ale jejich odstranění vyvolává další, které již můj nástroj bohužel nedetekuje. Jejich nález je opět díky \texttt{udfct}, jehož výpis je v příloze \ref{lst:udfct-chkdsk-po-oprave}.\\
+Nyní pokud se vrátíme k zálohované variantě a zkusíme pro srovnání provést obnovu pomocí MS~\texttt{CHKDSK}. Na konci opravy, kdy program hlásí že opravil všechny nalezené chyby zkusíme taktéž médium připojit a nahrát data. Nyní ale dochází k selhání, viz obrázek \ref{fig:win7-err}. Opětovná kontrola pomocí \texttt{CHKDSK} nenalezne žádné chyby. Verdikt je, že médium je nenávratně poškozeno, ačkoli \texttt{CHKDSK} nenalézá chybu. Po kontrole referenčním nástrojem \texttt{udfct}, jehož výstup je opět v příloze \ref{lst:udfct-chkdsk}, je vidět, že program \texttt{CHKDSK} sice opravil nalezené chyby, ale také vytvořil nové. K jeho opravě by bylo nutné částečné přeskupení struktur na médiu, což ostatně svým během on udělal a právě tím médium poškodil, protože tak neprovedl v souladu se specifikací. Pokud použijeme můj nástroj \texttt{udffsck}, zjistíme, že někeré z chyb jsou opravitelné, ale jejich odstranění vyvolává další, které již můj nástroj bohužel nedetekuje. Jejich nález je opět díky \texttt{udfct}, jehož výpis je v příloze \ref{lst:udfct-chkdsk-po-oprave}. Ovšem na rozdíl od chyb, které vytvořilo \texttt{CHKDSK} nemají mnou vytvořené chyby dopad na funkci souborového systému, to dokazuje i opětovný pokus o připojení a nahrnání dat na MS~Windows~7, který nyní neselže.\\
 Cílem této analýzy bylo ukázat, že nástroj \texttt{udffsck} dokáže opravit poškozený souborový systém UDF tak, že i striktní ovladač MS~Windows dokáže bez potíží s médiem pracovat narozdíl od jejch vlastního řešení \texttt{CHKDSK}. Vzhledem k faktu, že neexistuje jiné řešení, ať už otevřené nebo uzavřené, schopné jak detekce chyb, tak jejich korekce pro souborový systém UDF, považuji tento výsledek za úspěch. 
 
 \section{Dosažené výsledky}
 \label{sec:vysledky}
-
-
+Byl vytvořen a otestován nástroj, který implmentuje jak detekční, tak korekční algoritmy pro souborový systém UDF. Jeho funkce byla ověřena jak praktickým používáním na poškozená média, tak porovnáním výsledků detekce a následné korekce vůči ostatním existujícím řešením.\\
+Nástroj v tuto chvíli implementuje podporu standardů UDF 1.00 až 2.01, přičemž většina vývoje byla soustředěna vůči novější verzi standardu.
 
 \chapter{Publikace nástroje v GNU komunitě}
 \label{ch:publikace}
@@ -962,4 +964,5 @@ Pokud bychom tedy přepokládali integraci pouze do distribucí, které aktuáln
     \item\textbf{Ubuntu} -- balíček je dodáván pomocí PPA. Je podporován ve verzích Ubuntu Zesty a Ubuntu Artful \cite{udftools-ubuntu}.
     \item\textbf{Red Hat Enterprise, Fedora, OpenSuse} -- tato trojice distribucí má v oficiálních repozitářích starou verzi balíčku, ale v \cite{udftools-rhel} je k dispozici předkompilovaný balíček.
 \end{itemize}
-Jak je vidět, po začlenění se nástroj \texttt{udffsck} poměrně rychle dostane ke svým uživatelům skrz oficiální nebo komunitní distribuční kanály. 
+Jak je vidět, po začlenění se nástroj \texttt{udffsck} poměrně rychle dostane ke svým uživatelům skrz oficiální nebo komunitní distribuční kanály.\\
+Dalšími kroky po úspěšné integraci bude průzkum pro další rozvoj nástroje. Prvními kroky pravděpodobně bude rozšíření podopory pro novější verze UDF. To bude pravděpoodobně vyžadovat širší záběr než jen práci na \texttt{udffsck}, protože bude nutné přidat nové funkce z novějších verzí standardu UDF do sdílených hlavičkových souborů, což ovlivní i zbytek nástrojů v balíčku.
