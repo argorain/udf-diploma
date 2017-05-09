@@ -935,7 +935,36 @@ Cílem této analýzy bylo ukázat, že nástroj \texttt{udffsck} dokáže oprav
 \section{Dosažené výsledky}
 \label{sec:vysledky}
 Byl vytvořen a otestován nástroj, který implmentuje jak detekční, tak korekční algoritmy pro souborový systém UDF. Jeho funkce byla ověřena jak praktickým používáním na poškozená média, tak porovnáním výsledků detekce a následné korekce vůči ostatním existujícím řešením.\\
-Nástroj v tuto chvíli implementuje podporu standardů UDF 1.00 až 2.01, přičemž většina vývoje byla soustředěna vůči novější verzi standardu.
+Nástroj v tuto chvíli implementuje podporu standardů UDF 1.00 až 2.01, přičemž většina vývoje byla soustředěna vůči novější verzi standardu. Proti tomu stojí nedostatek testovacích médií vůči kterým bylo zařízení testováno. Uměle vytvořená média (myšleno vytvořená pro účely testování) mají sice známou minulost ale to je částečně na škodu, vzhledem k faktu, že opravdu závažné chyby vzniknou až během provozu média delší dobu.\\
+Nástroj v tuto chvíli dokáže detekovat a opravovat chyby podle tabulky \ref{tab:det-cor}. Funkce UDF která není zachycena v této tabulce není detekována.
+\begin{table}
+    \centering
+    \begin{tabular}{ | l | l | l | }
+        \hline
+        Název chyby & Detekce & Korekce \\ \hline\hline
+        Neshodující se kontrolní součet & \cmark & \cmark (\footnotemark[1]) \\\hline
+        Neshodující se CRC & \cmark & \cmark (\footnotemark[1]) \\\hline
+        Neshodující se umístění tagu & \cmark & \cmark \\\hline
+        Neshodující se počet souborů nebo adresářů & \cmark (\footnotemark[2]) & \cmark (\footnotemark[2]) \\\hline
+        Neshodující se objem volného místa & \cmark (\footnotemark[2]) & \cmark (\footnotemark[2]) \\\hline
+        Neshodující se mapy obsazeného místa & \cmark (\footnotemark[2]) & \cmark (\footnotemark[2]) \\\hline
+        Špatně nastavené \textit{Unique ID} & \cmark & \cmark \\\hline
+        Špatně nastavené časové značky modifikace & \cmark & \cmark \\\hline
+        Špatně nastavené časové značky vytvoření & \xmark (\footnotemark[4]) & \xmark (\footnotemark[4]) \\\hline
+        Rozdílné \textit{Tag Serial Number} & \cmark & \cmark \\\hline
+        Uzavření otevřeného deskriptoru LVID & \cmark & \cmark \\\hline
+        Vyřešení nedokončeného zápisu & \cmark & \cmark \\\hline
+        Poškozený deskriptor FE & \cmark & \xmark (\footnotemark[3]) \\\hline
+        Poškozený deskriptor FID & \cmark & \xmark (\footnotemark[3]) \\\hline
+        Poškozený deskriptor FSD & \cmark & \xmark (\footnotemark[3]) \\\hline
+    \end{tabular}
+    \caption{Tabulka detekovatelných a opravitelných chyb\label{tab:det-cor}}
+\end{table}
+
+\footnotetext[1]{Pokud došlo k této poruše u redundantního deskriptoru}
+\footnotetext[2]{Závislé na správnosti průchodu stromem souborů}
+\footnotetext[3]{Oprava je sice technicky možná přepisem na správné hodnoty, ale není možné automaticky usoudit zda je při použití vadného deskriptoru v pořádku pokračovat. Tato možnost musí být svěřena pouze uživateli.}
+\footnotetext[4]{Nebylo implementováno. Jedná se o porovnání pořadí času vytvoření a poslední modifikace.}
 
 \chapter{Publikace nástroje v GNU komunitě}
 \label{ch:publikace}
