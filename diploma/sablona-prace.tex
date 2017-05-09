@@ -105,6 +105,8 @@ diploma						 % sazba diplomové práce
 		fontadjust=true %licovani sloupcu
     extendedchars=true,
     breaklines=true,
+    keywordstyle=[2]\color{red},
+    keywords=[2]{error,Error,ERROR},
     literate=%  definice symbolů s diakritikou
     {á}{{\'a}}1
     {č}{{\v{c}}}1
@@ -137,7 +139,8 @@ diploma						 % sazba diplomové práce
     {Ý}{{\'Y}}1
     {Ž}{{\v{Z}}}1
 }
-
+\usepackage{lstlinebgrd}
+\usepackage{color}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%      Definice informací o dokumentu             %%%%%%%%%%

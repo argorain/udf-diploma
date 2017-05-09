@@ -860,9 +860,74 @@ LVID = {
     nextUniqueId = 0
 }
 \end{lstlisting}
-Médium bylo v této fázi zazálohováno pro srovnání různých variant. První varianta je oprava pomocí mého nástroje \texttt{udffsck}. Druhá varianta je oprava pomocí nástroje MS~\texttt{CHKDSK}. Oprava pomocí \texttt{fsck\_udf} z Apple macOS není možná, protože nástroj nemá implementovány žádné opravné algoritmy. Pro referenční srovnání je přiložen výstup z programu \ref{udfct} společnosti Philips, jehož výstup je vzhledem k jeho délce v příloze \ref{lst:udfct-broken}.\\
-Výsledek z nástroje \texttt{udffsck} je vidět na výpisu \ref{lst:udffsck-pass}. Jak je vidět na výpisu \ref{lst:udfffsck-fixed}, byla nalezena řada chyb a všechny byly opraveny. Funkčnost souborového systému byla posléze ověřena připojením k MS~Windows~7, kde na něj byla úspěšně nakopírována data. Stejně tak výstup z programu MS~\texttt{CHKDSK} nedetekoval žádné problémy. Nabízí se otázka, proč nebyla funkce souborového systému ověřena i na OS~Linux. Důvodem je benevolence implementace ovladače v OS~Linux, který dokáže bez potíží zapisovat i na defektní souborový systém. Problém je, že ho tím dále poškozuje. Proto byl jako kontrolní test zvolen MS~Windows~7, který přistupuje k připojení souborového systému striktněji.\\
-Nyní pokud se vrátíme k zálohované variantě a zkusíme pro srovnání provést obnovu pomocí MS~\texttt{CHKDSK}. Na konci opravy, kdy program hlásí že opravil všechny nalezené chyby zkusíme taktéž médium připojit a nahrát data. Nyní ale dochází k selhání, viz obrázek \ref{fig:win7-err}. Opětovná kontrola pomocí \texttt{CHKDSK} nenalezne žádné chyby. Verdikt je, že médium je nenávratně poškozeno, ačkoli \texttt{CHKDSK} nenalézá chybu. Po kontrole referenčním nástrojem \texttt{udfct}, jehož výstup je opět v příloze \ref{lst:udfct-chkdsk}, je vidět, že program \texttt{CHKDSK} sice opravil nalezené chyby, ale také vytvořil nové. Co hůře, nenávratně souborový systém poškodil. K jeho opravě by bylo nutné částečné přeskupení struktur na médiu, což ostatně svým během on udělal a právě tím médium poškodil. Pokud použijeme můj nástroj \texttt{udffsck}, zjistíme, že někeré z chyb jsou opravitelné, ale jejich odstranění vyvolává další, které již můj nástroj bohužel nedetekuje. Jejich nález je opět díky \texttt{udfct}, jehož výpis je v příloze \ref{lst:udfct-chkdsk-po-oprave}.\\
+Médium bylo v této fázi zazálohováno pro srovnání různých variant. První varianta je oprava pomocí mého nástroje \texttt{udffsck}. Druhá varianta je oprava pomocí nástroje MS~\texttt{CHKDSK}. Oprava pomocí \texttt{fsck\_udf} z Apple macOS není možná, protože nástroj nemá implementovány žádné opravné algoritmy. Pro referenční srovnání je přiložen výstup z programu \texttt{udfct} společnosti Philips, jehož výstup je vzhledem k jeho délce v příloze \ref{lst:udfct-broken}.\\
+\begin{lstlisting}[frame=single,caption={Výsledek opravy poškozeného média programem \texttt{udffsck}},label=lst:udffsck-pass,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
+Verbosity increased to WARNING.
+Verbosity increased to MESSAGE.
+We try to fix medium automaticaly.
+Medium to analyze: /dev/sdb
+AVDP[0] successfully loaded.
+AVDP[1] successfully loaded.
+AVDP[2] successfully loaded.
+Sectorsize: 512
+
+Medium file tree
+----------------
+.....:..rwx.:.rwx.:.rwx DIR     2017-05-05 15:58:54.804378+00:00       152  <ROOT>
+  .....:..rwx.:.rwx.:.rwx FILE    2009-11-12 19:46:14.000000+00:00  327345425  "gtd.mp4"
+[ERROR] (2017-01-16-191632.webm) Tag Serial Number differs.
+(2017-01-16-191632.webm) Tag Serial Number was fixed.
+[ERROR] (2017-01-16-191632.webm) File size mismatch. Probably unfinished file write.
+Removing unfinished file...
+(2017-01-16-191632.webm) Unifinished file was removed.
+
+Filesystem status
+-----------------
+Volume set identifier:113A1E01 UDF Volume Set
+Partition identifier:
+Next UniqueID: 18
+Max found UniqueID: 17
+Last LVID recoreded change: 2017-05-05 16:15:01.278032+00:00
+expected number of files: 2
+expected number of dirs:  1
+counted number of files: 1
+counted number of dirs:  1
+UDF rev: min read:  0201
+         min write: 0201
+         max write: 0201
+Used Space: 327836672 (640306)
+Free Space: 1665865216 (3253643)
+Partition size: 2003533824 (3913152)
+Expected Used Space: 337668608 (659509)
+Expected Used Blocks: 882490
+Expected Unused Blocks: 3030662
+[ERROR] 19203 blocks is unused but not marked as unallocated in Free Space Table.
+[ERROR] Correct free space: 3272846
+[ERROR] 242184 blocks is unused but not marked as unallocated in SBD.
+
+VDS verification status
+-----------------------
+[0] PVD is fine. No fixing needed.
+[1] PD is fine. No fixing needed.
+[2] LVD is fine. No fixing needed.
+[3] USD is fine. No fixing needed.
+[4] IUVD is fine. No fixing needed.
+[5] TD is fine. No fixing needed.
+[ERROR] Opened integrity type. Some writes may be unfinished.
+[ERROR] Number of files or directories is not corresponding to counted number
+[ERROR] Free Space table is not corresponding to reality.
+PD SBD recovery was successful.
+LVID recovery was successful.
+All done
+\end{lstlisting}
+\begin{figure}[] 
+    \centering
+    \includegraphics[scale=0.42]{obrazky/win7-error.png}
+    \caption{Chyba při pokusu o zápis na médium opravené nástrojem \texttt{CHKDSK}}
+    \label{fig:win7-err}
+\end{figure}
+Výsledek z nástroje \texttt{udffsck} je vidět na výpisu \ref{lst:udffsck-pass}. Jak je vidět, byla nalezena řada chyb a všechny byly opraveny. Funkčnost souborového systému byla posléze ověřena připojením k MS~Windows~7, kde na něj byla úspěšně nakopírována data. Stejně tak výstup z programu MS~\texttt{CHKDSK} nedetekoval žádné problémy. Nabízí se otázka, proč nebyla funkce souborového systému ověřena i na OS~Linux. Důvodem je benevolence implementace ovladače v OS~Linux, který dokáže bez potíží zapisovat i na defektní souborový systém. Problém je, že ho tím dále poškozuje. Proto byl jako kontrolní test zvolen MS~Windows~7, který přistupuje k připojení souborového systému striktněji.\\
+Nyní pokud se vrátíme k zálohované variantě a zkusíme pro srovnání provést obnovu pomocí MS~\texttt{CHKDSK}. Na konci opravy, kdy program hlásí že opravil všechny nalezené chyby zkusíme taktéž médium připojit a nahrát data. Nyní ale dochází k selhání, viz obrázek \ref{fig:win7-err}. Opětovná kontrola pomocí \texttt{CHKDSK} nenalezne žádné chyby. Verdikt je, že médium je nenávratně poškozeno, ačkoli \texttt{CHKDSK} nenalézá chybu. Po kontrole referenčním nástrojem \texttt{udfct}, jehož výstup je opět v příloze \ref{lst:udfct-chkdsk}, je vidět, že program \texttt{CHKDSK} sice opravil nalezené chyby, ale také vytvořil nové. K jeho opravě by bylo nutné částečné přeskupení struktur na médiu, což ostatně svým během on udělal a právě tím médium poškodil, protože tak neprovedl v souladu se specifikací. Pokud použijeme můj nástroj \texttt{udffsck}, zjistíme, že někeré z chyb jsou opravitelné, ale jejich odstranění vyvolává další, které již můj nástroj bohužel nedetekuje. Jejich nález je opět díky \texttt{udfct}, jehož výpis je v příloze \ref{lst:udfct-chkdsk-po-oprave}.\\
 Cílem této analýzy bylo ukázat, že nástroj \texttt{udffsck} dokáže opravit poškozený souborový systém UDF tak, že i striktní ovladač MS~Windows dokáže bez potíží s médiem pracovat narozdíl od jejch vlastního řešení \texttt{CHKDSK}. Vzhledem k faktu, že neexistuje jiné řešení, ať už otevřené nebo uzavřené, schopné jak detekce chyb, tak jejich korekce pro souborový systém UDF, považuji tento výsledek za úspěch. 
 
 \section{Dosažené výsledky}

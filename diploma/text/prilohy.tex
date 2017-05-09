@@ -635,138 +635,1499 @@ All done
     \item Ladicí výpis zobrazující jak dlouhý FID je a o kolik se tím pádem má posunout pro další.
 \end{enumerate}
 Takto program postupně zpracuje všechny soubory až skončí s hláškou \textit{All done}. Pokud vše skončilo správně, měl by vrátit 0.
-\iffalse
-\chapter{Příklad sazby zdrojových kódů}
 
-\section{Balíček \texttt{listings}}
+\chapter{Výstupy z referenčního řešení \texttt{udfct}}
+\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct}},label=lst:udfct-broken,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
+UDF Conformance Testing Application
+(c) Koninklijke Philips Electronics N.V. 1999-2006
+Application version : 1.5r4 distribution bin
+   UCT Core version : 1.5r4 distribution bin
+       platform : Linux - with scsi support
 
-Pro vysázení zdrojových souborů je možné použít balíček \href{https://www.ctan.org/pkg/listings}{\texttt{listings}}.
-Balíček zavádí nové prostředí \texttt{lstlisting} pro sazbu zdrojových kódů, jako například:
-%
-\begin{lstlisting}[language={[LaTeX]TeX}]
-\section{Balíček lstlistings}
-Pro vysázení zdrojových souborů je možné použít
-	balíček \href{https://www.ctan.org/pkg/listings}%
-	{\texttt{listings}}.
-Balíček zavádí nové prostředí \texttt{lstlisting} pro
-	sazbu zdrojových kódů.
+Command:
+  ./udf_test
+Generic options parsing:
+
+Medium info options parsing:
+    -blocksize 512
+
+Device options parsing:
+    ../../../udffsck-test-samples/udf-samples/bs512_windows7_udf0201_broken_file_tree.img
+
+No image configuration file ../../../udffsck-test-samples/udf-samples/bs512_windows7_udf0201_broken_file_tree.cfg
+
+
+Created image device
+  image file blocks : 3913728  ../../../udffsck-test-samples/udf-samples/bs512_windows7_udf0201_broken_file_tree.img
+     blocks, bytes  : 3913728  2003828736
+
+
+'-image' device Medium Info:
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 0
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
+
+=> Warning: Undefined (ECC) blocking factor, set to 16.
+-       Please specify "-ecclength <n>" to enable the verifier to do
+-       a better job. Media that do not have ECC or fixed size packets
+-       must specify: -ecclength 1
+
+Inspect 1 block for presence of VAT or AVDP
+starting at block: 3913727
+
+  ==>   read cache: max 32 buffers of 32 sectors, total 512 Kb
+3913727         1 ok block read
+3913727 AVDP    (MVDS: 96, RVDS: 3913696)
+
+last AVDP at 3913727 (N)
+
+    Single Layer medium
+
+Verification start medium info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
+
+====>   Start verification
+    Start time   : 2017-05-09 10:41:32 +02:00 (east of UTC)
+    Verbose level: 100
+    Message limit: 20
+    Fake read enabled
+    Read cache enabled
+    Initial UDF Revision range: 1.02 thru 2.60
+    Single Layer medium
+
+====>   Volume Structure verification
+    Read Volume Recognition Sequence
+     64 read 4 blocks
+    BEA01
+    Start of Extended Area
+     68 read 4 blocks
+    NSR03
+  ==>   Changed UDF Revision range from: 1.02 thru 2.60 to: 2.00 thru 2.60
+-   because of "NSR03 descriptor"
+     72 read 4 blocks
+    TEA01
+     76 read 4 blocks
+    End of Extended Area
+    End of Volume Recognition Sequence
+
+
+    Reading Volume Information
+    256 read block
+    AVDP at 256 (MVDS: 96, RVDS: 3913696)
+    First Tag Serial Number: 2
+3913471 read block
+    AVDP at N-256   (MVDS: 96, RVDS: 3913696)
+3913727 read block
+    AVDP at N   (MVDS: 96, RVDS: 3913696)
+
+    Number of AVDPs: 3, AVDPs at  256,  N-256,  N
+
+====>   Read Main VDS extent:      96, length:   8192
+     96 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   PVD  344 New Entity Identifier (regid):
+    Application Entity Identifier
+      <empty>
+  ==>   PVD  388 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+  ==>   Add PVD to VDS info
+     97 read block
+    PD    VDS Number: 2, Partition Number: 8192
+  ==>   PD   24  New Entity Identifier (regid):
+    Application Entity Identifier
+      Identifier         : "+NSR03"
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+     98 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+  ==>   LVD  216 New Entity Identifier (regid):
+    Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+  ==>   Changed UDF Revision range from: 2.00 thru 2.60 to: 2.01 only
+-   because of "Domain EntityID UDF revision"
+      Domain flags       : #00
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+     99 read block
+    USD   VDS Number: 4, nmb of ADs: 7
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       127,       16 blocks
+     3: location     144 thru       255,      112 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913695,      224 blocks
+     7: location 3913712 thru   3913726,       15 blocks
+  ==>   Add USD to VDS info
+    100 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+  ==>   IUVD 20  New Entity Identifier (regid):
+    UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+    101 read block
+    TD  
+
+====>   Read Reserve VDS extent: 3913696, length:   8192
+3913696 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   Add PVD to VDS info
+3913697 read block
+    PD    VDS Number: 2, Partition Number: 8192
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+3913698 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+3913699 read block
+    USD   VDS Number: 4, nmb of ADs: 7
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       127,       16 blocks
+     3: location     144 thru       255,      112 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913695,      224 blocks
+     7: location 3913712 thru   3913726,       15 blocks
+  ==>   Add USD to VDS info
+3913700 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+3913701 read block
+    TD  
+
+====>   Check equivalence of Main VDS and Reserve VDS
+
+  ==>   Main and Reserve VDS are equivalent
+
+====>   Check Main VDS. Summary:
+     PVD VDS Number  1
+     LVD VDS Number  3
+     USD VDS Number  4
+      PD VDS Number  2
+    IUVD VDS Number  5  ID: "*UDF LV Info"
+       5 prevailing VDS descriptors found
+
+
+  ==>   Using Main VDS
+
+  ==>   Checking VDS 'far apart' allocation for Main and Reserve VDS.
+
+   =>   Volume Descriptor Sequence 'far apart' test summary:
+-         Main VDS LBA range:         96  thru        111,   1 extent
+-      Reserve VDS LBA range:    3913696  thru    3913711,   1 extent
+-     lowest packet distance:  244600 ECC packets (100.0% of remaining Volume Space)
+-        test margin level 1:   24500 ECC packets ( 10.0% of remaining Volume Space)
+-        test margin level 2:   61200 ECC packets ( 25.0% of remaining Volume Space)
+-          Main VDS    Reserve VDS    ECC packet distance
+-              111        3913696       244600                      
+
+
+====>   Checking Logical Volume: "windows7_udf_r2.01"
+
+    Prevailing Partition Descriptors:
+      pNmb: 8192, start:   288, length: 3913152, access: overwritable
+
+    LVD Partition Maps:
+      p0: Physical Partition Map (Type 1), pNmb: 8192
+
+  ==>   Changed medium WR type from unknown to overwritable
+-           because of partition access type
+  ==>   Changed medium SE type from unknown to nonsequential
+-           because of no Virtual Partition found
+
+
+    Mounted Partitions:
+-   p0: Physical, pNmb: 8192, blocks:     288 thru 3913439, access: overwritable
+-             logical blocks:       0 thru 3913151
+
+  ==>   Changed medium CL type from unknown finalization state to finalized
+-           because of more than one AVDP found
+
+    Read LVID sequence extent: 128, length: 8192
+    128 read block
+    LVID  - Open
+    !\colorbox{yellow}{LVID 8   Error: Descriptor CRC: \#24B2, expected: \#03CC, ECMA 3/7.2.6, 4/7.2.6}!
+    LVID Recording Time: 2017-05-05 16:15:01.278032
+  ==>   LVID 88  New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows     "
+      OS Class           : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+      Implementation Use : #00 #00 #06 #01 #01 #00
+    129 read block
+    TD  
+    !\colorbox{yellow}{LVID 28  Error: Dirty Volume. An Open prevailing LVID was}!
+-        !\colorbox{yellow}{found but no Virtual Partition. The Logical Volume}!
+-        !\colorbox{yellow}{is in an inconsistent state, unexpected errors}!
+-        !\colorbox{yellow}{may occur, ECMA 3/8.8.2, 3/10.10.3.}!
+-   Note: The verifier will assume the volume to have a Close LVID
+-         in order to show all LVID and volume inconsistencies.
+
+    Next UniqueID: #0000000000000012,
+    from LVID Logical Volume Header Descriptor.
+
+
+  ==>   p0: read Unallocated or Freed Partition Space Sets
+        Unallocated Space Bitmap extent: 956 blocks
+    320 read block
+    321 read 955 blocks
+    SBD 
+    SBD  10     Note: Descriptor CRC Length: 8. This is the recommended value
+-             according to errata DCN-5108 for UDF 2.50 and lower.
+    p0: Space set found
+    --
+
+    Read FSD sequence extent: (0,p0), length:    512
+
+    288 read block
+    FSD   FSN: 0,  FSDN: 0
+    FSD   Logical Volume Identifier: "windows7_udf_r2.01"
+    FSD         File Set Identifier: "UDF Volume Set"
+    FSD   Copyright File Identifier: <undefined>
+    FSD    Abstract File Identifier: <undefined>
+    FSD           Root Directory at: (988,p0)
+    FSD  System Stream Directory at: <undefined>
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   File Structure verification
+
+    Read Root Directory
+   1276 read block
+    EFE  file type DIR    name: <root>
+    !\colorbox{yellow}{EFE  80  Error: FE Access Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-             !\colorbox{yellow}{FE Access Time: 2017-05-05 16:15:01.282032}!
+-        !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: <root>
+  ==>   EFE  168 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    EFE  216 Embedded data, 152 bytes
+
+  ==>   (max) depth:  1  1  Expand directory: <root>
+
+    EFE  216 Verify embedded FIDs, 152 bytes
+    FID   cid:       name: /<parent FID>, refers to: <root>
+    FID   cid:   8   name: "gtd.mp4"
+    FID   cid:   8   name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{Error: Tag Serial Number changing: 2 -> 1, no disaster}!
+-          !\colorbox{yellow}{recovery support, ECMA 3/7.2.5, 4/7.2.5, UDF 2.3.1.1.}!
+-        name: "2017-01-16-191632.webm"
+    Add FIDs to directory hierarchy and read FEs
+    289 read block
+    EFE  file type FILE   name: "gtd.mp4"
+    !\colorbox{yellow}{Error: Tag Serial Number changing: 1 -> 2, no disaster}!
+-          !\colorbox{yellow}{recovery support, ECMA 3/7.2.5, 4/7.2.5, UDF 2.3.1.1.}!
+-        name: "gtd.mp4"
+- ==>   Message printed 2 times, ignored from now.
+    !\colorbox{yellow}{EFE  80  Error: FE Access Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-             !\colorbox{yellow}{FE Access Time: 2017-05-05 16:15:06.790101}!
+-        !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: "gtd.mp4"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: short_ad   0  327345425      39131 0    327345425  327345664
+   1277 read block
+    EFE  file type FILE   name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{EFE  80  Error: FE Access Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-             !\colorbox{yellow}{FE Access Time: 2017-05-05 16:15:31.094407}!
+-        !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{EFE  92  Error: FE Modification Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-        !\colorbox{yellow}{FE Modification Time: 2017-05-05 16:15:31.330410}!
+-         !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{EFE  116 Error: FE Attribute Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-          !\colorbox{yellow}{FE Attribute Time: 2017-05-05 16:15:31.330410}!
+-        !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{EFE  104 Error: EFE Creation Time shall not be later than}!
+-        !\colorbox{yellow}{LVID Recording Time, ECMA 3/10.10.2, UDF 2.2.6, UDF 3.1.1.}!
+-          !\colorbox{yellow}{EFE Creation Time: 2017-05-05 16:15:31.094407}!
+-        !\colorbox{yellow}{LVID Recording Time: 2017-05-05 16:15:01.278032}!
+-        name: "2017-01-16-191632.webm"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: long_ad    0    9830400        990 0      9830400    9830400
+      2: long_ad    1       1024      20190 0      9830400    9831424
+    !\colorbox{yellow}{EFE  72  Error: Logical Blocks Recorded: 19202, expected: 19200,}!
+-           !\colorbox{yellow}{icbtag Allocation Descriptor type: 1,}!
+-           !\colorbox{yellow}{UDF 2.3.6.5, ECMA 4/14.9.11, 4/14.6.8.}!
+-        name: "2017-01-16-191632.webm"
+
+Directory: <root>
+
+.d.p.e..........:..rwx:..rwx:..rwx DIR   1 2017-05-05 15:58        152 /<parent FID>, refers to: <root>
+.....S..........:..rwx:..rwx:..rwx FILE  1 2009-11-12 19:46  327345425 "gtd.mp4"
+.....L..........:..rw.:..r..:..r.. FILE  1 2017-05-05 16:15    9830400 "2017-01-16-191632.webm"
+
+    file body read: "gtd.mp4"
+  39419 fake read 639347 blocks
+    file body read: "2017-01-16-191632.webm"
+   1278 fake read 19200 blocks
+    file tail read: "2017-01-16-191632.webm"
+  20478 fake read 2 blocks
+
+    Expand complete, max depth  1 for directory: <root>
+-              2 files   0 directories
+-    overall total:    2 files   1 directory  
+
+    Maximum directory depth: 1
+
+    End of directory tree expansion
+    Excluding deleted FIDs with cleared ICB
+
+====>   Testing File Link Count by cross reference of 4 paths.
+    File Link Count errors will be identified here by the
+    physical address of the File Entry as well as all
+    paths identifying the File Entry.
+    The physical address of the File Entry is also shown in
+    the informational read block messages above.
+    Note that errors found here may have been reported before
+    or may be caused by other previously reported errors.
+
+====>   Testing free Volume Space in USD Allocation Descriptors
+
+====>   Build Partition Space Bitmaps.
+    Also check structures that overlap with partition space.
+
+====>   Partition Allocation summary :
+
+ ===>   Physical Partition p0:  size 3913152 blocks, overwritable
+                blocks     288 thru 3913439
+
+  ==>   Compare partition p0 calculated bitmap to recorded Space Set
+      using: Unallocated Space Bitmap
+
+      All used blocks marked as allocated
+
+      !\colorbox{yellow}{Warning: 222981 unused blocks NOT marked as unallocated.}!
+-          This may be due to previous errors,
+-          or otherwise it is Orphan Space, UDF 5.2.2.
+-     Usage of following extents not yet identified:
+  20480   logical block    20192 thru    39130,   18939 blocks
+ 678766   logical block   678478 thru   882519,  204042 blocks
+
+====>   Final LVID verification
+    Dirty LVID, verify as Close
+  ==>   overwritable Physical Partition p0 Space summary:
+                      Partition Length    : 3913152
+                 LVID Partition Size      : 3913152
+                 LVID Partition Free Space: 3253643
+       Unallocated Space Bitmap free space: 3030662
+              Verifier expected free space: 3253643
+        Unused by UDF but allocated blocks:  222981
+
+    !\colorbox{yellow}{LVID 80  Error: LVID and Unallocated Space Bitmap inconsistent}!
+-           !\colorbox{yellow}{Partition Free Space for a Dirty LVID,}!
+-           !\colorbox{yellow}{see Space summary above and maybe use}!
+-           !\colorbox{yellow}{-showalloc output, ECMA 3/10.1, UDF 2.2.6.2.}!
+
+  ==>          LVID status summary:
+    Last modification Time    : 2017-05-05 16:15:01.278032 (equal to UTC)
+    Last written Developer Id : "*Microsoft Windows     "
+    Next UniqueID             : #0000000000000012 => from dirty LVID
+    max used FE  UniqueID     : #0000000000000011
+    max used FID UniqueID     :         #00000011
+    Number of Files           :        2
+    Number of Directories     :        1
+    Min UDF Read   Revision   : UDF 2.01
+    Min UDF Write  Revision   : UDF 2.01
+    Max UDF Write  Revision   : UDF 2.01
+        Medium UDF Revision   : UDF 2.01
+
+
+====>   Testing uniqueness of relevant UniqueIDs.
+
+
+    Test complete
+    Elapsed time : 00:00
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   Encountered EntityID (regid) summary:
+
+ count  EntityID
+
+    3   Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+      Domain flags       : #00
+    2   UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    3   Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    8   Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    1   Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows     "
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+      Implementation Use : #00 #00 #06 #01 #01 #00
+    2   Application Entity Identifier
+      <empty>
+    2   Application Entity Identifier
+      Identifier         : "+NSR03"
+
+  These EntityIDs are also shown above when read for the first time
+
+====>   Final verify status report
+
+  Final UDF Revision range: 2.01 only
+  Disaster Recovery for Tag Serial Numbers not supported
+
+  File System info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : overwritable
+  medium SE type    : nonsequential
+  medium CL type    : finalized
+
+  Summed file body sizes: 337175825 bytes   (321.5559 Mbytes)
+
+    Error count:   6    total occurrences:    12  -> search for   "error:"
+  Warning count:   2    total occurrences:     2  -> search for "warning:"
+
+  Additional notes may have been printed:     -> search for    "note:"
+
+  Disclaimer:
+-   The number of errors and warnings is an indication only.
+-   There is no guarantee that the number of errors and
+-   warnings as shown by the UDF verifier is correct.
 \end{lstlisting}
-%
-Podporuje množství programovacích jazyků.
-Kód k~vysázení může být načítán přímo ze zdrojových souborů.
-Umožňuje vkládat čísla řádků nebo vypisovat jen vybrané úseky kódu.
-Např.:
 
-\noindent
-Zkratky jsou sázeny v~prostředí \texttt{seznamzkratek}:
-\lstinputlisting[language={[LaTeX]TeX},nolol,numbers=left,firstline=1,lastline=1]{text/zkratky.tex}
-%
-Šířka textu druhého parametru udává šířku prvního sloupce se zkratkami.
-Proto by měla být zadávána nejdelší zkratka nebo symbol.
-Příklad definice zkratky \zk{symfvz} je na výpisu \ref{lst:symfvz}.
+\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct} po opravě nástrojem \texttt{CHKDSK}},label=lst:udfct-chkdsk,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
+UDF Conformance Testing Application
+(c) Koninklijke Philips Electronics N.V. 1999-2006
+Application version : 1.5r4 distribution bin
+   UCT Core version : 1.5r4 distribution bin
+       platform : Linux - with scsi support
 
-\iflanguage{czech}{\shorthandoff{-}}{}
-\iflanguage{slovak}{\shorthandoff{-}}{}
-\lstinputlisting[language={[LaTeX]TeX},frame=single,caption={Ukázka sazby zkratek},label=lst:symfvz,numbers=left,linerange={bsymfvz-\%\%\%\ esymfvz},includerangemarker=false]{text/zkratky.tex}
-\iflanguage{slovak}{\shorthandon{-}}{}
-\iflanguage{czech}{\shorthandon{-}}{}
+Command:
+  ./udf_test
+Generic options parsing:
 
-\noindent
-Ukončení seznamu je provedeno ukončením prostředí:
-\lstinputlisting[language={[LaTeX]TeX},nolol,numbers=left,firstnumber=18,linerange=18]{text/zkratky.tex}
+Medium info options parsing:
+    -blocksize 512
 
-\vspace{\fill}
+Device options parsing:
+    ../../../bs512_windows7_udf0201_chkdsk.img
 
-\noindent
-{\bf Poznámka k~výpisům s~použitím volby jazyka \verb|czech| nebo \verb|slovak|:}\newline
-Pokud Váš zdrojový kód obsahuje znak spojovníku \verb|-|, pak překlad může skončit chybou.
-Ta je způsobená tím, že znak \verb|-| je v~českém nebo slovenském nastavení balíčku \verb|babel| tzv.\ aktivním znakem.
-Přepněte znak \verb|-| na neaktivní příkazem \verb|\shorthandoff{-}| těsně před výpisem a hned za ním jej vraťte na aktivní příkazem \verb|\shorthandon{-}|.
-Podobně jako to je ukázáno ve zdrojovém kódu šablony.
+No image configuration file ../../../bs512_windows7_udf0201_chkdsk.cfg
 
 
-\clearpage
-
-%\section{Výpis kódu prostředí Matlab}
-Na výpisu \ref{lst:priklad.vypis.kodu.Matlab} naleznete příklad kódu pro Matlab, na výpisu \ref{lst:priklad.vypis.kodu.C} zase pro jazyk~C.
-
-\lstnewenvironment{matlab}[1][]{%
-\iflanguage{czech}{\shorthandoff{-}}{}%
-\iflanguage{slovak}{\shorthandoff{-}}{}%
-\lstset{language=Matlab,numbers=left,#1}%
-}{%
-\iflanguage{slovak}{\shorthandon{-}}{}%
-\iflanguage{czech}{\shorthandon{-}}{}%
-}
-
-\begin{matlab}[frame=single,float=htbp,caption={Příklad Schur-Cohnova testu stability v~prostředí Matlab.},label=lst:priklad.vypis.kodu.Matlab,numberstyle=\scriptsize, numbersep=7pt]
-%% Priklad testovani stability filtru
-
-% koeficienty polynomu ve jmenovateli
-a = [ 5, 11.2, 5.44, -0.384, -2.3552, -1.2288];
-disp( 'Polynom:'); disp(poly2str( a, 'z'))
-
-disp('Kontrola pomoci korenu polynomu:');
-zx = roots( a);
-if( all( abs( zx) < 1))
-    disp('System je stabilni')
-else
-    disp('System je nestabilni nebo na mezi stability');
-end
-
-disp(' '); disp('Kontrola pomoci Schur-Cohn:');
-ma = zeros( length(a)-1,length(a));
-ma(1,:) = a/a(1);
-for( k = 1:length(a)-2)
-    aa = ma(k,1:end-k+1);
-    bb = fliplr( aa);
-    ma(k+1,1:end-k+1) = (aa-aa(end)*bb)/(1-aa(end)^2);
-end
-
-if( all( abs( diag( ma.'))))
-    disp('System je stabilni')
-else
-    disp('System je nestabilni nebo na mezi stability');
-end
-\end{matlab}
-
-\noindent
-\begin{minipage}{\linewidth}
+Created image device
+  image file blocks : 3913728  ../../../bs512_windows7_udf0201_chkdsk.img
+     blocks, bytes  : 3913728  2003828736
 
 
-%\section{Výpis kódu jazyka C}
+'-image' device Medium Info:
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 0
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
 
-\begin{lstlisting}[frame=single,numbers=right,caption={Příklad implementace první kanonické formy v~jazyce C.},label=lst:priklad.vypis.kodu.C,basicstyle=\ttfamily\small, keywordstyle=\color{black}\bfseries\underbar,]
-// první kanonická forma
-short fxdf2t( short coef[][5], short sample)
-{
-	static int v1[SECTIONS] = {0,0},v2[SECTIONS] = {0,0};
-	int x, y, accu;
-	short k;
+=> Warning: Undefined (ECC) blocking factor, set to 16.
+-       Please specify "-ecclength <n>" to enable the verifier to do
+-       a better job. Media that do not have ECC or fixed size packets
+-       must specify: -ecclength 1
 
-	x = sample;
-	for( k = 0; k < SECTIONS; k++){
-		accu = v1[k] >> 1;
-		y = _sadd( accu, _smpy( coef[k][0], x));
-		y = _sshl(y, 1) >> 16;
+Inspect 1 block for presence of VAT or AVDP
+starting at block: 3913727
 
-		accu = v2[k] >> 1;
-		accu = _sadd( accu, _smpy( coef[k][1], x));
-		accu = _sadd( accu, _smpy( coef[k][2], y));
-		v1[k] = _sshl( accu, 1);
+  ==>   read cache: max 32 buffers of 32 sectors, total 512 Kb
+3913727         1 ok block read
+3913727 AVDP    (MVDS: 96, RVDS: 3913721)
 
-		accu = _smpy( coef[k][3], x);
-		accu = _sadd( accu, _smpy( coef[k][4], y));
-		v2[k] = _sshl( accu, 1);
+last AVDP at 3913727 (N)
 
-		x = y;
-	}
-	return( y);
-}
+    Single Layer medium
+
+Verification start medium info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
+
+====>   Start verification
+    Start time   : 2017-05-09 09:52:52 +02:00 (east of UTC)
+    Verbose level: 100
+    Message limit: 20
+    Fake read enabled
+    Read cache enabled
+    Initial UDF Revision range: 1.02 thru 2.60
+    Single Layer medium
+
+====>   Volume Structure verification
+    Read Volume Recognition Sequence
+     64 read 4 blocks
+    BEA01
+    Start of Extended Area
+     68 read 4 blocks
+    NSR03
+  ==>   Changed UDF Revision range from: 1.02 thru 2.60 to: 2.00 thru 2.60
+-   because of "NSR03 descriptor"
+     72 read 4 blocks
+    TEA01
+     76 read 4 blocks
+    End of Extended Area
+    End of Volume Recognition Sequence
+
+
+    Reading Volume Information
+    256 read block
+    AVDP at 256 (MVDS: 96, RVDS: 3913721)
+    First Tag Serial Number: 2
+    !\colorbox{yellow}{AVDP error: Main or Reserve Volume Descriptor Sequence Extent}!
+-           !\colorbox{yellow}{has extent length less than 16 logical blocks (8192 bytes)}!
+-           !\colorbox{yellow}{Main: 8192 bytes, Reserve: 3072 bytes, UDF 2.2.3.1+2}!
+3913471 read block
+    AVDP at N-256   (MVDS: 96, RVDS: 3913721)
+    !\colorbox{yellow}{AVDP error: Main or Reserve Volume Descriptor Sequence Extent}!
+-           !\colorbox{yellow}{has extent length less than 16 logical blocks (8192 bytes)}!
+-           !\colorbox{yellow}{Main: 8192 bytes, Reserve: 3072 bytes, UDF 2.2.3.1+2}!
+3913727 read block
+    AVDP at N   (MVDS: 96, RVDS: 3913721)
+    !\colorbox{yellow}{AVDP error: Main or Reserve Volume Descriptor Sequence Extent}!
+-           !\colorbox{yellow}{has extent length less than 16 logical blocks (8192 bytes)}!
+-           !\colorbox{yellow}{Main: 8192 bytes, Reserve: 3072 bytes, UDF 2.2.3.1+2}!
+
+    Number of AVDPs: 3, AVDPs at  256,  N-256,  N
+
+====>   Read Main VDS extent:      96, length:   8192
+     96 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   PVD  344 New Entity Identifier (regid):
+    Application Entity Identifier
+      <empty>
+  ==>   PVD  388 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+  ==>   Add PVD to VDS info
+     97 read block
+    PD    VDS Number: 2, Partition Number: 8192
+  ==>   PD   24  New Entity Identifier (regid):
+    Application Entity Identifier
+      Identifier         : "+NSR03"
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+     98 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+  ==>   LVD  216 New Entity Identifier (regid):
+    Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+  ==>   Changed UDF Revision range from: 2.00 thru 2.60 to: 2.01 only
+-   because of "Domain EntityID UDF revision"
+      Domain flags       : #00
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+     99 read block
+    USD   VDS Number: 4, nmb of ADs: 6
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       159,       48 blocks
+     3: location     176 thru       255,       80 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913720,      249 blocks
+  ==>   Add USD to VDS info
+    100 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+  ==>   IUVD 20  New Entity Identifier (regid):
+    UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+    101 read block
+    TD  
+
+====>   Read Reserve VDS extent: 3913721, length:   3072
+3913721 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   Add PVD to VDS info
+3913722 read block
+    PD    VDS Number: 2, Partition Number: 8192
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+3913723 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+3913724 read block
+    USD   VDS Number: 4, nmb of ADs: 6
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       159,       48 blocks
+     3: location     176 thru       255,       80 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913720,      249 blocks
+  ==>   Add USD to VDS info
+3913725 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+3913726 read block
+    TD  
+
+====>   Check equivalence of Main VDS and Reserve VDS
+
+  ==>   Main and Reserve VDS are equivalent
+
+====>   Check Main VDS. Summary:
+     PVD VDS Number  1
+     LVD VDS Number  3
+     USD VDS Number  4
+      PD VDS Number  2
+    IUVD VDS Number  5  ID: "*UDF LV Info"
+       5 prevailing VDS descriptors found
+
+
+  ==>   Using Main VDS
+
+  ==>   Checking VDS 'far apart' allocation for Main and Reserve VDS.
+
+   =>   Volume Descriptor Sequence 'far apart' test summary:
+-         Main VDS LBA range:         96  thru        111,   1 extent
+-      Reserve VDS LBA range:    3913721  thru    3913726,   1 extent
+-     lowest packet distance:  244601 ECC packets (100.0% of remaining Volume Space)
+-        test margin level 1:   24500 ECC packets ( 10.0% of remaining Volume Space)
+-        test margin level 2:   61200 ECC packets ( 25.0% of remaining Volume Space)
+-          Main VDS    Reserve VDS    ECC packet distance
+-              111        3913721       244601                      
+
+
+====>   Checking Logical Volume: "windows7_udf_r2.01"
+
+    Prevailing Partition Descriptors:
+      pNmb: 8192, start:   288, length: 3913152, access: overwritable
+
+    LVD Partition Maps:
+      p0: Physical Partition Map (Type 1), pNmb: 8192
+
+  ==>   Changed medium WR type from unknown to overwritable
+-           because of partition access type
+  ==>   Changed medium SE type from unknown to nonsequential
+-           because of no Virtual Partition found
+
+
+    Mounted Partitions:
+-   p0: Physical, pNmb: 8192, blocks:     288 thru 3913439, access: overwritable
+-             logical blocks:       0 thru 3913151
+
+  ==>   Changed medium CL type from unknown finalization state to finalized
+-           because of more than one AVDP found
+
+    Read LVID sequence extent: 160, length: 8192
+    160 read block
+    LVID  - Close
+    LVID Recording Time: 2017-05-08 18:01:57 +02:00
+    161 read block
+    TD  
+
+    Next UniqueID: #0000000000000001,
+    from LVID Logical Volume Header Descriptor.
+
+    !\colorbox{yellow}{Error: Next UniqueID lower 32 bits value less than 16, UDF 3.2.1.1.}!
+
+  ==>   p0: read Unallocated or Freed Partition Space Sets
+        Unallocated Space Bitmap extent: 956 blocks
+    320 read block
+    321 read 955 blocks
+    SBD 
+    SBD  10     Note: Descriptor CRC Length: 8. This is the recommended value
+-             according to errata DCN-5108 for UDF 2.50 and lower.
+    p0: Space set found
+    --
+
+    Read FSD sequence extent: (0,p0), length:    512
+
+    288 read block
+    FSD   FSN: 0,  FSDN: 0
+    FSD   Logical Volume Identifier: "windows7_udf_r2.01"
+    FSD         File Set Identifier: "UDF Volume Set"
+    FSD   Copyright File Identifier: <undefined>
+    FSD    Abstract File Identifier: <undefined>
+    FSD           Root Directory at: (988,p0)
+    FSD  System Stream Directory at: <undefined>
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   File Structure verification
+
+    Read Root Directory
+   1276 read block
+    EFE  file type DIR    name: <root>
+    !\colorbox{yellow}{EFE  8   Error: Descriptor CRC: \#4958, expected: \#7AD0, ECMA 3/7.2.6, 4/7.2.6}!
+-        name: <root>
+  ==>   EFE  168 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    EFE  216 Embedded data, 152 bytes
+
+  ==>   (max) depth:  1  1  Expand directory: <root>
+
+    EFE  216 Verify embedded FIDs, 152 bytes
+    FID   cid:       name: /<parent FID>, refers to: <root>
+    FID   cid:   8   name: "gtd.mp4"
+    !\colorbox{yellow}{FID  32  Error: UniqueID:         \#00000010}!
+-          !\colorbox{yellow}{Next UniqueID: \#0000000000000001}!
+-        !\colorbox{yellow}{FID UniqueID shall be less than Next UniqueID,}!
+-        !\colorbox{yellow}{UDF 3.2.1.1, ECMA 4/14.15.1.}!
+-        name: "gtd.mp4"
+    FID   cid:   8   name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{FID  32  Error: UniqueID:         \#00000011}!
+-         !\colorbox{yellow}{ Next UniqueID: \#0000000000000001}!
+-        !\colorbox{yellow}{FID UniqueID shall be less than Next UniqueID,}!
+-        !\colorbox{yellow}{UDF 3.2.1.1, ECMA 4/14.15.1.}!
+-        name: "2017-01-16-191632.webm"
+    Add FIDs to directory hierarchy and read FEs
+    289 read block
+    EFE  file type FILE   name: "gtd.mp4"
+    !\colorbox{yellow}{EFE  200 Error: UniqueID: \#0000000000000010}!
+-          !\colorbox{yellow}{Next UniqueID: \#0000000000000001}!
+-        !\colorbox{yellow}{EFE UniqueID shall be less than Next UniqueID,}!
+-        !\colorbox{yellow}{UDF 3.2.1.1, ECMA 4/14.15.1.}!
+-        name: "gtd.mp4"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: short_ad   0  327345425      39131 0    327345425  327345664
+   1277 read block
+    EFE  file type FILE   name: "2017-01-16-191632.webm"
+    !\colorbox{yellow}{EFE  200 Error: UniqueID: \#0000000000000011}!
+-          !\colorbox{yellow}{Next UniqueID: \#0000000000000001}!
+-        !\colorbox{yellow}{EFE UniqueID shall be less than Next UniqueID,}!
+-        !\colorbox{yellow}{UDF 3.2.1.1, ECMA 4/14.15.1.}!
+-        name: "2017-01-16-191632.webm"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: long_ad    0    9830400        990 0      9830400    9830400
+      2: long_ad    1       1024      20190 0      9830400    9831424
+
+Directory: <root>
+
+.d.p.e..........:..rwx:..rwx:..rwx DIR   1 2017-05-05 15:58        152 /<parent FID>, refers to: <root>
+.....S..........:..rwx:..rwx:..rwx FILE  1 2009-11-12 19:46  327345425 "gtd.mp4"
+.....L..........:..rw.:..r..:..r.. FILE  1 2017-05-05 16:15    9830400 "2017-01-16-191632.webm"
+
+    file body read: "gtd.mp4"
+  39419 fake read 639347 blocks
+    file body read: "2017-01-16-191632.webm"
+   1278 fake read 19200 blocks
+    file tail read: "2017-01-16-191632.webm"
+  20478 fake read 2 blocks
+
+    Expand complete, max depth  1 for directory: <root>
+-              2 files   0 directories
+-    overall total:    2 files   1 directory  
+
+    Maximum directory depth: 1
+
+    End of directory tree expansion
+    Excluding deleted FIDs with cleared ICB
+
+====>   Testing File Link Count by cross reference of 4 paths.
+    File Link Count errors will be identified here by the
+    physical address of the File Entry as well as all
+    paths identifying the File Entry.
+    The physical address of the File Entry is also shown in
+    the informational read block messages above.
+    Note that errors found here may have been reported before
+    or may be caused by other previously reported errors.
+
+====>   Testing free Volume Space in USD Allocation Descriptors
+
+====>   Build Partition Space Bitmaps.
+    Also check structures that overlap with partition space.
+
+====>   Partition Allocation summary :
+
+ ===>   Physical Partition p0:  size 3913152 blocks, overwritable
+                blocks     288 thru 3913439
+
+  ==>   Compare partition p0 calculated bitmap to recorded Space Set
+      using: Unallocated Space Bitmap
+
+      !\colorbox{yellow}{Error: 658551 used blocks marked as unallocated or freed}!
+    289   logical block        1
+   1277   logical block      989 thru    20191,   19203 blocks
+  39419   logical block    39131 thru   678477,  639347 blocks
+
+      No unused blocks marked as allocated.
+
+====>   Final LVID verification
+    Close LVID
+  ==>   overwritable Physical Partition p0 Space summary:
+                      Partition Length    : 3913152
+                 LVID Partition Size      : 3913152
+                 LVID Partition Free Space: 3912194
+       Unallocated Space Bitmap free space: 3912194
+              Verifier expected free space: 3253643
+        Used by UDF but unallocated blocks:  658551
+
+    !\colorbox{yellow}{LVID 80  FreeSpaceTable error: Physical Partition p0 Free Space: 3912194,}!
+-        !\colorbox{yellow}{expected: 3253643, see Space summary above and}!
+-        !\colorbox{yellow}{maybe use -showalloc output, UDF 2.2.6.2, ECMA 3/10.10.}!
+-   Note: The verifier may be unable to find the correct values for
+-         some of these LVID/VAT tests because of previous errors.
+
+  ==>          LVID status summary:
+    Last modification Time    : 2017-05-08 18:01:57 +02:00 (east of UTC)
+    Last written Developer Id : "*Microsoft Windows"
+    Next UniqueID             : #0000000000000001 => from LVID
+    max used FE  UniqueID     : #0000000000000011
+    max used FID UniqueID     :         #00000011
+    Number of Files           :        0
+    Number of Directories     :        0
+    Min UDF Read   Revision   : UDF 2.01
+    Min UDF Write  Revision   : UDF 2.01
+    Max UDF Write  Revision   : UDF 2.01
+        Medium UDF Revision   : UDF 2.01
+
+    !\colorbox{yellow}{LVID 120 Error: Number of Files: 0, expected: 2, UDF 2.2.6.4.}!
+    !\colorbox{yellow}{LVID 124 Error: Number of Directories: 0, expected: 1, UDF 2.2.6.4.}!
+
+====>   Testing uniqueness of relevant UniqueIDs.
+
+
+    Test complete
+    Elapsed time : 00:00
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   Encountered EntityID (regid) summary:
+
+ count  EntityID
+
+    3   Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+      Domain flags       : #00
+    2   UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    3   Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    9   Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    2   Application Entity Identifier
+      <empty>
+    2   Application Entity Identifier
+      Identifier         : "+NSR03"
+
+  These EntityIDs are also shown above when read for the first time
+
+====>   Final verify status report
+
+  Final UDF Revision range: 2.01 only
+
+  File System info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : overwritable
+  medium SE type    : nonsequential
+  medium CL type    : finalized
+
+  Summed file body sizes: 337175825 bytes   (321.5559 Mbytes)
+
+    Error count:   8    total occurrences:    13  -> search for   "error:"
+  Warning count:   1    total occurrences:     1  -> search for "warning:"
+
+  Additional notes may have been printed:     -> search for    "note:"
+
+  Disclaimer:
+-   The number of errors and warnings is an indication only.
+-   There is no guarantee that the number of errors and
+-   warnings as shown by the UDF verifier is correct.
 \end{lstlisting}
-\end{minipage}
 
-\fi
+\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct} po pokusu o jeho opravu po \texttt{CHKDSK} mým nástrojem \texttt{udffsck}},label=lst:udfct-chkdsk-po-oprave,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
+UDF Conformance Testing Application
+(c) Koninklijke Philips Electronics N.V. 1999-2006
+Application version : 1.5r4 distribution bin
+   UCT Core version : 1.5r4 distribution bin
+       platform : Linux - with scsi support
+
+Command:
+  ./udf_test
+Generic options parsing:
+
+Medium info options parsing:
+    -blocksize 512
+
+Device options parsing:
+    ../../../udf-samples/bs512_windows7_udf0201_chkdsk.img
+
+No image configuration file ../../../udf-samples/bs512_windows7_udf0201_chkdsk.cfg
+
+
+Created image device
+  image file blocks : 3913728  ../../../udf-samples/bs512_windows7_udf0201_chkdsk.img
+     blocks, bytes  : 3913728  2003828736
+
+
+'-image' device Medium Info:
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 0
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
+
+=> Warning: Undefined (ECC) blocking factor, set to 16.
+-       Please specify "-ecclength <n>" to enable the verifier to do
+-       a better job. Media that do not have ECC or fixed size packets
+-       must specify: -ecclength 1
+
+Inspect 1 block for presence of VAT or AVDP
+starting at block: 3913727
+
+  ==>   read cache: max 32 buffers of 32 sectors, total 512 Kb
+3913727         1 ok block read
+3913727 AVDP    (MVDS: 96, RVDS: 3913721)
+
+last AVDP at 3913727 (N)
+
+    Single Layer medium
+
+Verification start medium info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : unknown
+  medium SE type    : unknown
+  medium CL type    : unknown finalization state
+
+====>   Start verification
+    Start time   : 2017-05-09 12:09:08 +02:00 (east of UTC)
+    Verbose level: 100
+    Message limit: 20
+    Fake read enabled
+    Read cache enabled
+    Initial UDF Revision range: 1.02 thru 2.60
+    Single Layer medium
+
+====>   Volume Structure verification
+    Read Volume Recognition Sequence
+     64 read 4 blocks
+    BEA01
+    Start of Extended Area
+     68 read 4 blocks
+    NSR03
+  ==>   Changed UDF Revision range from: 1.02 thru 2.60 to: 2.00 thru 2.60
+-   because of "NSR03 descriptor"
+     72 read 4 blocks
+    TEA01
+     76 read 4 blocks
+    End of Extended Area
+    End of Volume Recognition Sequence
+
+
+    Reading Volume Information
+    256 read block
+    AVDP at 256 (MVDS: 96, RVDS: 3913721)
+    First Tag Serial Number: 2
+3913471 read block
+    AVDP at N-256   (MVDS: 96, RVDS: 3913721)
+3913727 read block
+    AVDP at N   (MVDS: 96, RVDS: 3913721)
+
+    Number of AVDPs: 3, AVDPs at  256,  N-256,  N
+
+====>   Read Main VDS extent:      96, length:   8192
+     96 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   PVD  344 New Entity Identifier (regid):
+    Application Entity Identifier
+      <empty>
+  ==>   PVD  388 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+  ==>   Add PVD to VDS info
+     97 read block
+    PD    VDS Number: 2, Partition Number: 8192
+  ==>   PD   24  New Entity Identifier (regid):
+    Application Entity Identifier
+      Identifier         : "+NSR03"
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+     98 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+  ==>   LVD  216 New Entity Identifier (regid):
+    Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+  ==>   Changed UDF Revision range from: 2.00 thru 2.60 to: 2.01 only
+-   because of "Domain EntityID UDF revision"
+      Domain flags       : #00
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+     99 read block
+    USD   VDS Number: 4, nmb of ADs: 6
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       159,       48 blocks
+     3: location     176 thru       255,       80 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913720,      249 blocks
+  ==>   Add USD to VDS info
+    100 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+  ==>   IUVD 20  New Entity Identifier (regid):
+    UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+    101 read block
+    TD  
+
+====>   Read Reserve VDS extent: 3913721, length:   8192
+    Error: Last sector 3913736 of VDS extent beyond Volume Space, ECMA 3/8.5.
+3913721 read block
+    PVD   VDS Number: 1
+    PVD   Recording Time: 2017-05-05 17:58:30.010400 +02:00
+    PVD   Volume Identifier    : "UDF Volume"
+    PVD   Volume Set Identifier: "113A1E01 UDF Volume Set"
+  ==>   Add PVD to VDS info
+3913722 read block
+    PD    VDS Number: 2, Partition Number: 8192
+    Unallocated Space Bitmap
+  ==>   Add PD to VDS info, partition number: 8192
+3913723 read block
+    LVD   VDS Number: 3
+    LVD   Logical Volume Identifier: "windows7_udf_r2.01"
+    LVD   FSD at: (0,p0)
+  ==>   Add LVD to VDS info
+3913724 read block
+    USD   VDS Number: 4, nmb of ADs: 6
+     1: location      76 thru        95,       20 blocks
+     2: location     112 thru       159,       48 blocks
+     3: location     176 thru       255,       80 blocks
+     4: location     257 thru       287,       31 blocks
+     5: location 3913440 thru   3913470,       31 blocks
+     6: location 3913472 thru   3913720,      249 blocks
+  ==>   Add USD to VDS info
+3913725 read block
+    IUVD  VDS Number: 5
+    IUVD EntityID Identifier: "*UDF LV Info"
+    UDF IUVD Logical Volume Identifier : "windows7_udf_r2.01"
+    UDF IUVD LVInfo1: <undefined>
+    UDF IUVD LVInfo2: <undefined>
+    UDF IUVD LVInfo3: <undefined>
+  ==>   Add IUVD to VDS info
+3913726 read block
+    TD  
+
+====>   Check equivalence of Main VDS and Reserve VDS
+
+  ==>   Main and Reserve VDS are equivalent
+
+====>   Check Main VDS. Summary:
+     PVD VDS Number  1
+     LVD VDS Number  3
+     USD VDS Number  4
+      PD VDS Number  2
+    IUVD VDS Number  5  ID: "*UDF LV Info"
+       5 prevailing VDS descriptors found
+
+
+  ==>   Using Main VDS
+
+  ==>   Checking VDS 'far apart' allocation for Main and Reserve VDS.
+
+   =>   Volume Descriptor Sequence 'far apart' test summary:
+-         Main VDS LBA range:         96  thru        111,   1 extent
+-      Reserve VDS LBA range:    3913721  thru    3913736,   1 extent
+-     lowest packet distance:  244601 ECC packets (100.0% of remaining Volume Space)
+-        test margin level 1:   24500 ECC packets ( 10.0% of remaining Volume Space)
+-        test margin level 2:   61200 ECC packets ( 25.0% of remaining Volume Space)
+-          Main VDS    Reserve VDS    ECC packet distance
+-              111        3913721       244601                      
+
+
+====>   Checking Logical Volume: "windows7_udf_r2.01"
+
+    Prevailing Partition Descriptors:
+      pNmb: 8192, start:   288, length: 3913152, access: overwritable
+
+    LVD Partition Maps:
+      p0: Physical Partition Map (Type 1), pNmb: 8192
+
+  ==>   Changed medium WR type from unknown to overwritable
+-           because of partition access type
+  ==>   Changed medium SE type from unknown to nonsequential
+-           because of no Virtual Partition found
+
+
+    Mounted Partitions:
+-   p0: Physical, pNmb: 8192, blocks:     288 thru 3913439, access: overwritable
+-             logical blocks:       0 thru 3913151
+
+  ==>   Changed medium CL type from unknown finalization state to finalized
+-           because of more than one AVDP found
+
+    Read LVID sequence extent: 160, length: 8192
+    160 read block
+    LVID  - Close
+    LVID Recording Time: 2017-05-09 10:08:09 +02:00
+    161 read block
+    TD  
+
+    Next UniqueID: #0000000000000012,
+    from LVID Logical Volume Header Descriptor.
+
+
+  ==>   p0: read Unallocated or Freed Partition Space Sets
+        Unallocated Space Bitmap extent: 956 blocks
+    320 read block
+    321 read 955 blocks
+    SBD 
+    SBD  10     Note: Descriptor CRC Length: 8. This is the recommended value
+-             according to errata DCN-5108 for UDF 2.50 and lower.
+    p0: Space set found
+    --
+
+    Read FSD sequence extent: (0,p0), length:    512
+
+    288 read block
+    FSD   FSN: 0,  FSDN: 0
+    FSD   Logical Volume Identifier: "windows7_udf_r2.01"
+    FSD         File Set Identifier: "UDF Volume Set"
+    FSD   Copyright File Identifier: <undefined>
+    FSD    Abstract File Identifier: <undefined>
+    FSD           Root Directory at: (988,p0)
+    FSD  System Stream Directory at: <undefined>
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   File Structure verification
+
+    Read Root Directory
+   1276 read block
+    EFE  file type DIR    name: <root>
+  ==>   EFE  168 New Entity Identifier (regid):
+    Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    EFE  216 Embedded data, 152 bytes
+
+  ==>   (max) depth:  1  1  Expand directory: <root>
+
+    EFE  216 Verify embedded FIDs, 152 bytes
+    FID   cid:       name: /<parent FID>, refers to: <root>
+    FID   cid:   8   name: "gtd.mp4"
+    FID   cid:   8   name: "2017-01-16-191632.webm"
+    Add FIDs to directory hierarchy and read FEs
+    289 read block
+    EFE  file type FILE   name: "gtd.mp4"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: short_ad   0  327345425      39131 0    327345425  327345664
+   1277 read block
+    EFE  file type FILE   name: "2017-01-16-191632.webm"
+    cnt:  extent type,      size,  location,part,     body, total alloc
+      1: long_ad    0    9830400        990 0      9830400    9830400
+      2: long_ad    1       1024      20190 0      9830400    9831424
+
+Directory: <root>
+
+.d.p.e..........:..rwx:..rwx:..rwx DIR   1 2017-05-05 15:58        152 /<parent FID>, refers to: <root>
+.....S..........:..rwx:..rwx:..rwx FILE  1 2009-11-12 19:46  327345425 "gtd.mp4"
+.....L..........:..rw.:..r..:..r.. FILE  1 2017-05-05 16:15    9830400 "2017-01-16-191632.webm"
+
+    file body read: "gtd.mp4"
+  39419 fake read 639347 blocks
+    file body read: "2017-01-16-191632.webm"
+   1278 fake read 19200 blocks
+    file tail read: "2017-01-16-191632.webm"
+  20478 fake read 2 blocks
+
+    Expand complete, max depth  1 for directory: <root>
+-              2 files   0 directories
+-    overall total:    2 files   1 directory  
+
+    Maximum directory depth: 1
+
+    End of directory tree expansion
+    Excluding deleted FIDs with cleared ICB
+
+====>   Testing File Link Count by cross reference of 4 paths.
+    File Link Count errors will be identified here by the
+    physical address of the File Entry as well as all
+    paths identifying the File Entry.
+    The physical address of the File Entry is also shown in
+    the informational read block messages above.
+    Note that errors found here may have been reported before
+    or may be caused by other previously reported errors.
+
+====>   Testing free Volume Space in USD Allocation Descriptors
+
+====>   Build Partition Space Bitmaps.
+    Also check structures that overlap with partition space.
+
+====>   Partition Allocation summary :
+
+ ===>   Physical Partition p0:  size 3913152 blocks, overwritable
+                blocks     288 thru 3913439
+
+  ==>   Compare partition p0 calculated bitmap to recorded Space Set
+      using: Unallocated Space Bitmap
+
+      Error: 2 used blocks marked as unallocated or freed
+  20478   logical block    20190 thru    20191,       2 blocks
+
+      No unused blocks marked as allocated.
+
+====>   Final LVID verification
+    Close LVID
+  ==>   overwritable Physical Partition p0 Space summary:
+                      Partition Length    : 3913152
+                 LVID Partition Size      : 3913152
+                 LVID Partition Free Space: 3253645
+       Unallocated Space Bitmap free space: 3253645
+              Verifier expected free space: 3253643
+        Used by UDF but unallocated blocks:       2
+
+    LVID 80  FreeSpaceTable error: Physical Partition p0 Free Space: 3253645,
+-        expected: 3253643, see Space summary above and
+-        maybe use -showalloc output, UDF 2.2.6.2, ECMA 3/10.10.
+-   Note: The verifier may be unable to find the correct values for
+-         some of these LVID/VAT tests because of previous errors.
+
+  ==>          LVID status summary:
+    Last modification Time    : 2017-05-09 10:08:09 +02:00 (east of UTC)
+    Last written Developer Id : "*Microsoft Windows"
+    Next UniqueID             : #0000000000000012 => from LVID
+    max used FE  UniqueID     : #0000000000000011
+    max used FID UniqueID     :         #00000011
+    Number of Files           :        2
+    Number of Directories     :        1
+    Min UDF Read   Revision   : UDF 2.01
+    Min UDF Write  Revision   : UDF 2.01
+    Max UDF Write  Revision   : UDF 2.01
+        Medium UDF Revision   : UDF 2.01
+
+
+====>   Testing uniqueness of relevant UniqueIDs.
+
+
+    Test complete
+    Elapsed time : 00:00
+
+====>   Volume identifiers summary:
+
+        PVD:         Volume Identifier  [32]: "UDF Volume"
+        PVD:     Volume Set Identifier [128]: "113A1E01 UDF Volume Set"
+        LVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+       IUVD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD: Logical Volume Identifier [128]: "windows7_udf_r2.01"
+        FSD:       File Set Identifier  [32]: "UDF Volume Set"
+
+====>   Encountered EntityID (regid) summary:
+
+ count  EntityID
+
+    3   Domain Entity Identifier
+      Identifier         : "*OSTA UDF Compliant"
+      UDF revision       : 2.01
+      Domain flags       : #00
+    2   UDF Entity Identifier
+      Identifier         : "*UDF LV Info"
+      UDF revision       : 2.01
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    3   Implementation Entity Identifier
+      Identifier         : "*Linux UDFFS"
+      OS Class       : #04  UNIX
+      OS Identifier      : #05  UNIX - Linux
+    9   Implementation Entity Identifier
+      Identifier         : "*Microsoft Windows"
+      OS Class       : #06  Windows NT
+      OS Identifier      : #00  Windows NT - generic
+    2   Application Entity Identifier
+      <empty>
+    2   Application Entity Identifier
+      Identifier         : "+NSR03"
+
+  These EntityIDs are also shown above when read for the first time
+
+====>   Final verify status report
+
+  Final UDF Revision range: 2.01 only
+
+  File System info
+  last valid block  : 3913727   Volume Space: 1.8662 Gbyte
+  block size        : 512
+  (ECC) blocking factor : 16
+  nmb of sessions   : 1
+  verify session    : 1
+  session starts    : 0       
+  medium WR type    : overwritable
+  medium SE type    : nonsequential
+  medium CL type    : finalized
+
+  Summed file body sizes: 337175825 bytes   (321.5559 Mbytes)
+
+    Error count:   3    total occurrences:     3  -> search for   "error:"
+  Warning count:   1    total occurrences:     1  -> search for "warning:"
+
+  Additional notes may have been printed:     -> search for    "note:"
+
+  Disclaimer:
+-   The number of errors and warnings is an indication only.
+-   There is no guarantee that the number of errors and
+-   warnings as shown by the UDF verifier is correct.
+\end{lstlisting}
+
 
 \chapter{Obsah přiloženého archivu}
 
