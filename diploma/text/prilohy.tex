@@ -2161,7 +2161,32 @@ Directory: /"asd"
 -   There is no guarantee that the number of errors and
 -   warnings as shown by the UDF verifier is correct.
 \end{lstlisting}
-
+\pagebreak
+\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média programem \texttt{fsck\_udf}},label=lst:fsck-udf-mac,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
+fsck_udf: * * * File <0, 989> seems to have already-allocated blocks! * * *
+fsck_udf: * * * File <0, 989> seems to have fewer blocks (2116354) than expected (19202) * * *
+fsck_udf: * * * File <0, 989> seems to have fewer data bytes (1083573248) than expected (9830400) * * *
+fsck_udf: * * * File <0, 989> seems to have fewer bytes (1083573248) than expected (9830400) * * *
+1 errors total
+** Checking Hierarchy
+** Filesystem error: Bad extent in file
+** Filesystem error: 2017-01-16-191632.webm
+** Filesystem is dirty and non-repairable
+LVID = {
+    blkNum = 128
+    numFiles = 2
+    numDirs = 1
+    minReadRevision = 201
+    minWriteRevision = 201
+    maxWriteRevision = 201
+    numFreeBlks[0] = 3253614
+    numFreeBlks[1] = 0
+    numFreeBlks[2] = 0
+    numTotalFreeBlks = 3253614
+    numPart = 1
+    nextUniqueId = 0
+}
+\end{lstlisting}
 
 \chapter{Obsah přiloženého archivu}
 

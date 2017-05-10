@@ -15,7 +15,10 @@
    inkscape:label="Pozadí"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="Nový dokument 1">
+   sodipodi:docname="det-ch.svg"
+   inkscape:export-filename="/home/rain/Development/udf/udf-diploma/graphics/det-chyb.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
   <defs
      id="defs3">
     <marker
@@ -90,14 +93,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="646.62932"
+     inkscape:cx="648.64963"
      inkscape:cy="385.29772"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="712"
-     inkscape:window-x="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1024"
+     inkscape:window-x="1366"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
@@ -943,20 +946,20 @@
          style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
-       transform="matrix(3.0816905,0,0,1.9189602,-419.38979,-519.26939)"
+       transform="matrix(2.0335887,0,0,1.37014,20.134188,-223.95015)"
        id="g3565-6"
-       style="stroke-width:0.53458388;stroke-miterlimit:4;stroke-dasharray:none;stroke:#000000;stroke-opacity:1;stroke-linejoin:round;stroke-linecap:round">
+       style="stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none">
       <path
          transform="translate(0,308.2677)"
          inkscape:connector-curvature="0"
          id="path3545-7"
          d="m 200.0102,296.5969 c 0,36.3655 111.11678,-24.24366 111.11678,15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.53458388;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
          id="path3545-3-5"
          d="m 311.12699,619.51181 c 0,-36.3655 111.11678,24.24366 111.11678,-15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.53458388;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <g
        transform="matrix(0,1.7211996,1.86831,0,-232.87311,99.073366)"
@@ -983,9 +986,29 @@
        transform="translate(0,308.2677)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="M 521.74379,678.60574 C 469.21586,650.32147 357.08892,591.73262 357.08892,591.73262"
+       d="M 638.92148,637.18949 C 421.73869,640.21995 357.08892,591.73262 357.08892,591.73262"
        id="path4372-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
+       x="640.43671"
+       y="640.21997"
+       id="text5053"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5055"
+         x="640.43671"
+         y="640.21997"
+         style="font-size:13px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold">CRC</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke:none;stroke-width:1.20000005000000010;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       id="rect5057"
+       width="49.497475"
+       height="22.223356"
+       x="512.14734"
+       y="360.23651"
+       transform="translate(0,308.2677)" />
   </g>
 </svg>

@@ -5,10 +5,10 @@
 \section{Fyzická úložná média}
 %\todo{Ozdrojovat...}
 Fyzická úložná média představují nejnižší vrstvu  a zároveň základní kámen všech souborových systémů, protože právě na základě jejich vlastností byly vytvářeny.\\
-Z historického hlediska po současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky přes magnetické ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyly konstruovány pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata ale pouze data samotná a jejjich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket a pevných disků. \\
-První opravdový souborový systém v Unixu byl \textbf{S5FS} neboli \emph{System V File System} (1974), často ovšem označovaný pouze jako \textbf{FS} (File System) nebo \textbf{UFS} (Unix File System) který byl implementován v \emph{UNIX System V} běžící například na mainframech PDP-11. Tento souborový systém byl velice pomalý a také poměrně jednoduchý, ale právě jeho architektura posloužila jako vzor většiny následujících unixových souborových systémů. Tomu ovšem předcházel souborový systém pro mikropočítače s názvem \textbf{CP/M} (1973) neboli \emph{Control Program/Monitor} a později \emph{Control Program for Microcomputer}. Tento souborový systém byl určen narozdíl od S5FS pro mikropočítače od společnosti Intel. V době vzniku totiž začal Intel vyrábět první osmibitové procesory Intel 8008 a o rok později v roce 1974 vznikl Intel 8080 a právě s ním se rozšířil i CP/M. CP/M byl někde na pomezí mezi souborovým a operačním systémem. Na úložném médiu (v tomto případě disketě) byl BIOS, který poskytoval systémová volání na zápis a čtení, řízení klávesnice a monitoru. Poté bylo CP/M, které využívalo těchto volání a poskytovalo je spolu s dalšími shellu a uživatelskému programu. Systémová volání které přidalo CP/M se týkaly převážně přístupu k souborům, která CP/M uchovávalo. Dalším významným souborouvým systémem, který vznikl pro diskety byl \textbf{FAT12} (1977). Posléze s rozšířením pevných disků se začaly vyvíjet další nové souborové systémy odpovídající požadavkům.\\
-Z hlediska struktury disku lze mluvit o CHS (Cylinder Head Sector), které rozdělilo úložné médium ve třech rozměrech podle jednotlivých stop (Cylinder), čtecí hlavy (Head), kterých může být u pevných disků více, záleží na počtu jednotlivých disků a použitých stran a poslední rozměr je sektor (Sector), který určuje o kterou část stopy jde. Právě sektory dostály ve vývoji největších změn, protože původní dělení po úhlech od středu disku nebylo efektivní se vzrůstající vzdáleností od středu. Proto se později přešlo k dělení na jednotnou velikost sektoru, které se rozložily rovnoměrně po celém disku.\\
-Sektor je nejmenší zápisovou jednotkou na médiu, která je určená výrobcem média. Typicky se jedná o velikosti 512~B u pevných disků, 2048~B u CD-ROM a DVD-ROM. Nové pevné disky používají velikost bloku 4096~B. Důvodem pro členění po sektorech je zjednodušení přístupu k médiu za předpokladu, že uložená data jsou větší než velikost bloku. V opačném případě dochází k plýtvání místem, protože se vždy čte a zapisuje celý blok. Právě proti sektorům se obvykle navrhují bloky souborového systému, které se snaží využít sektory co nejefektivněji jak z hlediska úspory místa tak z hlediska přístupového a zápisového času.
+Z historického hlediska po současnost vývoj přešel přes několik technologií počínaje děrnou páskou a děrnými štítky, přes magnetické ukládáním informace do různých nosných médií, optická média po flash paměti. Z hlediska souborových systémů má smysl mluvit až o magnetických médiích, která byla použita pro běžnou práci, protože například lineární pásková úložiště nebyla konstruována pro kompatibilitu s ostatními systémy ale pouze pro vlastní potřeby, tudíž záznam neobsahoval metadata, ale pouze data samotná a jejich struktura byla uložena jinde nebo vůbec. První opravdové použití souborového systému přišlo až s nástupem disket a pevných disků. \\
+První opravdový souborový systém v Unixu byl \textbf{S5FS} neboli \emph{System V File System} (1974), často ovšem označovaný pouze jako \textbf{FS} (File System) nebo \textbf{UFS} (Unix File System), který byl implementován v \emph{UNIX System V} běžící například na mainframech PDP-11. Tento souborový systém byl velice pomalý a také poměrně jednoduchý, ale právě jeho architektura posloužila jako vzor většiny následujících unixových souborových systémů. Tomu ovšem předcházel souborový systém pro mikropočítače s názvem \textbf{CP/M} (1973) neboli \emph{Control Program/Monitor} a později \emph{Control Program for Microcomputer}. Tento souborový systém byl určen narozdíl od S5FS pro mikropočítače od společnosti Intel. V době vzniku totiž začal Intel vyrábět první osmibitové procesory Intel 8008 a o rok později v roce 1974 vznikl Intel 8080 a právě s ním se rozšířil i CP/M. CP/M byl někde na pomezí mezi souborovým a operačním systémem. Na úložném médiu (v tomto případě disketě) byl BIOS, který poskytoval systémová volání na zápis a čtení, řízení klávesnice a monitoru. Poté bylo CP/M, které využívalo těchto volání a poskytovalo je spolu s dalšími shellu a uživatelskému programu. Systémová volání, která přidalo CP/M se týkaly převážně přístupu k souborům, které CP/M uchovávalo. Dalším významným souborovým systémem, který vznikl pro diskety, byl \textbf{FAT12} (1977). Posléze s rozšířením pevných disků se začaly vyvíjet další nové souborové systémy odpovídající požadavkům.\\
+Z hlediska struktury disku lze mluvit o CHS (\textit{Cylinder-Head-Sector}), které rozdělilo úložné médium ve třech rozměrech podle jednotlivých stop (\textit{Cylinder}), čtecí hlavy (\textit{Head}), kterých může být u pevných disků více, záleží na počtu jednotlivých disků a použitých stran a poslední rozměr je sektor (\textit{Sector}), který určuje, o kterou část stopy jde. Právě sektory dostály ve vývoji největších změn, protože původní dělení po úhlech od středu disku nebylo efektivní se vzrůstající vzdáleností od středu. Proto se později přešlo k dělení na jednotnou velikost sektoru, které se rozložily rovnoměrně po celém disku.\\
+Sektor je nejmenší zápisovou jednotkou na médiu, která je určená výrobcem média. Typicky se jedná o velikosti 512~B u pevných disků, 2048~B u CD-ROM a DVD-ROM. Nové pevné disky používají velikost bloku 4096~B. Důvodem pro členění po sektorech je zjednodušení přístupu k médiu za předpokladu, že uložená data jsou větší než velikost bloku. V opačném případě dochází k plýtvání místem, protože se vždy čte a zapisuje celý blok. Právě proti sektorům se obvykle navrhují bloky souborového systému, které se snaží využít sektory co nejefektivněji jak z hlediska úspory místa, tak z hlediska přístupového a zápisového času.
 
 \section{Diskové oddíly}
 Diskové oddíly představují způsob, jak lze fyzické médium abstraktně rozdělit na více částí. Rozdělení na oddíly je uloženo v MBR (Master Boot Record) a jeden disk může obsahovat až 4 hlavní oddíly. V případě potřeby více oddílů lze použít rozšířený oddíl, který zapouzdřuje další dělení na oddíly, ovšem tentokrát již mimo MBR.\\
@@ -16,35 +16,32 @@ Důvodem pro rozdělení na oddíly může být oddělení uživatelských dat o
 
 \section{Logical Volume Manager (LVM)}
 %\todo{https://wiki.archlinux.org/index.php/LVM}
-Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (\cite{arch-lvm}).\\
-LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na obrázku \ref{fig:lvm1}. Jedná se o skupinu dvou pevných disků (\texttt{/dev/sda} a \texttt{/dev/sdb}), které jsou z nějakých důvodů, které nejsou podstatné, rozděleny na zobrazené oddíly.
+Logical Volume Manager (LVM) představuje způsob abstrakce nad diskovými oddíly. Ačkoli se může zdát, že se jedná o podobnou technologii jako je RAID, není tomu tak (více v \cite{arch-lvm}).\\
+LVM vzniklo pro zajištění větší flexibility pro organizaci úložiště. Představte si situaci na obrázku \ref{fig:lvm1}. Jedná se o skupinu dvou pevných disků (\texttt{/dev/sda} a \texttt{/dev/sdb}), které jsou z nějakých důvodů, které nejsou podstatné, rozděleny na zobrazené oddíly.\\
 \begin{figure}[] 
     \centering
     \includegraphics[scale=0.42]{obrazky/lvm1.eps}
     \caption{Výchozí situace z hlediska rozložení diskových oddílů}
     \label{fig:lvm1}
-\end{figure}
-Náším cílem je vytvořit tři diskové oddíly s velikostmi 15~GB, 55~GB a 180~GB. Možnosti jsou dvě. První je RAID~0 a druhou je LVM. Pokud se rozhodneme pro řešení RAID~0, sloučíme disky dohromady do pole a naformátujeme je na požadované oddíly. Totéž můžeme vyrobit i pomocí LVM, jak je naznačeno na obrázku \ref{fig:lvm2}. Řešení pomocí RAID~0 by vypadalo podobně.
+\end{figure}Naším cílem je vytvořit tři diskové oddíly s velikostmi 15~GB, 55~GB a 180~GB. Možnosti jsou dvě. První je RAID~0 a druhou je LVM. Pokud se rozhodneme pro řešení RAID~0, sloučíme disky dohromady do pole a naformátujeme je na požadované oddíly. Totéž můžeme vyrobit i pomocí LVM, jak je naznačeno na obrázku \ref{fig:lvm2}. Řešení pomocí RAID~0 by vypadalo podobně.\\
 \begin{figure}[] 
     \centering
     \includegraphics[scale=0.42]{obrazky/lvm2.eps}
     \caption{Namapování diskových oddílů na LVM}
     \label{fig:lvm2}
-\end{figure}
-Pokud se nyní soustředíme trochu více na LVM, můžeme si všimnout, že všechny oddíly byly sloučeny do jednoho logického oddílu \texttt{/dev/Store} s velikostí 250~GB. To bylo posléze logicky rozděleno na jednotlivé oddíly. Ty mohou poté být naformátovány libovolným souborovým systémem.\\
-Zásadní rozdíl oproti RAID 0 je v možnostech změny struktury úložiště. V případě RAID~0 se změna promítá do formátování RAID úložiště, v případě LVM se jedná o změnu velikosti logické jednotky pouze za předpokladu existence nějakého volného místa, nezávisle na jeho fyzickém umístění na disku. Tudíž není třeba přesouvat oddíly pro potřeby jejich zvětšení. Toto je demonstrováno na obrázku \ref{fig:lvm3}.
+\end{figure}Pokud se nyní soustředíme trochu více na LVM, můžeme si všimnout, že všechny oddíly byly sloučeny do jednoho logického oddílu \texttt{/dev/Store} s velikostí 250~GB. Tento byl posléze logicky rozdělen na jednotlivé oddíly. Ty mohou poté být naformátovány libovolným souborovým systémem.\\
+Zásadní rozdíl oproti RAID 0 je v možnostech změny struktury úložiště. V případě RAID~0 se změna promítá do formátování RAID úložiště, v případě LVM se jedná o změnu velikosti logické jednotky pouze za předpokladu existence nějakého volného místa, nezávisle na jeho fyzickém umístění na disku. Tudíž není třeba přesouvat oddíly pro potřeby jejich zvětšení. Toto je demonstrováno na obrázku \ref{fig:lvm3}.\\
 \begin{figure}[] 
     \centering
     \includegraphics[scale=0.32]{obrazky/lvm3.eps}
     \caption{Ukázka přidání nového disku a zvětšení oddílu na LVM}
     \label{fig:lvm3}
-\end{figure}
-V situaci na obrázku došlo k přidání nového disku \texttt{/dev/sdc} do logického oddílu \texttt{/dev/Store} a přiřazení nově vzniklého místa již existujícímu oddílu. Povšimněte si oranžově zvýrazněného oddílu \texttt{/dev/Store/homevol} na obrázku \ref{fig:lvm2} a nyní na obrázku \ref{fig:lvm3}. Jeho umístění první části zůstalo zachováno a nové místo se pouze připojilo. Stejně tak oddíl \texttt{/dev/Store/mediavol} nebylo třeba přesouvat. Jediný zásah, který je nutný pro používání nového místa je na straně soubového systému, t.j. jeho zvětšení na celý logický oddíl.\\
-Samozřejmně není nutnost veškeré místo přiřadit pouze jedinému oddílu, místo můžeme dle libosti přiřazovat oddílům, či vytvářet oddíly nové.\\
+\end{figure}V situaci na obrázku došlo k přidání nového disku \texttt{/dev/sdc} do logického oddílu \texttt{/dev/Store} a přiřazení nově vzniklého místa již existujícímu oddílu. Povšimněte si oranžově zvýrazněného oddílu \texttt{/dev/Store/homevol} na obrázku \ref{fig:lvm2} a nyní na obrázku \ref{fig:lvm3}. Jeho umístění první části zůstalo zachováno a nové místo se pouze připojilo. Stejně tak oddíl \texttt{/dev/Store/mediavol} nebylo třeba přesouvat. Jediný zásah, který je nutný pro používání nového místa, je na straně soubového systému, t.j. jeho zvětšení na celý logický oddíl.\\
+Samozřejmě není nutnost veškeré místo přiřadit pouze jedinému oddílu, místo můžeme dle libosti přiřazovat oddílům, či vytvářet oddíly nové.\\
 Nutno podotknout, že toto řešení nenahrazuje RAID. Ten má stále svou sílu ve svých hardwarových řadičích, tudíž jeho výkonnost je vyšší, ale to je daň za jeho nižší flexibilitu.
 
 \section{Srovnání souborových systémů}
-Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých souborových systémů stejně tak jako jich bylo mnoho implementováno z ostatních operačních systémů. Některé z nich jsou používány i v současnosti, některé byly opuštěny nebo nahrazeny.\\
+Pro operační systém Linux bylo během jeho existence vyvinuto mnoho různých souborových, systémů stejně tak jako jich bylo mnoho implementováno z ostatních operačních systémů. Některé z nich jsou používány i v současnosti, některé byly opuštěny nebo nahrazeny.\\
 Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové systémy tyto:
 \begin{itemize}
     \item \textbf{ufs} -- původní souborový systém, který vznikl pro \textit{Unix V}. Posloužil jako vzor pro další vývoj ostatních souborových systémů pro unixové operační systémy. Zavádí pojem \textit{Inode}, který posléze přebírají souborové systémy \textbf{ext}.
@@ -52,21 +49,21 @@ Podle \cite{tldp-filesystem} patří mezi nejvýznamnější nativní souborové
     \item \textbf{ext} -- tento souborový systém, celým jménem Extended Filesystem, vznikl v roce 1992 speciálně pro potřeby kernelu OS Linux \cite{linmag-ext}. Jeho inspirací byl souborový systém UFS (Unix File System), ze kterého převzal strukturu metadat. Jeho limitací byla maximální velikost 2~GB.
     \item \textbf{ext2} -- nástupce souborového systému ext. Byla navýšena maximální velikost na 32~TB a byl navržen podle stejných principů jako Berkeley Fast File System z projektu BSD \cite{nongnu-ext2}. Dlouhou dobu byl tento souborový systém používán ve všech hlavních distribucích OS Linux. ext2 nebyl zpětně kompatibilní s původním ext.
     \item \textbf{ext3} -- již v pořadí třetí verze ext souborového systému. Nyní již byla zachována téměř plná zpětná kompatibilita s ext2. Oproti ext2 ovšem ext3 přineslo žurnálování, které pomohlo v obnově souborového systému při chybě systému \cite{paper-ext3}. Zbytek parametrů zůstal shodný s ext2.
-    \item \textbf{ext4} -- současná verze ext souborového systému \cite{paper-ext4}. Opět je zpětně kompatibilní s ext3 a ext2 ale oproti nim byla navýšena maximální velikost na 1~EB, ale doporučené maximum je 16~TB. Původně byl ext4 pouze skupina rozšížení pro ext3, ale později se osamostatnil jako ext4. Dalším rozšířením je nyní již neomezený počet podsložek (ext3 mělo omezení na 32000 podsložek). Také bylo zlepšena odolnost žurnálu přidáním kontrolních součtů a celková výkonnost souborového systému.
+    \item \textbf{ext4} -- současná verze ext souborového systému \cite{paper-ext4}. Opět je zpětně kompatibilní s ext3 a ext2, ale oproti nim byla navýšena maximální velikost na 1~EB, ale doporučené maximum je 16~TB. Původně byl ext4 pouze skupina rozšížení pro ext3, ale později se osamostatnil jako ext4. Dalším rozšířením je nyní již neomezený počet podsložek (ext3 mělo omezení na 32000 podsložek). Také bylo zlepšena odolnost žurnálu přidáním kontrolních součtů a celková výkonnost souborového systému.
     \item \textbf{vfat} -- typický zástupce cizích souborových systémů. V tomto případě se jedná o MS FAT32, který je hojně používaný na USB flash discích.
     \item \textbf{iso9660} -- standardní souborový systém pro CD-ROM. 
-    \item \textbf{udf} -- souborový systém původně vyvynutý pro datové rozšíření CD-ROM. Posléze rozšířen pro DVD a BluRay. V současnosti je používán například v šifrovaných flash discích. 
+    \item \textbf{udf} -- souborový systém původně vyvinutý pro datové rozšíření CD-ROM. Posléze rozšířen pro DVD a BluRay. V současnosti je používán například v šifrovaných flash discích. 
     \item \textbf{smbfs} -- síťový souborový systém Samba File Systém vyvinutý pro sdílení dat mezi počítači s MS Windows. Podporuje Windows Sharing Protocol.
-    \item \textbf{ntfs} -- \textit{New Technology File System} je v současnosti nejpoužívanější souborový systém v MS Windows. Jedná se o proprietární souborový systém, který má nativní podporu pouze pro MS Windows. Pro OS Linux vznikla open-source varianta ovladače, která umožňuje jak čtení tak zápis na \textbf{ntfs}. MacOS má zabudovanou pouze omezenou podporu čtení a zápisu, ale zápis je ve výchozím nastavení zakázán. Zde je možné ovladač dokoupit od třetí strany \cite{paragon-ntfs}.
-    \item \textbf{btrfs} -- nový souborový systém založený na principu \textit{copy-on-write} (COW) pro OS Linux. Umonžňuje změnu velikosti souborového systému za jeho běhu stejně tak přidávání fyzických úložišť. Podporuje kontrolní součty nad daty.
+    \item \textbf{ntfs} -- \textit{New Technology File System} je v současnosti nejpoužívanější souborový systém v MS Windows. Jedná se o proprietární souborový systém, který má nativní podporu pouze pro MS Windows. Pro OS Linux vznikla open-source varianta ovladače, která umožňuje jak čtení, tak zápis na \textbf{ntfs}. MacOS má zabudovanou pouze omezenou podporu čtení a zápisu, ale zápis je ve výchozím nastavení zakázán. Zde je možné ovladač dokoupit od třetí strany \cite{paragon-ntfs}.
+    \item \textbf{btrfs} -- nový souborový systém založený na principu \textit{copy-on-write} (COW) pro OS Linux. Umonžňuje změnu velikosti souborového systému za jeho běhu, stejně tak přidávání fyzických úložišť. Podporuje kontrolní součty nad daty.
     \item \textbf{hfs} -- proprietární souborový systém vyvinutý společností Apple jako náhrada původního \textit{Macintosh File System}, který vznikl pro diskety a na pevné disky již výkonově nestačil.
     \item \textbf{hfs+} -- náhrada souborového systému \textbf{hfs}, který slouží primárně pro Apple macOS. Opět je proprietární a oproti svému předchůdci podporuje například velké soubory (až 8~EB).
 \end{itemize}
 
 \section{Nástroje kontroly integrity}
-V prostředí OS Linux je pro kontrolu integrity určen primárně nástroj \texttt{fsck} (Filesystem Consistency Check). V manuálové stránce k \texttt{fsck} \cite{man-fsck} se lze dočíst, že samotný \texttt{fsck} je pouze frontend, který volá specifické nástroje pro daný souborový systém. Skutečné nástroje určené pro kontrolu integrity, které jsou obvykle dodávány spolu s nástroji k vytvoření a práci s daným soborovým systémem se jmenují \texttt{fsck.fstype}, například \texttt{fsck.ext4}.\\
-Pro masivně používané souborové systémy tyto nástroje existují. Pro \textbf{ext} rodinu se jedná o nástroj \texttt{e2fsck}. Podporovány jsou i převzaté souborové systémy, například \texttt{fsck.fat} pro souborové systémy \textbf{vfat} a \textbf{msdos}. Ovšem pro například pro \textbf{iso9660} nástroje kontrolující integritu existují pouze jako nástroje vzniklé na základě pokusů při testování vadných disků. Takovým je i \texttt{isovfy} \cite{man-isovfy} ze skupiny nástrojů isoinfo, který ovšem pouze umožňuje kontrolu integrity, nikoli opravu chyb.\\
-Nástrojem který v tuto chvíli chybí je podle všeho \texttt{fsck.udf}. Projekt s názvem udftools \cite{udftools-sourceforge} ve kterém vznikl i podprojekt udffsck byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat a proto se v dalších částech práce soustředím právě na tento souborový systém. 
+V prostředí OS Linux je pro kontrolu integrity určen primárně nástroj \texttt{fsck} (Filesystem Consistency Check). V manuálové stránce k \texttt{fsck} \cite{man-fsck} se lze dočíst, že samotný \texttt{fsck} je pouze frontend, který volá specifické nástroje pro daný souborový systém. Skutečné nástroje určené pro kontrolu integrity, které jsou obvykle dodávány spolu s nástroji k vytvoření a práci s daným soborovým systémem, se jmenují \texttt{fsck.fstype}, například \texttt{fsck.ext4}.\\
+Pro masivně používané souborové systémy tyto nástroje existují. Pro \textbf{ext} rodinu se jedná o nástroj \texttt{e2fsck}. Podporovány jsou i převzaté souborové systémy, například \texttt{fsck.fat} pro souborové systémy \textbf{vfat} a \textbf{msdos}. Ovšem například pro \textbf{iso9660} nástroje kontrolující integritu existují pouze jako nástroje vzniklé na základě pokusů při testování vadných disků. Takovým je i \texttt{isovfy} \cite{man-isovfy} ze skupiny nástrojů isoinfo, který ovšem umožňuje pouze kontrolu integrity, nikoli opravu chyb.\\
+Nástrojem, který v tuto chvíli chybí, je podle všeho \texttt{fsck.udf}. Projekt s názvem udftools \cite{udftools-sourceforge}, byl autorem opuštěn v roce 2004 a nástroj pro kontrolu konzistence nebyl nikdy započat a proto se v dalších částech práce soustředím právě na tento souborový systém. 
 
 \chapter{Universal Disk Format}
 \label{ch:udf}
@@ -836,32 +833,7 @@ Tento přístup pomohl odhalit řadu potíží během vývoje, kdy opravením je
 \end{figure}
 Pro ověření správné funkce nástroje byla vybraná média otestována i na jiných operačních systémech pro srovnání funkce. Jako ukázku tohoto přístupu lze zvolit médium, které vzniklo na MS~Windows pro flash disk (tedy \textit{Overwritable} médium) a následně bylo záměrně poškozeno přerušením zápisu.\\
 Byla provedena kontrola disku na MS~Windows~7 pomocí nástroje \textit{CHKDSK}. Výsledek jeho kontroly před jakoukoli opravou je na obrázku \ref{fig:chkdsk}. Kontrola byla provedena i na MS~Windows~10 se stejným výsledkem. Podle nástroje \texttt{CHKDSK} je médium opravitelně poškozeno.\\
-Podobný výsledek byl získán v Apple macOS programem \texttt{fsck\_udf}. Přepis jeho výstupu je ve výpisu \ref{lst:fsck-udf-mac}. Z obou výstupů je vidět, že oba nástroje došly ke stejným poruchám na médiu.
-\begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média programem \texttt{fsck\_udf}},label=lst:fsck-udf-mac,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false]
-fsck_udf: * * * File <0, 989> seems to have already-allocated blocks! * * *
-fsck_udf: * * * File <0, 989> seems to have fewer blocks (2116354) than expected (19202) * * *
-fsck_udf: * * * File <0, 989> seems to have fewer data bytes (1083573248) than expected (9830400) * * *
-fsck_udf: * * * File <0, 989> seems to have fewer bytes (1083573248) than expected (9830400) * * *
-1 errors total
-** Checking Hierarchy
-** Filesystem error: Bad extent in file
-** Filesystem error: 2017-01-16-191632.webm
-** Filesystem is dirty and non-repairable
-LVID = {
-    blkNum = 128
-    numFiles = 2
-    numDirs = 1
-    minReadRevision = 201
-    minWriteRevision = 201
-    maxWriteRevision = 201
-    numFreeBlks[0] = 3253614
-    numFreeBlks[1] = 0
-    numFreeBlks[2] = 0
-    numTotalFreeBlks = 3253614
-    numPart = 1
-    nextUniqueId = 0
-}
-\end{lstlisting}
+Podobný výsledek byl získán v Apple macOS programem \texttt{fsck\_udf}. Přepis jeho výstupu je ve výpisu v příloze \ref{lst:fsck-udf-mac}. Z obou výstupů je vidět, že oba nástroje došly ke stejným poruchám na médiu.
 Médium bylo v této fázi zazálohováno pro srovnání různých variant. První varianta je oprava pomocí mého nástroje \texttt{udffsck}. Druhá varianta je oprava pomocí nástroje MS~\texttt{CHKDSK}. Oprava pomocí \texttt{fsck\_udf} z Apple macOS není možná, protože nástroj nemá implementovány žádné opravné algoritmy. Pro referenční srovnání je přiložen výstup z programu \texttt{udfct} společnosti Philips, jehož výstup je vzhledem k jeho délce v příloze \ref{lst:udfct-broken}.\\
 \begin{lstlisting}[frame=single,caption={Výsledek opravy poškozeného média programem \texttt{udffsck}},label=lst:udffsck-pass,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
 Verbosity increased to WARNING.
@@ -935,9 +907,10 @@ Cílem této analýzy bylo ukázat, že nástroj \texttt{udffsck} dokáže oprav
 \section{Dosažené výsledky}
 \label{sec:vysledky}
 Byl vytvořen a otestován nástroj, který implmentuje jak detekční, tak korekční algoritmy pro souborový systém UDF. Jeho funkce byla ověřena jak praktickým používáním na poškozená média, tak porovnáním výsledků detekce a následné korekce vůči ostatním existujícím řešením.\\
+K vytvoření nástroje byl použit programovací jazyk C ve standardu C99 s použtím knihovních funkcí GNU/Linux. Jsou využívány výhradně funkce poskytované API GNU/Linux, což snižuje nároky na přeložení pro danou distribuci. Výčet požadovaných funkcí a knihoven je tento: \texttt{install}, \texttt{gawk}, \texttt{make}, \texttt{gcc} (nebo \texttt{clang}), \texttt{sed}, \texttt{grep}, \texttt{ld}, \texttt{nm}, \texttt{objdump}, \texttt{ar}, \texttt{ar}, \texttt{strip}, \texttt{ranlib}, \texttt{mt}, \texttt{ncurses}, \texttt{libreadline}, \texttt{libtool}, \texttt{automake}, \texttt{autoheader}, \texttt{autoconf}.\\
 Nástroj v tuto chvíli implementuje podporu standardů UDF 1.00 až 2.01, přičemž většina vývoje byla soustředěna vůči novější verzi standardu. Proti tomu stojí nedostatek testovacích médií vůči kterým bylo zařízení testováno. Uměle vytvořená média (myšleno vytvořená pro účely testování) mají sice známou minulost ale to je částečně na škodu, vzhledem k faktu, že opravdu závažné chyby vzniknou až během provozu média delší dobu.\\
 Nástroj v tuto chvíli dokáže detekovat a opravovat chyby podle tabulky \ref{tab:det-cor}. Funkce UDF která není zachycena v této tabulce není detekována.
-\begin{table}
+\begin{table}[h]
     \centering
     \begin{tabular}{ | l | l | l | }
         \hline
