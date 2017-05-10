@@ -963,8 +963,9 @@ Pokud bychom tedy přepokládali integraci pouze do distribucí, které aktuáln
     \item\textbf{Debian} -- aktuálně je balíček ve verzích Debian Testing a Debian Unstable. Více v \cite{udftools-debian}.
     \item\textbf{Gentoo} -- starší verze balíčku je v tuto chvíli Stable, poslední vydaná je Testing. Více v \cite{udftools-gentoo}.
     \item\textbf{Arch Linux} -- balíček je dodáván pomocí komunitního repozitáře AUR \cite{udftools-arch}.
-    \item\textbf{Ubuntu} -- balíček je dodáván pomocí PPA. Je podporován ve verzích Ubuntu Zesty a Ubuntu Artful \cite{udftools-ubuntu}.
-    \item\textbf{Red Hat Enterprise, Fedora, OpenSuse} -- tato trojice distribucí má v oficiálních repozitářích starou verzi balíčku, ale v \cite{udftools-rhel} je k dispozici předkompilovaný balíček.
+    \item\textbf{Ubuntu} -- balíček je dodáván pomocí PPA. Je podporován ve verzích Ubuntu Zesty a Ubuntu Artful \cite{udftools-ppa}.
+    \item\textbf{Fedora, Red Hat Enterprise} -- poslední verze Fedora Linux obshuje i poslední vydanou verzi balíčku, takže lze předpokládat její napojení na repozitář. Pravděpodobně bude tento balíček předáván i do RHEL, protože je známa aktivita v repozitáři ze strany společnosti Red Hat.
+    \item\textbf{OpenSuse} -- tato distribuce má v oficiálních repozitářích starou verzi balíčku, ale v \cite{udftools-rpm} je k dispozici předkompilovaný balíček.
 \end{itemize}
 Jak je vidět, po začlenění se nástroj \texttt{udffsck} poměrně rychle dostane ke svým uživatelům skrz oficiální nebo komunitní distribuční kanály.\\
 Dalšími kroky po úspěšné integraci bude průzkum pro další rozvoj nástroje. Prvními kroky pravděpodobně bude rozšíření podopory pro novější verze UDF. To bude pravděpoodobně vyžadovat širší záběr než jen práci na \texttt{udffsck}, protože bude nutné přidat nové funkce z novějších verzí standardu UDF do sdílených hlavičkových souborů, což ovlivní i zbytek nástrojů v balíčku.
