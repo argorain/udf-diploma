@@ -9,1006 +9,786 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1052.3622"
-   height="744.09448"
-   id="svg2"
-   inkscape:label="Pozadí"
+   id="svg3201"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="det-ch.svg"
-   inkscape:export-filename="/home/rain/Development/udf/udf-diploma/graphics/det-chyb.png"
-   inkscape:export-xdpi="150"
-   inkscape:export-ydpi="150">
-  <defs
-     id="defs3">
-    <marker
-       inkscape:stockid="Arrow1Lend"
-       orient="auto"
-       refY="0.0"
-       refX="0.0"
-       id="Arrow1Lend"
-       style="overflow:visible;">
-      <path
-         id="path4381"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
-         transform="scale(0.8) rotate(180) translate(12.5,0)" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow1Lstart"
-       orient="auto"
-       refY="0.0"
-       refX="0.0"
-       id="Arrow1Lstart"
-       style="overflow:visible">
-      <path
-         id="path4378"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
-         transform="scale(0.8) translate(12.5,0)" />
-    </marker>
-    <clipPath
-       id="clipPath3017"
-       clipPathUnits="userSpaceOnUse">
-      <path
-         id="path3019"
-         clip-rule="evenodd"
+   width="1052.5"
+   height="743.75"
+   xml:space="preserve"
+   sodipodi:docname="detekce-ch.pdf"><metadata
+     id="metadata3207"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+     id="defs3205"><clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3215"><path
          d="m 0,-0.2 841.8,0 0,595.2 L 0,595 0,-0.2 z"
-         inkscape:connector-curvature="0" />
-    </clipPath>
-    <marker
+         clip-rule="evenodd"
+         id="path3217" /></clipPath><marker
        inkscape:stockid="Arrow1Lstart"
        orient="auto"
        refY="0"
        refX="0"
-       id="Arrow1Lstart-2"
-       style="overflow:visible">
-      <path
+       id="Arrow1Lstart"
+       style="overflow:visible"><path
          inkscape:connector-curvature="0"
-         id="path4378-9"
+         id="path4378"
          d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
-         transform="matrix(0.8,0,0,0.8,10,0)" />
-    </marker>
-    <marker
+         transform="matrix(0.8,0,0,0.8,10,0)" /></marker><marker
        inkscape:stockid="Arrow1Lend"
        orient="auto"
        refY="0"
        refX="0"
-       id="Arrow1Lend-1"
-       style="overflow:visible">
-      <path
+       id="Arrow1Lend"
+       style="overflow:visible"><path
          inkscape:connector-curvature="0"
-         id="path4381-2"
+         id="path4381"
          d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
-         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
-    </marker>
-  </defs>
-  <sodipodi:namedview
-     id="base"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" /></marker><marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-3"
+       style="overflow:visible"><path
+         inkscape:connector-curvature="0"
+         id="path4378-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.8,0,0,0.8,10,0)" /></marker><marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-7"
+       style="overflow:visible"><path
+         inkscape:connector-curvature="0"
+         id="path4381-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" /></marker></defs><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="648.64963"
-     inkscape:cy="385.29772"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1024"
+     id="namedview3203"
+     showgrid="false"
+     inkscape:zoom="1.2692437"
+     inkscape:cx="598.32495"
+     inkscape:cy="608.47158"
      inkscape:window-x="1366"
      inkscape:window-y="27"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata6">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Vrstva 1"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3209" /><g
+     id="g3209"
      inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-308.2677)">
-    <g
-       transform="matrix(1.25,0,0,-1.25,40.699441,1154.6568)"
-       inkscape:label="detekce-ch"
-       id="g3011">
-      <g
-         id="g3013">
-        <g
-           clip-path="url(#clipPath3017)"
-           id="g3015" />
-      </g>
-      <path
-         id="path3021"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,569.5 -0.4,-0.4 -544.8,0 -0.4,0.4 -0.4,0.4 546.4,0 -0.4,-0.4 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3023"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,549.6 0,-0.4 -545.5,0 -0.1,0.4 0.4,0.4 544.8,0 0.4,-0.4 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3025"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,529.8 -1,-1 -543.6,0 -1,1 0.1,1 545.5,0 0,-1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3027"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,444.7 1,-1 -547.6,0 1,1 1,1.1 543.6,0 1,-1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3029"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,347.3 -1,-1 -543.6,0 -1,1 -1,1 547.6,0 -1,-1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3031"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,262.2 1,-1 -547.6,0 1,1 1,1.1 543.6,0 1,-1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3033"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 127.9,569.5 0.4,-0.4 0,-19.1 -0.4,-0.4 -0.4,-0.4 0,20.7 0.4,-0.4 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3035"
-         style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"
-         d="m 127.9,529.8 0,19.8"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3037"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 127.9,529.8 1,-1 0,-83 -1,-1.1 -1,-1 0,87.1 1,-1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3039"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 127.9,347.3 1,-1 0,-83 -1,-1.1 -1,-1 0,87.1 1,-1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3041"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 153.4,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3043"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 178.9,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3045"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 204.4,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3047"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 229.9,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3049"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 255.3,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3051"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 280.8,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3053"
-         style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"
-         d="m 306.3,529.8 0,19.8"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3055"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 306.3,529.8 1,-1 0,-83 -1,-1.1 -1,1.1 0,83 1,1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3057"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 306.3,347.3 1,-1 0,-83 -1,-1.1 -1,1.1 0,83 1,1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3059"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,569.5 0.4,0.4 0,-20.7 -0.4,0.4 -0.4,0.4 0,19.1 0.4,0.4 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3061"
-         style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"
-         d="m 673.5,529.8 0,19.8"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3063"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,529.8 1,1 0,-87.1 -1,1 -1,1.1 0,83 1,1 z"
-         inkscape:connector-curvature="0" />
-      <path
-         id="path3065"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         d="m 673.5,347.3 1,1 0,-87.1 -1,1 -1,1.1 0,83 1,1 z"
-         inkscape:connector-curvature="0" />
-      <text
-         id="text3067"
-         transform="matrix(1,0,0,-1,375.7,556)">
-        <tspan
-           id="tspan3069"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 12.79 18.379999 23.969999 27.860001 30.65 36.75 40.049999 46.150002"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Descriptor</tspan>
-      </text>
-      <text
-         id="text3071"
-         transform="matrix(0,1,1,0,722.1,389.7)">
-        <tspan
-           id="tspan3073"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">R</tspan>
-      </text>
-      <text
-         id="text3075"
-         transform="matrix(0,1,1,0,722.1,396.9)">
-        <tspan
-           id="tspan3077"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">e</tspan>
-      </text>
-      <text
-         id="text3079"
-         transform="matrix(0,1,1,0,722.1,402.5)">
-        <tspan
-           id="tspan3081"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">d</tspan>
-      </text>
-      <text
-         id="text3083"
-         transform="matrix(0,1,1,0,722.1,408.6)">
-        <tspan
-           id="tspan3085"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">u</tspan>
-      </text>
-      <text
-         id="text3087"
-         transform="matrix(0,1,1,0,722.1,414.7)">
-        <tspan
-           id="tspan3089"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">n</tspan>
-      </text>
-      <text
-         id="text3091"
-         transform="matrix(0,1,1,0,722.1,420.8)">
-        <tspan
-           id="tspan3093"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">d</tspan>
-      </text>
-      <text
-         id="text3095"
-         transform="matrix(0,1,1,0,722.1,426.9)">
-        <tspan
-           id="tspan3097"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">a</tspan>
-      </text>
-      <text
-         id="text3099"
-         transform="matrix(0,1,1,0,722.1,432.5)">
-        <tspan
-           id="tspan3101"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">n</tspan>
-      </text>
-      <text
-         id="text3103"
-         transform="matrix(0,1,1,0,722.1,438.6)">
-        <tspan
-           id="tspan3105"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">t</tspan>
-      </text>
-      <text
-         id="text3107"
-         transform="matrix(1,0,0,-1,208.6,536.2)">
-        <tspan
-           id="tspan3109"
-           sodipodi:role="line"
-           y="0"
-           x="0 5.3000002 10.89"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Tag</tspan>
-      </text>
-      <text
-         id="text3111"
-         transform="matrix(1,0,0,-1,451.5,536.2)">
-        <tspan
-           id="tspan3113"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 12.79 18.379999 23.969999 27.860001 30.65 36.75 40.049999 46.150002 50.040001 52.830002 58.93 65.029999 71.129997"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Descriptor body</tspan>
-      </text>
-      <text
-         id="text3115"
-         transform="matrix(1,0,0,-1,47.7,483.7)">
-        <tspan
-           id="tspan3117"
-           sodipodi:role="line"
-           y="0"
-           x="0 8.3000002 13.89 16.68 22.780001 25.57 31.67 37.259998 42.849998 48.439999 52.330002 55.119999 61.220001 64.519997 70.620003"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Main descriptor</tspan>
-      </text>
-      <text
-         id="text3119"
-         transform="matrix(0,1,1,0,144.2,469)">
-        <tspan
-           id="tspan3121"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">I</tspan>
-      </text>
-      <text
-         id="text3123"
-         transform="matrix(0,1,1,0,144.2,471.8)">
-        <tspan
-           id="tspan3125"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">d</tspan>
-      </text>
-      <text
-         id="text3127"
-         transform="matrix(0,1,1,0,144.2,477.4)">
-        <tspan
-           id="tspan3129"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">e</tspan>
-      </text>
-      <text
-         id="text3131"
-         transform="matrix(0,1,1,0,144.2,483)">
-        <tspan
-           id="tspan3133"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">n</tspan>
-      </text>
-      <text
-         id="text3135"
-         transform="matrix(0,1,1,0,144.2,488.6)">
-        <tspan
-           id="tspan3137"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">t</tspan>
-      </text>
-      <text
-         id="text3139"
-         transform="matrix(0,1,1,0,144.2,491.4)">
-        <tspan
-           id="tspan3141"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">i</tspan>
-      </text>
-      <text
-         id="text3143"
-         transform="matrix(0,1,1,0,144.2,493.6)">
-        <tspan
-           id="tspan3145"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">f</tspan>
-      </text>
-      <text
-         id="text3147"
-         transform="matrix(0,1,1,0,144.2,496.5)">
-        <tspan
-           id="tspan3149"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">e</tspan>
-      </text>
-      <text
-         id="text3151"
-         transform="matrix(0,1,1,0,144.2,502.1)">
-        <tspan
-           id="tspan3153"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">r</tspan>
-      </text>
-      <text
-         id="text3155"
-         transform="matrix(0,1,1,0,195.1,461.9)">
-        <tspan
-           id="tspan3157"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">C</tspan>
-      </text>
-      <text
-         id="text3159"
-         transform="matrix(0,1,1,0,195.1,469.1)">
-        <tspan
-           id="tspan3161"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">h</tspan>
-      </text>
-      <text
-         id="text3163"
-         transform="matrix(0,1,1,0,195.1,475.2)">
-        <tspan
-           id="tspan3165"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">e</tspan>
-      </text>
-      <text
-         id="text3167"
-         transform="matrix(0,1,1,0,195.1,480.8)">
-        <tspan
-           id="tspan3169"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">c</tspan>
-      </text>
-      <text
-         id="text3171"
-         transform="matrix(0,1,1,0,195.1,486.4)">
-        <tspan
-           id="tspan3173"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">k</tspan>
-      </text>
-      <text
-         id="text3175"
-         transform="matrix(0,1,1,0,195.1,492)">
-        <tspan
-           id="tspan3177"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">s</tspan>
-      </text>
-      <text
-         id="text3179"
-         transform="matrix(0,1,1,0,195.1,497.6)">
-        <tspan
-           id="tspan3181"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">u</tspan>
-      </text>
-      <text
-         id="text3183"
-         transform="matrix(0,1,1,0,195.1,503.7)">
-        <tspan
-           id="tspan3185"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">m</tspan>
-      </text>
-      <text
-         id="text3187"
-         transform="matrix(0,1,1,0,246.1,450)">
-        <tspan
-           id="tspan3189"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">D</tspan>
-      </text>
-      <text
-         id="text3191"
-         transform="matrix(0,1,1,0,246.1,457.2)">
-        <tspan
-           id="tspan3193"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">e</tspan>
-      </text>
-      <text
-         id="text3195"
-         transform="matrix(0,1,1,0,246.1,462.8)">
-        <tspan
-           id="tspan3197"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">s</tspan>
-      </text>
-      <text
-         id="text3199"
-         transform="matrix(0,1,1,0,246.1,468.4)">
-        <tspan
-           id="tspan3201"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">c</tspan>
-      </text>
-      <text
-         id="text3203"
-         transform="matrix(0,1,1,0,246.1,474)">
-        <tspan
-           id="tspan3205"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">r</tspan>
-      </text>
-      <text
-         id="text3207"
-         transform="matrix(0,1,1,0,246.1,477.9)">
-        <tspan
-           id="tspan3209"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">i</tspan>
-      </text>
-      <text
-         id="text3211"
-         transform="matrix(0,1,1,0,246.1,480.7)">
-        <tspan
-           id="tspan3213"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">p</tspan>
-      </text>
-      <text
-         id="text3215"
-         transform="matrix(0,1,1,0,246.1,486.8)">
-        <tspan
-           id="tspan3217"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">t</tspan>
-      </text>
-      <text
-         id="text3219"
-         transform="matrix(0,1,1,0,246.1,490.1)">
-        <tspan
-           id="tspan3221"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">o</tspan>
-      </text>
-      <text
-         id="text3223"
-         transform="matrix(0,1,1,0,246.1,496.2)">
-        <tspan
-           id="tspan3225"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">r</tspan>
-      </text>
-      <text
-         id="text3227"
-         transform="matrix(0,1,1,0,246.1,502.9)">
-        <tspan
-           id="tspan3229"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">C</tspan>
-      </text>
-      <text
-         id="text3231"
-         transform="matrix(0,1,1,0,246.1,510.1)">
-        <tspan
-           id="tspan3233"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">R</tspan>
-      </text>
-      <text
-         id="text3235"
-         transform="matrix(0,1,1,0,246.1,517.3)">
-        <tspan
-           id="tspan3237"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">C</tspan>
-      </text>
-      <text
-         id="text3239"
-         transform="matrix(0,1,1,0,297.1,468.2)">
-        <tspan
-           id="tspan3241"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">L</tspan>
-      </text>
-      <text
-         id="text3243"
-         transform="matrix(0,1,1,0,297.1,473.8)">
-        <tspan
-           id="tspan3245"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">o</tspan>
-      </text>
-      <text
-         id="text3247"
-         transform="matrix(0,1,1,0,297.1,479.4)">
-        <tspan
-           id="tspan3249"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">c</tspan>
-      </text>
-      <text
-         id="text3251"
-         transform="matrix(0,1,1,0,297.1,484.4)">
-        <tspan
-           id="tspan3253"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">a</tspan>
-      </text>
-      <text
-         id="text3255"
-         transform="matrix(0,1,1,0,297.1,490)">
-        <tspan
-           id="tspan3257"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">t</tspan>
-      </text>
-      <text
-         id="text3259"
-         transform="matrix(0,1,1,0,297.1,492.8)">
-        <tspan
-           id="tspan3261"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">i</tspan>
-      </text>
-      <text
-         id="text3263"
-         transform="matrix(0,1,1,0,297.1,495)">
-        <tspan
-           id="tspan3265"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">o</tspan>
-      </text>
-      <text
-         id="text3267"
-         transform="matrix(0,1,1,0,297.1,500.6)">
-        <tspan
-           id="tspan3269"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">n</tspan>
-      </text>
-      <text
-         id="text3271"
-         transform="matrix(1,0,0,-1,191.8,413.4)">
-        <tspan
-           id="tspan3273"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 13.3 18.889999 24.48 30.07 35.66 41.759998"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Checksum</tspan>
-      </text>
-      <text
-         id="text3275"
-         transform="matrix(1,0,0,-1,389.9,375.9)">
-        <tspan
-           id="tspan3277"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 14.4"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">CRC</tspan>
-      </text>
-      <text
-         id="text3279"
-         transform="matrix(1,0,0,-1,30.3,301.2)">
-        <tspan
-           id="tspan3281"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 12.79 18.379999 23.969999 27.860001 33.450001 39.040001 41.830002 49.029999 54.619999 60.209999 65.800003 69.690002 72.480003 78.580002 81.879997 87.980003"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Reserve Descriptor</tspan>
-      </text>
-      <text
-         id="text3283"
-         transform="matrix(1,0,0,-1,208.6,301.2)">
-        <tspan
-           id="tspan3285"
-           sodipodi:role="line"
-           y="0"
-           x="0 5.3000002 10.89"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Tag</tspan>
-      </text>
-      <text
-         id="text3287"
-         transform="matrix(1,0,0,-1,451.5,301.2)">
-        <tspan
-           id="tspan3289"
-           sodipodi:role="line"
-           y="0"
-           x="0 7.1999998 12.79 18.379999 23.969999 27.860001 30.65 36.75 40.049999 46.150002 50.040001 52.830002 58.93 65.029999 71.129997"
-           style="font-size:10px;font-variant:normal;font-weight:bold;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans-Bold">Descriptor body</tspan>
-      </text>
-      <text
-         id="text3291"
-         transform="matrix(0,1,1,0,266,452.2)">
-        <tspan
-           id="tspan3293"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">D</tspan>
-      </text>
-      <text
-         id="text3295"
-         transform="matrix(0,1,1,0,266,459.4)">
-        <tspan
-           id="tspan3297"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">e</tspan>
-      </text>
-      <text
-         id="text3299"
-         transform="matrix(0,1,1,0,266,465)">
-        <tspan
-           id="tspan3301"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">s</tspan>
-      </text>
-      <text
-         id="text3303"
-         transform="matrix(0,1,1,0,266,470)">
-        <tspan
-           id="tspan3305"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">c</tspan>
-      </text>
-      <text
-         id="text3307"
-         transform="matrix(0,1,1,0,266,475)">
-        <tspan
-           id="tspan3309"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">r</tspan>
-      </text>
-      <text
-         id="text3311"
-         transform="matrix(0,1,1,0,266,478.3)">
-        <tspan
-           id="tspan3313"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">i</tspan>
-      </text>
-      <text
-         id="text3315"
-         transform="matrix(0,1,1,0,266,480.5)">
-        <tspan
-           id="tspan3317"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">p</tspan>
-      </text>
-      <text
-         id="text3319"
-         transform="matrix(0,1,1,0,266,486.1)">
-        <tspan
-           id="tspan3321"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">t</tspan>
-      </text>
-      <text
-         id="text3323"
-         transform="matrix(0,1,1,0,266,488.9)">
-        <tspan
-           id="tspan3325"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">o</tspan>
-      </text>
-      <text
-         id="text3327"
-         transform="matrix(0,1,1,0,266,494.5)">
-        <tspan
-           id="tspan3329"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">r</tspan>
-      </text>
-      <text
-         id="text3331"
-         transform="matrix(0,1,1,0,266,500.6)">
-        <tspan
-           id="tspan3333"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">C</tspan>
-      </text>
-      <text
-         id="text3335"
-         transform="matrix(0,1,1,0,266,507.8)">
-        <tspan
-           id="tspan3337"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">R</tspan>
-      </text>
-      <text
-         id="text3339"
-         transform="matrix(0,1,1,0,266,515)">
-        <tspan
-           id="tspan3341"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">C</tspan>
-      </text>
-      <text
-         id="text3343"
-         transform="matrix(0,1,1,0,277.2,471.9)">
-        <tspan
-           id="tspan3345"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">L</tspan>
-      </text>
-      <text
-         id="text3347"
-         transform="matrix(0,1,1,0,277.2,477.5)">
-        <tspan
-           id="tspan3349"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">e</tspan>
-      </text>
-      <text
-         id="text3351"
-         transform="matrix(0,1,1,0,277.2,483.1)">
-        <tspan
-           id="tspan3353"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">n</tspan>
-      </text>
-      <text
-         id="text3355"
-         transform="matrix(0,1,1,0,277.2,488.7)">
-        <tspan
-           id="tspan3357"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">g</tspan>
-      </text>
-      <text
-         id="text3359"
-         transform="matrix(0,1,1,0,277.2,494.2)">
-        <tspan
-           id="tspan3361"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">t</tspan>
-      </text>
-      <text
-         id="text3363"
-         transform="matrix(0,1,1,0,277.2,497)">
-        <tspan
-           id="tspan3365"
-           y="0"
-           x="0"
-           style="font-size:10px;font-variant:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:LiberationSans">h</tspan>
-      </text>
-    </g>
-    <g
-       id="g3565"
-       style="stroke-width:1.3;stroke-miterlimit:4;stroke-dasharray:none;stroke:#000000;stroke-opacity:1;stroke-linejoin:round;stroke-linecap:round">
-      <path
-         transform="translate(0,308.2677)"
-         inkscape:connector-curvature="0"
-         id="path3545"
-         d="m 200.0102,296.5969 c 0,36.3655 111.11678,-24.24366 111.11678,15.15229"
-         style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path3545-3"
-         d="m 311.12699,619.51181 c 0,-36.3655 111.11678,24.24366 111.11678,-15.15229"
-         style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
-    <g
-       transform="matrix(2.0335887,0,0,1.37014,20.134188,-223.95015)"
+     inkscape:label="detekce-ch"
+     transform="matrix(1.25,0,0,-1.25,0,743.75)"><g
+       id="g3211"><g
+         id="g3213"
+         clip-path="url(#clipPath3215)"><path
+           d="m 127.8,529.8 178.4,0 0,19.9 -178.4,0 0,-19.9 z"
+           style="fill:#ccf4c6;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3219" /><path
+           d="m 306.2,529.8 367.2,0 0,19.9 -367.2,0 0,-19.9 z"
+           style="fill:#fde9a9;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3221" /><path
+           d="m 127.8,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#92e285;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3223" /><path
+           d="m 153.3,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#ccf4c6;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3225" /><path
+           d="m 178.8,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#92e285;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3227" /><path
+           d="m 204.3,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#ccf4c6;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3229" /><path
+           d="m 229.8,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#92e285;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3231" /><path
+           d="m 255.3,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#ccf4c6;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3233" /><path
+           d="m 280.7,444.8 25.5,0 0,85.1 -25.5,0 0,-85.1 z"
+           style="fill:#92e285;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3235" /><path
+           d="m 306.2,444.8 367.2,0 0,85.1 -367.2,0 0,-85.1 z"
+           style="fill:#fde9a9;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3237" /><path
+           d="m 127.8,305.9 178.4,0 0,85.1 -178.4,0 0,-85.1 z"
+           style="fill:#ccf4c6;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3239" /><path
+           d="m 306.2,305.9 367.2,0 0,85.1 -367.2,0 0,-85.1 z"
+           style="fill:#fde9a9;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path3241" /></g></g><path
+       d="m 673.5,569.5 -0.4,-0.4 -544.8,0 -0.4,0.4 -0.4,0.4 546.4,0 -0.4,-0.4 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3243" /><path
+       d="m 673.5,549.6 -0.4,-0.4 -544.8,0 -0.4,0.4 0.4,0.4 544.8,0 0.4,-0.4 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3245" /><path
+       d="m 673.5,529.8 -1,-1 -543.6,0 -1,1 0.4,1 544.8,0 0.4,-1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3247" /><path
+       d="m 673.5,444.7 1,-1 -547.6,0 1,1 1,1.1 543.6,0 1,-1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3249" /><path
+       d="m 673.5,390.8 -1,-1 -543.6,0 -1,1 -1,1.1 547.6,0 -1,-1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3251" /><path
+       d="m 673.5,305.8 1,-1 -547.6,0 1,1 1,1 543.6,0 1,-1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3253" /><path
+       d="m 127.9,569.5 0.4,-0.4 0,-38.3 -0.4,-1 -0.3,-0.8 -0.1,0 0,40.9 0.4,-0.4 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3255" /><path
+       d="m 127.9,529.8 1,-1 0,-83 -1,-1.1 -1,-1 0,87.1 1,-1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3257" /><path
+       d="m 127.9,390.8 1,-1 0,-83 -1,-1 -1,-1 0,87.1 1,-1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3259" /><path
+       d="m 153.4,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3261" /><path
+       d="m 178.9,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3263" /><path
+       d="m 204.4,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3265" /><path
+       d="m 229.9,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3267" /><path
+       d="m 255.3,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3269" /><path
+       d="m 280.8,529.8 0.4,-1.1 0,-82.9 -0.4,-1.1 -0.4,1.1 0,82.9 0.4,1.1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3271" /><path
+       d="m 306.3,529.8 1,-1 0,-83 -1,-1.1 -1,1.1 0,83 1,1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3273" /><path
+       d="m 306.3,390.8 1,-1 0,-83 -1,-1 -1,1 0,83 1,1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3275" /><path
+       d="m 673.5,569.5 0.4,0.4 0,-40.9 -0.1,0 -0.3,0.8 -0.4,1 0,38.3 0.4,0.4 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3277" /><path
+       d="m 673.5,529.8 1,1 0,-87.1 -1,1 -1,1.1 0,83 1,1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3279" /><path
+       d="m 673.5,390.8 1,1.1 0,-87.1 -1,1 -1,1 0,83 1,1 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3281" /><text
+       transform="matrix(1,0,0,-1,375.7,556)"
+       id="text3283"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 12.79 18.38 23.97 27.86 30.65 36.75 40.05 46.15"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3285">Descriptor</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,411.5)"
+       id="text3287"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3289">R</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,418.7)"
+       id="text3291"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3293">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,424.3)"
+       id="text3295"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3297">d</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,430.4)"
+       id="text3299"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3301">u</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,436.5)"
+       id="text3303"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3305">n</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,442.6)"
+       id="text3307"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3309">d</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,448.7)"
+       id="text3311"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3313">a</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,454.3)"
+       id="text3315"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3317">n</tspan></text>
+<text
+       transform="matrix(0,1,1,0,722.1,460.4)"
+       id="text3319"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3321">t</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,208.6,536.2)"
+       id="text3323"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 5.3 10.89"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3325">Tag</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,451.5,536.2)"
+       id="text3327"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 12.79 18.38 23.97 27.86 30.65 36.75 40.05 46.15 50.04 52.83 58.93 65.03 71.13"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3329">Descriptor body</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,47.7,483.7)"
+       id="text3331"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 8.3 13.89 16.68 22.78 25.57 31.67 37.26 42.85 48.44 52.33 55.12 61.22 64.52 70.62"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3333">Main descriptor</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,467.9)"
+       id="text3335"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3337">I</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,470.7)"
+       id="text3339"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3341">d</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,476.3)"
+       id="text3343"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3345">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,481.9)"
+       id="text3347"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3349">n</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,487.5)"
+       id="text3351"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3353">t</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,490.3)"
+       id="text3355"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3357">i</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,492.5)"
+       id="text3359"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3361">f</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,495.4)"
+       id="text3363"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3365">i</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,497.6)"
+       id="text3367"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3369">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,144.2,503.2)"
+       id="text3371"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3373">r</tspan></text>
+<text
+       transform="matrix(0,1,1,0,169.7,485.3)"
+       id="text3375"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3377">*</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,461.9)"
+       id="text3379"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3381">C</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,469.1)"
+       id="text3383"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3385">h</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,475.2)"
+       id="text3387"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3389">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,480.8)"
+       id="text3391"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3393">c</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,486.4)"
+       id="text3395"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3397">k</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,492)"
+       id="text3399"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3401">s</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,497.6)"
+       id="text3403"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3405">u</tspan></text>
+<text
+       transform="matrix(0,1,1,0,195.1,503.7)"
+       id="text3407"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3409">m</tspan></text>
+<text
+       transform="matrix(0,1,1,0,220.6,485.3)"
+       id="text3411"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3413">*</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,450)"
+       id="text3415"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3417">D</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,457.2)"
+       id="text3419"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3421">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,462.8)"
+       id="text3423"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3425">s</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,468.4)"
+       id="text3427"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3429">c</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,474)"
+       id="text3431"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3433">r</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,477.9)"
+       id="text3435"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3437">i</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,480.7)"
+       id="text3439"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3441">p</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,486.8)"
+       id="text3443"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3445">t</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,490.1)"
+       id="text3447"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3449">o</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,496.2)"
+       id="text3451"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3453">r</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,502.9)"
+       id="text3455"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3457">C</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,510.1)"
+       id="text3459"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3461">R</tspan></text>
+<text
+       transform="matrix(0,1,1,0,246.1,517.3)"
+       id="text3463"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0"
+         y="0"
+         id="tspan3465">C</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,468.2)"
+       id="text3467"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3469">L</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,473.8)"
+       id="text3471"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3473">o</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,479.4)"
+       id="text3475"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3477">c</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,484.4)"
+       id="text3479"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3481">a</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,490)"
+       id="text3483"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3485">t</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,492.8)"
+       id="text3487"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3489">i</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,495)"
+       id="text3491"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3493">o</tspan></text>
+<text
+       transform="matrix(0,1,1,0,297.1,500.6)"
+       id="text3495"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3497">n</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,191.8,413.4)"
+       id="text3499"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 13.3 18.89 24.48 30.07 35.66 41.76"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3501">Checksum</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,479.1,413.4)"
+       id="text3503"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 14.4"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3505">CRC</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,30.3,344.8)"
+       id="text3507"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 12.79 18.38 23.97 27.86 33.45 39.04 41.83 49.03 54.62 60.21 65.8 69.69 72.48 78.58 81.88 87.98"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3509">Reserve Descriptor</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,208.6,344.8)"
+       id="text3511"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 5.3 10.89"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3513">Tag</tspan></text>
+<text
+       transform="matrix(1,0,0,-1,451.5,344.8)"
+       id="text3515"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:bold;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans-Bold"
+         x="0 7.2 12.79 18.38 23.97 27.86 30.65 36.75 40.05 46.15 50.04 52.83 58.93 65.03 71.13"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3517">Descriptor body</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,452.2)"
+       id="text3519"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3521">D</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,459.4)"
+       id="text3523"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3525">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,465)"
+       id="text3527"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3529">s</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,470)"
+       id="text3531"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3533">c</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,475)"
+       id="text3535"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3537">r</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,478.3)"
+       id="text3539"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3541">i</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,480.5)"
+       id="text3543"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3545">p</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,486.1)"
+       id="text3547"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3549">t</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,488.9)"
+       id="text3551"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3553">o</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,494.5)"
+       id="text3555"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3557">r</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,500.6)"
+       id="text3559"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3561">C</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,507.8)"
+       id="text3563"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3565">R</tspan></text>
+<text
+       transform="matrix(0,1,1,0,266,515)"
+       id="text3567"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3569">C</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,471.9)"
+       id="text3571"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3573">L</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,477.5)"
+       id="text3575"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3577">e</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,483.1)"
+       id="text3579"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3581">n</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,488.7)"
+       id="text3583"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3585">g</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,494.2)"
+       id="text3587"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3589">t</tspan></text>
+<text
+       transform="matrix(0,1,1,0,277.2,497)"
+       id="text3591"><tspan
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Liberation Sans;font-variant:normal;font-weight:normal;font-size:10;writing-mode:lr;-inkscape-font-specification:LiberationSans"
+         x="0"
+         y="0"
+         id="tspan3593">h</tspan></text>
+<g
+       transform="matrix(1.626871,0,0,-1.096112,-15.16241,1104.0406)"
        id="g3565-6"
-       style="stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none">
-      <path
+       style="stroke:#000000;stroke-width:0.71889788;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"><path
          transform="translate(0,308.2677)"
          inkscape:connector-curvature="0"
          id="path3545-7"
          d="m 200.0102,296.5969 c 0,36.3655 111.11678,-24.24366 111.11678,15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
+         style="fill:none;stroke:#000000;stroke-width:0.71889788;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /><path
          inkscape:connector-curvature="0"
          id="path3545-3-5"
          d="m 311.12699,619.51181 c 0,-36.3655 111.11678,24.24366 111.11678,-15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.7188979;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    </g>
-    <g
-       transform="matrix(0,1.7211996,1.86831,0,-232.87311,99.073366)"
+         style="fill:none;stroke:#000000;stroke-width:0.71889788;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /></g><g
+       transform="matrix(0.8,0,0,-0.8,-32.70985,924.65523)"
+       id="g3565"
+       style="stroke:#000000;stroke-width:1.29999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"><path
+         transform="translate(0,308.2677)"
+         inkscape:connector-curvature="0"
+         id="path3545"
+         d="m 200.0102,296.5969 c 0,36.3655 111.11678,-24.24366 111.11678,15.15229"
+         style="fill:none;stroke:#000000;stroke-width:1.29999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /><path
+         inkscape:connector-curvature="0"
+         id="path3545-3"
+         d="m 311.12699,619.51181 c 0,-36.3655 111.11678,24.24366 111.11678,-15.15229"
+         style="fill:none;stroke:#000000;stroke-width:1.29999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /></g><g
+       transform="matrix(0,-1.1738651,1.494648,0,-220.41901,801.8932)"
        id="g3565-3"
-       style="stroke:#000000;stroke-opacity:1;stroke-width:0.66917724;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
+       style="stroke:#000000;stroke-width:0.66917723;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"><path
          transform="translate(0,308.2677)"
          inkscape:connector-curvature="0"
          id="path3545-5"
          d="m 200.0102,296.5969 c 0,36.3655 111.11678,-24.24366 111.11678,15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.66917724;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
+         style="fill:none;stroke:#000000;stroke-width:0.66917723;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /><path
          inkscape:connector-curvature="0"
          id="path3545-3-6"
          d="m 311.12699,619.51181 c 0,-36.3655 111.11678,24.24366 111.11678,-15.15229"
-         style="fill:none;stroke:#000000;stroke-width:0.66917724;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.19999999999999996;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
-       d="M 293.9544,316.79996 C 282.84272,280.43447 280.82241,274.37355 280.82241,274.37355"
-       id="path4372"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       transform="translate(0,308.2677)" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="M 638.92148,637.18949 C 421.73869,640.21995 357.08892,591.73262 357.08892,591.73262"
+         style="fill:none;stroke:#000000;stroke-width:0.66917723;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /></g><path
+       style="fill:none;stroke:#000000;stroke-width:0.96000004;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 477.04446,419.99608 c -173.74623,-2.42436 -225.46605,36.3655 -225.46605,36.3655"
        id="path4372-7"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Overpass;-inkscape-font-specification:Overpass"
-       x="640.43671"
-       y="640.21997"
-       id="text5053"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5055"
-         x="640.43671"
-         y="640.21997"
-         style="font-size:13px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold">CRC</tspan></text>
-    <rect
-       style="fill:#ffffff;stroke:none;stroke-width:1.20000005000000010;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
-       id="rect5057"
-       width="49.497475"
-       height="22.223356"
-       x="512.14734"
-       y="360.23651"
-       transform="translate(0,308.2677)" />
-  </g>
-</svg>
+       sodipodi:nodetypes="cc" /><path
+       style="fill:none;stroke:#000000;stroke-width:0.96000004;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 203.79623,423.60677 c -8.88935,29.09239 -10.5056,33.94113 -10.5056,33.94113"
+       id="path4372"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" /></g></svg>
