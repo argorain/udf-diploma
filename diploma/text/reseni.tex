@@ -318,7 +318,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
 
 \subsection{Skupina deskriptorů Logical Volume Integrity Sequence}
 \label{subsec:lvid}
-Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TE). Ty dohromady vytváří \textit{Logical Volume Integrity Sequence}. Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Odpovídá na následující otázky:
+Další důležitou částí je \textit{Logical Volume Integrity Descriptor} (LVID) spolu s \textit{Terminating Descriptor} (TD). Ty dohromady vytváří \textit{Logical Volume Integrity Sequence}. Tato sekvence je uložena pouze jednou a její umístění je udržováno v LVD. Odpovídá na následující otázky:
 \begin{itemize}
     \item Je Logický svazek v konzistentním stavu?
     \item Kdy bylo naposledy cokoli na Logickém svazku modifikováno.
@@ -642,7 +642,7 @@ Důležitým detailem, který není v obrázku pro jednoduchost naznačen, je sk
 \label{sec:implementace}
 Implementace nástroje \texttt{udffsck} bude provedena v rámci balíčku \texttt{udftools}. Bude tak navazovat na existující sdílenou knihovnu, která obsahuje sdílené hlavičky s definicemi deskriptorů podle standardu ECMA-167.
 
-Struktura nástroje bude rozdělena do třech částí. V první části bude probíhat načtení média a parsování vstupních parametrů. Druhá část bude detekovat přítomnost UDF, načítat deskriptory souborového systému a strom souborů a bude detekovat chyby v nich. Třetí část bude opravovat nalezené chyby na základě výsledků z předchozí části. Návrh jednotlivých částí je popsán v předchozí kapitole \ref{sec:navrh}.
+Struktura nástroje bude rozdělena do třech částí. V první části bude probíhat načtení média a parsování vstupních parametrů. Druhá část bude detekovat přítomnost UDF, načítat deskriptory souborového systému a strom souborů a bude detekovat chyby v nich. Třetí část bude opravovat nalezené chyby na základě výsledků z předchozí části. Návrh jednotlivých částí je popsán v předchozí kapitole~\ref{sec:navrh}.
 
 Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých kroků implementace. Ta bude postupovat podle algoritmu popsaném v předchozí kapitole, viz obrázek \ref{fig:steps-korekce}. Bude vytvořena struktura pro přenos chybové informace mezi detekčními a korekčními algoritmy, stejně tak strkuktura nesoucí pracovní informace o médiu. 
 
