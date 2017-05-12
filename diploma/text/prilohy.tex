@@ -135,506 +135,90 @@ UDFTOOLS 1.3                     May 2017                      UDFFSCK(8)
 \end{Verbatim}
 
 \chapter{Ukázkový výpis programu \texttt{udffsck}}
-\begin{lstlisting}[frame=single,caption={Ukázka výstupu programu pro médium s veliostí sektoru 512~B},label=lst:bs512,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left]
-Device block size: 512
-non-option ARGV-elements: ../../udf-samples/bs512-r0150_2.img 
-File to analyze: ../../udf-samples/bs512-r0150_2.img
-FD: 0x3
-[DBG] try #0
-[DBG] vsd: type:0, id:BEA01, v:1
-[DBG] try #1
-[DBG] vsd: type:0, id:NSR02, v:1
-[DBG] try #2
-[DBG] vsd: type:0, id:TEA01, v:1
-bea: type:0, id:BEA01, v:1
-nsr: type:0, id:NSR02, v:1
-tea: type:0, id:TEA01, v:1
-DevSize: 5120000
-Current position: 20000
-Calc CRC: 0x0878, TagCRC: 0x0878
+\begin{lstlisting}[frame=single,caption={Ukázka výstupu programu pro médium s velikostí sektoru 2048~B a vstupními parametry \texttt{-vvp -B 2048}},label=lst:bs512,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,extendedchars=true]
+Verbosity increased to WARNING.
+Verbosity increased to MESSAGE.
+Medium will be only checked. No corrections.
+Device block size: 2048
+Medium to analyze: ../../udf-samples/bs2048-r0201-clean.img
 AVDP[0] successfully loaded.
-DevSize: 5120000
-Current position: 4e1e00
-Calc CRC: 0x0878, TagCRC: 0x0878
 AVDP[1] successfully loaded.
-DevSize: 5120000
-Current position: 4c1e00
-Calc CRC: 0x0878, TagCRC: 0x0878
 AVDP[2] successfully loaded.
+Sectorsize: 2048
 
-Trying to load VDS
-Current position: 20200
-Tag ID: 1
-VolNum: 1
-pVolNum: 0
-seqNum: 1
-predLoc: 0
-New positon is 0x20400
-Tag ID: 6
-LVD size: 0x1b8
-NumOfPartitionMaps: 1
-MapTableLength: 6
-[0x01] [0x06] [0x01] [0x00] [0x00] [0x00] 
-New positon is 0x20600
-Tag ID: 5
-New positon is 0x20800
-Tag ID: 7
-VolDescNum: 6
-NumAllocDesc: 2
-New positon is 0x20a00
-Tag ID: 4
-New positon is 0x20c00
-Tag ID: 8
-New positon is 0x20e00
-Tag ID: 0
-Current position: 4dfe00
-Tag ID: 1
-VolNum: 1
-pVolNum: 0
-seqNum: 1
-predLoc: 0
-New positon is 0x4e0000
-Tag ID: 6
-LVD size: 0x1b8
-NumOfPartitionMaps: 1
-MapTableLength: 6
-[0x01] [0x06] [0x01] [0x00] [0x00] [0x00] 
-New positon is 0x4e0200
-Tag ID: 5
-New positon is 0x4e0400
-Tag ID: 7
-VolDescNum: 6
-NumAllocDesc: 2
-New positon is 0x4e0600
-Tag ID: 4
-New positon is 0x4e0800
-Tag ID: 8
-New positon is 0x4e0a00
-Tag ID: 0
-LVID: loc: 273, len: 512
-LVID: lenOfImpUse: 46
-LVID: freeSpaceTable: 4613
-LVID: sizeTable: 4613
-Calc CRC: 0x3501, TagCRC: 0x3501
-Calc CRC: 0x5f00, TagCRC: 0x5f00
-Calc CRC: 0xaa1b, TagCRC: 0xaa1b
-Calc CRC: 0xe0ee, TagCRC: 0xe0ee
-Calc CRC: 0x2a01, TagCRC: 0x2a01
-Calc CRC: 0x0000, TagCRC: 0x0000
-Calc CRC: 0x3501, TagCRC: 0x3501
-Calc CRC: 0x5f00, TagCRC: 0x5f00
-Calc CRC: 0xaa1b, TagCRC: 0xaa1b
-Calc CRC: 0xe0ee, TagCRC: 0xe0ee
-Calc CRC: 0x2a01, TagCRC: 0x2a01
-Calc CRC: 0x0000, TagCRC: 0x0000
-UDF Metadata Overview
-=====================
-UDF revision: 0
-Disc blocksize: 0
-Disc blocksize bits: 0
-Flags: 0
+Stream file tree
+----------------
+.....:darwx.:.r.x.:.r.x STREAM  2017-04-12 09:50:16.201007+00:00        40  <ROOT>
 
-AVDP
-----
-[0]
-	Identification Tag
-	==================
-	ID: 2 (AVDP)
-	Version: 2
-	Checksum: 0x77
-	Serial Number: 0x1
-	Descriptor CRC: 0x878, Length: 496
-	Tag Location: 0x100
-[1]
-	Identification Tag
-	==================
-	ID: 2 (AVDP)
-	Version: 2
-	Checksum: 0xac
-	Serial Number: 0x1
-	Descriptor CRC: 0x878, Length: 496
-	Tag Location: 0x270f
-[2]
-	Identification Tag
-	==================
-	ID: 2 (AVDP)
-	Version: 2
-	Checksum: 0xab
-	Serial Number: 0x1
-	Descriptor CRC: 0x878, Length: 496
-	Tag Location: 0x260f
-PVD
----
-[0]
-	Identification Tag
-	==================
-	ID: 1 (PVD)
-	Version: 2
-	Checksum: 0x2d
-	Serial Number: 0x1
-	Descriptor CRC: 0x3501, Length: 496
-	Tag Location: 0x101
-[1]
-	Identification Tag
-	==================
-	ID: 1 (PVD)
-	Version: 2
-	Checksum: 0x50
-	Serial Number: 0x1
-	Descriptor CRC: 0x3501, Length: 496
-	Tag Location: 0x26ff
-LVD
----
-[0]
-	Identification Tag
-	==================
-	ID: 6 (LVD)
-	Version: 2
-	Checksum: 0x1a
-	Serial Number: 0x1
-	Descriptor CRC: 0x5f00, Length: 430
-	Tag Location: 0x102
-Partition Maps: 1
-[1]
-	Identification Tag
-	==================
-	ID: 6 (LVD)
-	Version: 2
-	Checksum: 0x3e
-	Serial Number: 0x1
-	Descriptor CRC: 0x5f00, Length: 430
-	Tag Location: 0x2700
-Partition Maps: 1
-PD
---
-[0]
-	Identification Tag
-	==================
-	ID: 5 (PD)
-	Version: 2
-	Checksum: 0xc2
-	Serial Number: 0x1
-	Descriptor CRC: 0xaa1b, Length: 496
-	Tag Location: 0x103
-[1]
-	Identification Tag
-	==================
-	ID: 5 (PD)
-	Version: 2
-	Checksum: 0xe6
-	Serial Number: 0x1
-	Descriptor CRC: 0xaa1b, Length: 496
-	Tag Location: 0x2701
-USD
----
-[0]
-	Identification Tag
-	==================
-	ID: 7 (USD)
-	Version: 2
-	Checksum: 0xf5
-	Serial Number: 0x1
-	Descriptor CRC: 0xe0ee, Length: 24
-	Tag Location: 0x104
-[1]
-	Identification Tag
-	==================
-	ID: 7 (USD)
-	Version: 2
-	Checksum: 0x19
-	Serial Number: 0x1
-	Descriptor CRC: 0xe0ee, Length: 24
-	Tag Location: 0x2702
-IUVD
-----
-[0]
-	Identification Tag
-	==================
-	ID: 4 (IUVD)
-	Version: 2
-	Checksum: 0x29
-	Serial Number: 0x1
-	Descriptor CRC: 0x2a01, Length: 496
-	Tag Location: 0x105
-[1]
-	Identification Tag
-	==================
-	ID: 4 (IUVD)
-	Version: 2
-	Checksum: 0x4d
-	Serial Number: 0x1
-	Descriptor CRC: 0x2a01, Length: 496
-	Tag Location: 0x2703
-TD
---
-[0]
-	Identification Tag
-	==================
-	ID: 8 (TD)
-	Version: 2
-	Checksum: 0x3
-	Serial Number: 0x1
-	Descriptor CRC: 0x0, Length: 496
-	Tag Location: 0x106
-[1]
-	Identification Tag
-	==================
-	ID: 8 (TD)
-	Version: 2
-	Checksum: 0x27
-	Serial Number: 0x1
-	Descriptor CRC: 0x0, Length: 496
-	Tag Location: 0x2704
-LAP: length: 200, LBN: 3, PRN: 0
-LAP: LSN: 274
-LogicVolIdent: udf512
-FileSetIdent: LinuxUDF
-LBNLSN: 274
-ROOT LSN: 278
-Calc CRC: 0xa05f, TagCRC: 0xa05f
+Medium file tree
+----------------
+.....:..rwx.:.r.x.:.r.x DIR     2017-04-12 07:50:16.201007+00:00       188  <ROOT>
+  .d...:..rwx.:.r.x.:.r.x DIR     2017-04-12 07:50:16.201007+00:00        40  "lost+found"
+  .d...:..rwx.:.r.x.:.r.x DIR     2017-04-12 07:52:57.795796+00:00        96  "data"
+    .d...:..rwx.:.r.x.:.r.x DIR     2017-04-12 14:14:58.964404+00:00       416  "life is strange"
+      .....:..rw..:.r...:.r.. FILE    2017-04-12 07:53:37.304305+00:00    572192  "life is strange by katewindhelm.jpg"
+      .....:..rw..:.r...:.r.. FILE    2017-04-12 07:53:37.304305+00:00    352154  "642030.jpg"
+      ..D..          <Unused FID>                                           "life is strange.jpg"
+      .....:..rw..:.r...:.r.. FILE    2017-04-12 07:53:37.344305+00:00   1588217  "Life is strange.jpg"
+      .....:..rw..:.r...:.r.. FILE    2017-04-12 07:53:37.360306+00:00    899265  "Chloe background.jpg"
+  .d...:..rwx.:.r.x.:.r.x DIR     2017-04-12 07:53:12.051979+00:00        96  "nejaka data"
+    .....:..rw..:.r...:.r.. FILE    2017-04-12 07:53:51.380488+00:00    153600  "acminecraft.tar"
 
-FE, LSN: 278, EntityID: *Linux UDFFS fileLinkCount: 3, LB recorded: 0
-LEA 0, LAD 236
-01 01 02 00 9c 00 01 00 
-dd 9e 18 00 04 00 00 00 
-01 00 0a 00 00 02 00 00 
-04 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 
-01 01 02 00 e8 00 01 00 
-df e0 20 00 04 00 00 00 
-01 00 00 0a 00 02 00 00 
-05 00 00 00 00 00 00 00 
-10 00 00 00 00 00 08 69 
-6d 61 67 65 2e 69 73 6f 
-01 01 02 00 e5 00 01 00 
-86 36 20 00 04 00 00 00 
-01 00 00 08 00 02 00 00 
-3a 12 00 00 00 00 00 00 
-11 00 00 00 00 00 08 68 
-69 73 74 6f 72 79 00 00 
-01 01 02 00 21 00 01 00 
-06 f2 20 00 04 00 00 00 
-01 00 02 07 00 02 00 00 
-f4 12 00 00 00 00 00 00 
-12 00 00 00 00 00 08 53 
-6c 6f 7a 6b 61 00 00 00 
-01 01 02 00 0a 00 01 00 
-6a 73 24 00 04 00 00 00 
-01 00 02 0e 00 02 00 00 
-f6 12 00 00 00 00 00 00 
-14 00 00 00 00 00 08 50 
-72 61 7a 64 6e 61 53 6c 
-6f 7a 6b 61 00 00 00 00 
+Filesystem status
+-----------------
+Volume set identifier:58eddc38LinuxUDF
+Partition identifier:LinuxUDF
+Next UniqueID: 26
+Max found UniqueID: 25
+Last LVID recoreded change: 2017-04-12 14:15:11.380535+00:00
+expected number of files: 5
+expected number of dirs:  5
+counted number of files: 5
+counted number of dirs:  5
+UDF rev: min read:  0201
+         min write: 0201
+         max write: 0201
+Used Space: 3596288 (1756)
+Free Space: 15796224 (7713)
+Partition size: 19392512 (9469)
+Expected Used Space: 3596288 (1756)
+Expected Used Blocks: 1756
+Expected Unused Blocks: 7713
 
-FID found.
-Calc CRC: 0x9edd, TagCRC: 0x9edd
-FID: ImpUseLen: 0
-FID: FilenameLen: 0
-ROOT directory
-ICB: LSN: 278, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 278
-Parent. Not Following this one
-FLen: 38, padding: 2
-
-FID found.
-Calc CRC: 0xe0df, TagCRC: 0xe0df
-FID: ImpUseLen: 0
-FID: FilenameLen: 10
-Filename: image.iso
-ICB: LSN: 279, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 278
-ICB to follow.
-Calc CRC: 0x0125, TagCRC: 0x0125
-
-FE, LSN: 279, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 4660
-LEA 0, LAD 16
-LONG
-ExtLen: 4660, ExtLoc: 280
-LSN: 4939
-00 68 24 00 06 00 00 00 
-00 00 00 00 00 00 00 00 
-
-Return from ICB
-FLen: 48, padding: 0
-
-FID found.
-Calc CRC: 0x3686, TagCRC: 0x3686
-FID: ImpUseLen: 0
-FID: FilenameLen: 8
-Filename: history
-ICB: LSN: 4940, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 278
-ICB to follow.
-Calc CRC: 0xd45e, TagCRC: 0xd45e
-
-FE, LSN: 4940, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 185
-LEA 0, LAD 16
-LONG
-ExtLen: 184, ExtLoc: 4941
-LSN: 5124
-5b 71 01 00 3b 12 00 00 
-00 00 00 00 00 00 00 00 
-
-Return from ICB
-FLen: 46, padding: 2
-
-FID found.
-Calc CRC: 0xf206, TagCRC: 0xf206
-FID: ImpUseLen: 0
-FID: FilenameLen: 7
-Filename: Slozka
-ICB: LSN: 5126, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 278
-ICB to follow.
-Calc CRC: 0x84d4, TagCRC: 0x84d4
-
-FE, LSN: 5126, EntityID: *Linux UDFFS fileLinkCount: 2, LB recorded: 0
-LEA 0, LAD 148
-01 01 02 00 9e 00 01 00 
-dd 9e 18 00 f4 12 00 00 
-01 00 0a 00 00 02 00 00 
-04 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 
-01 01 02 00 a6 00 01 00 
-f7 80 24 00 f4 12 00 00 
-01 00 00 0b 00 02 00 00 
-f5 12 00 00 00 00 00 00 
-13 00 00 00 00 00 08 73 
-6f 75 62 6f 72 2e 74 78 
-74 00 00 00 01 01 02 00 
-fd 00 01 00 48 82 28 00 
-f4 12 00 00 01 00 02 11 
-00 02 00 00 f7 12 00 00 
-00 00 00 00 15 00 00 00 
-00 00 08 50 72 61 7a 64 
-6e 61 50 6f 64 6c 6f 73 
-7a 6b 61 00 00 00 00 00 
-
-FID found.
-Calc CRC: 0x9edd, TagCRC: 0x9edd
-FID: ImpUseLen: 0
-FID: FilenameLen: 0
-ROOT directory
-ICB: LSN: 278, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 5126
-Parent. Not Following this one
-FLen: 38, padding: 2
-
-FID found.
-Calc CRC: 0x80f7, TagCRC: 0x80f7
-FID: ImpUseLen: 0
-FID: FilenameLen: 11
-Filename: soubor.txt
-ICB: LSN: 5127, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 5126
-ICB to follow.
-Calc CRC: 0x5e2e, TagCRC: 0x5e2e
-
-FE, LSN: 5127, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
-LEA 0, LAD 0
-
-Return from ICB
-FLen: 49, padding: 3
-
-FID found.
-Calc CRC: 0x8248, TagCRC: 0x8248
-FID: ImpUseLen: 0
-FID: FilenameLen: 17
-Filename: PrazdnaPodloszka
-ICB: LSN: 5129, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 5126
-ICB to follow.
-Calc CRC: 0x4690, TagCRC: 0x4690
-
-FE, LSN: 5129, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
-LEA 0, LAD 40
-01 01 02 00 cf 00 01 00 
-db ce 18 00 f7 12 00 00 
-01 00 0a 00 00 02 00 00 
-f4 12 00 00 00 00 00 00 
-12 00 00 00 00 00 00 00 
-
-FID found.
-Calc CRC: 0xcedb, TagCRC: 0xcedb
-FID: ImpUseLen: 0
-FID: FilenameLen: 0
-ROOT directory
-ICB: LSN: 5126, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 5129
-Parent. Not Following this one
-FLen: 38, padding: 2
-
-Return from ICB
-FLen: 55, padding: 1
-
-Return from ICB
-FLen: 45, padding: 3
-
-FID found.
-Calc CRC: 0x736a, TagCRC: 0x736a
-FID: ImpUseLen: 0
-FID: FilenameLen: 14
-Filename: PrazdnaSlozka
-ICB: LSN: 5128, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 278
-ICB to follow.
-Calc CRC: 0x1a4e, TagCRC: 0x1a4e
-
-FE, LSN: 5128, EntityID: *Linux UDFFS fileLinkCount: 1, LB recorded: 0
-LEA 0, LAD 40
-01 01 02 00 a0 00 01 00 
-dd 9e 18 00 f6 12 00 00 
-01 00 0a 00 00 02 00 00 
-04 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 
-
-FID found.
-Calc CRC: 0x9edd, TagCRC: 0x9edd
-FID: ImpUseLen: 0
-FID: FilenameLen: 0
-ROOT directory
-ICB: LSN: 278, length: 512
-ROOT ICB: LSN: 278
-Actual LSN: 5128
-Parent. Not Following this one
-FLen: 38, padding: 2
-
-Return from ICB
-FLen: 52, padding: 0
-
+VDS verification status
+-----------------------
+[0] PVD is fine. No fixing needed.
+[1] LVD is fine. No fixing needed.
+[2] PD is fine. No fixing needed.
+[3] USD is fine. No fixing needed.
+[4] IUVD is fine. No fixing needed.
+[5] TD is fine. No fixing needed.
 All done
 \end{lstlisting}
 \textbf{Legenda} (čísla řádků)
 \begin{enumerate}
-    \item Zobrazení přijatého parametru velikost sektoru
-    \item Ladicí výpis parseru vstupních argumentů
-    \item Soubor k analýze
-    \item Ladicí informace - File Descriptor v operačním systému
-    \item - 10. Ladicí informace ze čtení VRS \addtocounter{enumi}{5}
-    \item - 13. Nalezená VRS sekvence \addtocounter{enumi}{2}
-    \item - 26. Načtení a kontrola třech AVDP \addtocounter{enumi}{12}
-    \item - 75. Načtení hlavní a rezervní VDS a výpis ladicích údajů u některých deskriptorů \addtocounter{enumi}{48}
-    \item - 79. Načtení LVID \addtocounter{enumi}{3}
-    \item - 91. Ladicí výpis výpočtů a očekávaných hodnot CRC pro VDS \addtocounter{enumi}{11}
-    \item - 249. Výpis všech tagů VDS \addtocounter{enumi}{157}
-    \item - 257. Načtení a kontrola FSD \addtocounter{enumi}{7}
-    \item - 290. Načtení FE, v tomto případě se jedná o kořenový adresář. Výpis bytového pole je položka \texttt{AllocationDescriptors} a ta obsahuje FID jeho potomků. \addtocounter{enumi}{32}
-    \item - 301. Výpis FID. Povšimněte si řádku 299, kde je zobrazen ladicí výpis \textit{Parent. Not followng this one.}. Proto je tento FID přeskočen a pokračuje se k dalšímu. Případ s následováním začíná na řádku 302. \addtocounter{enumi}{10}
-    \item - 312. Načtení FID. Zde již na řádku 310 je vidět hláška \textit{ICB to follow}, což znamená, že se zanoříme na adresu určenou tímto deskriptorem. \addtocounter{enumi}{10}
-    \item - 320. Výpis FE na který ukazoval předchozí FID. Jedná se o soubor, proto jeho \texttt{AllocationDescriptors} obsahují pouze \texttt{long address} dat a ne FID. \addtocounter{enumi}{7}
-    \item Ladicí výpis informujicí o úspěšném návratu zpět do rodičovské FE.
-    \item Ladicí výpis zobrazující jak dlouhý FID je a o kolik se tím pádem má posunout pro další.
+    \item[1. a 2.] Výpis nastavení výpisů
+    \item[3.] Oznámení módu chodu programu
+    \item[4.] Přijatá velikost bloku vstupním argumentem
+    \item[5.] Analyzované médium
+    \item[6. -- 8.] Oznámení o úspěšnosti načtení \textit{Anchor Volume Descriptor Pointer}
+    \item[9.] Detekovaná velikost bloku
+    \item[11. -- 13.] Výpis stromu souborů \textit{Stream Directory}
+    \item[15. -- 27.] Výpis stromu souborů. Každý řádek odpovídá jednomu záznamu (soubor nebo adresář). Prvních 5 příznaků jsou \textit{File Characteristics}, ty jsou použity například na řádku 18, kde písmeno \texttt{d} značí adresář nebo na řádku 23, kde písmeno \texttt{D} značí smazaný soubor. Poté následují opravnění práce se záznamem v pořadí smazatelnost, editovatelnost atributů, čtení, zápis spouštění. Ty jsou ve skupinách práv pro uživatele, skupinu a ostatní. Poté následuje kategorie záznamu (soubor, adresář, stream). Další je datum poslední změny následovaný velikostí souboru v bytech. Jako poslední je identifikátor záznamu.
+    \item[29.] Výpis kontroly souborového systému
+    \item[31.] Identifikátor média
+    \item[32.] Identifikátor logického oddílu
+    \item[33.] Příští \textit{Unique ID}, které bude použito pro další záznam
+    \item[34.] Nejvyšší nalezené \textit{Unique ID} na médiu
+    \item[35.] Poslední zaznamenaná změna v \textit{Logical Volume Integrity Descriptor}
+    \item[36. -- 39.] Očekáváné a nalezené počty souborů a adresářů
+    \item[40. -- 42.] Povolené revize UDF pro práci s médiem
+    \item[43. -- 48.] Detekované a deklarované objemy volného a obsazeného místa v bytech a blocích
+    \item[50. -- 57.] Výsledek kontroly a opravy \textit{Volume Descriptor Sequence}
 \end{enumerate}
-Takto program postupně zpracuje všechny soubory až skončí s hláškou \textit{All done}. Pokud vše skončilo správně, měl by vrátit 0.
+Takto program postupně zpracuje všechny soubory až skončí s hláškou \textit{All done}. Pokud vše skončilo správně, měla by být jeho návratová hodnota 0, což je i tento případ. Pokud by došlo k nějaké opravě, bude k návratové hodnotě přičtena hodnota 1, pokud byly nalezeny chyby a nebyly opraveny, bude přičteno 4. Pokud by program zhavaroval, bude návratová hodnota 8.
+
+Více výstupů z běhu programu je v příloze na CD, adresář \texttt{udffsck-outputs}.
 
 \chapter{Výstupy z referenčního řešení \texttt{udfct}}
 \begin{lstlisting}[frame=single,caption={Výsledek kontroly poškozeného média referenčním programem \texttt{udfct}},label=lst:udfct-broken,basicstyle=\ttfamily\scriptsize, keywordstyle=\color{black}\bfseries\underbar,nolol,numbers=left,texcl=false,escapechar=!]
@@ -2188,45 +1772,49 @@ LVID = {
 }
 \end{lstlisting}
 
-\chapter{Obsah přiloženého archivu}
+\chapter{Obsah přiloženého CD}
 
-Pro úspěšnou kompilaci je potřeba mít nainstalovaný nástroj \texttt{autotools}, \texttt{gcc} verze 4.9 a vyšší a knihovnu \texttt{cmocka} ve verzi 1.1.0. Nástroj je aktuálně testován vůči distribucím Debian a Ubuntu. V tuto chvíli je potřeba pro správnou funkci potřeba little-endian procesor. Tento požadavek bude před dokončením odstraněn.
 \dirtree{%.
 .1 /\DTcomment{kořenový adresář archivu}.
-.2 AUTHORS.
-.2 autogen.sh\DTcomment{Skript pro kompilaci balíku}.
-.2 cdrwtool\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{cdrwtool}}.
-.2 configure.ac.
-.2 COPYING.
-.2 doc\DTcomment{Adresář s dokumentacemi k jednotlivým nástrojům}.
-.2 Doxyfile.
-.2 ChangeLog.
-.2 include\DTcomment{Adresář se sdílenými hlavičkovými soubory}.
+.2 udftools\DTcomment{Adresář balíčku \texttt{udftools} obsahující nástroj \texttt{udffsck}}.
+.3 AUTHORS.
+.3 autogen.sh\DTcomment{Skript pro kompilaci balíku}.
+.3 cdrwtool\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{cdrwtool}}.
+.3 configure.ac.
+.3 COPYING.
+.3 doc\DTcomment{Adresář s dokumentacemi k jednotlivým nástrojům}.
+.3 Doxyfile.
+.3 ChangeLog.
+.3 include\DTcomment{Adresář se sdílenými hlavičkovými soubory}.
 .3 bswap.h.
-.3 \detokenize{ecma_167.h}\DTcomment{Soubor se strukturami podle ECMA-167}.
-.3 libudffs.h\DTcomment{Soubor s definicemi funkcí ze sdílené knihovny \texttt{libtool}}.
-.3 \detokenize{osta_udf.h}\DTcomment{Soubor se strukturami podle OSTA UDF dokumentace}.
-.3 \detokenize{udf_endian.h}.
-.3 \detokenize{udf_lib.h}.
-.2 INSTALL.
-.2 libudffs\DTcomment{Adresář se zdrojovými kódy sdílené knihovy \texttt{libudffs}}.
-.2 Makefile.am.
-.2 mkudffs\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{mkudffs}}.
-.2 NEWS.
-.2 pktsetup.
-.2 README.
-.2 README.md.
-.2 TODO.
-.2 udffsck\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{udffsck}}.
-.3 \detokenize{ecma_119.h}\DTcomment{Soubor s vybranými hlavičkami standardu ECMA-119.}.
-.3 main.c\DTcomment{Hlavní soubor programu. Obsahuje kromě funkce main také detekci VRS.}.
+.4 \detokenize{ecma_167.h}\DTcomment{Soubor se strukturami podle ECMA-167}.
+.4 libudffs.h\DTcomment{Soubor s definicemi funkcí ze sdílené knihovny \texttt{libtool}}.
+.4 \detokenize{osta_udf.h}\DTcomment{Soubor se strukturami podle OSTA UDF dokumentace}.
+.4 \detokenize{udf_endian.h}.
+.4 \detokenize{udf_lib.h}.
+.3 INSTALL.
+.3 libudffs\DTcomment{Adresář se zdrojovými kódy sdílené knihovy \texttt{libudffs}}.
 .3 Makefile.am.
-.3 options.c\DTcomment{Parser vstupních parametrů a nápověda.}.
-.3 options.h.
-.3 test.c\DTcomment{Zdrojový soubor pro unit-testy.}.
-.3 udffsck.c\DTcomment{V tomto souboru je jádro celého programu.}.
-.3 udffsck.h.
-.3 utils.c\DTcomment{Podpůrné funkce (například tisk tagů)}.
-.3 utils.h.
-.2 wrudf\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{wrudf}}.
+.3 mkudffs\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{mkudffs}}.
+.3 NEWS.
+.3 pktsetup.
+.3 README.
+.3 README.md.
+.3 TODO.
+.3 udffsck\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{udffsck}}.
+.4 \detokenize{ecma_119.h}\DTcomment{Soubor s vybranými hlavičkami standardu ECMA-119.}.
+.4 main.c\DTcomment{Hlavní soubor programu. Obsahuje kromě funkce main také detekci VRS.}.
+.4 Makefile.am.
+.4 options.c\DTcomment{Parser vstupních parametrů a nápověda.}.
+.4 options.h.
+.4 test.c\DTcomment{Zdrojový soubor pro unit-testy.}.
+.4 udffsck.c\DTcomment{V tomto souboru je jádro celého programu.}.
+.4 udffsck.h.
+.4 utils.c\DTcomment{Podpůrné funkce (například tisk tagů)}.
+.4 utils.h.
+.3 wrudf\DTcomment{Adresář se zdrojovými kódy nástroje \texttt{wrudf}}.
+.2 udf-samples.tar.xz\DTcomment{Komprimovaný archiv s testovacími daty}.
+.2 udffsck-outputs\DTcomment{Výstupy z nástroje \texttt{udffsck}. K prohlížení doporučuji nástroj \texttt{less}}.
+.2 vladyka.pdf\DTcomment{Tato práce v elektronické podobě}.
+.2 demo.mkv\DTcomment{Záznam demonstrující činnost kontroly a opravy média}.
 }
