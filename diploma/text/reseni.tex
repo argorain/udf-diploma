@@ -257,7 +257,7 @@ Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
         432 &8      &\textbf{Integrity Sequence Extent} & extent\_ad    & \textbf{Umístění LVID} \\ \hline
         440 &MT\_L  &Partition Maps                     & bytes         & \\ \hline
     \end{tabular}
-    \caption{Logical Volume Descriptor\label{tab:lvd}}
+    \caption{Logical Volume Descriptor. Tučně zvýrazněné části jsou kritické pro činnost nástroje pro detekci a korekci chyb.\label{tab:lvd}}
 \end{table}
 
 \subsubsection{Deskriptory Partition Descriptor a Space Bitmap Descriptor}
@@ -289,7 +289,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
         228 &128    &Implementation Use                 & bytes         & \\ \hline
         356 &156    &Rezerva                            &               & \\ \hline 
     \end{tabular}
-    \caption{Partition Descriptor\label{tab:pd}}
+    \caption{Partition Descriptor. Tučně zvýrazněné části jsou kritické pro činnost nástroje pro detekci a korekci chyb.\label{tab:pd}}
 \end{table}
 \begin{table}
     \centering
@@ -301,7 +301,7 @@ Struktura PD je zachycena v tabulce \ref{tab:pd}. Struktura SBD je zachycena v t
         +CDW02& Médium bylo vytvořeno podle standardu ECMA-168\\ \hline
         \textbf{+NSR03}& \textbf{Médium bylo vytvořeno podle standardu ECMA-167/UDF}\\ \hline
     \end{tabular}
-    \caption{Partition Contents reprezentace\label{tab:pd-partition-contents}}
+    \caption{Partition Contents reprezentace. Zvýrazněný identifikátor je jediný, který nástroj bude podporovat.\label{tab:pd-partition-contents}}
 \end{table}
 \begin{table}[]
     \centering
@@ -354,7 +354,7 @@ Pokud bychom měli zvýraznit některé položky, byly by to tyto:
         N\_P$\times4+80$ &N\_P$\times4$& \textbf{Size Table}    & Uint32        & \textbf{Tabulka velikostí} \\ \hline
         N\_P$\times4+80$ &L\_IU& \textbf{Implementation Use}    & bytes         & \textbf{Počet adresářů a souborů a povolených verzí UDF} \\ \hline
     \end{tabular}
-    \caption{Logical Volume Integrity Descriptor\label{tab:lvid}}
+    \caption{Logical Volume Integrity Descriptor. Tučně zvýrazněné části jsou kritické pro činnost nástroje pro detekci a korekci chyb.\label{tab:lvid}}
 \end{table}
 
 \section{Struktura souborového stromu}
@@ -365,6 +365,12 @@ Souborová struktura UDF je postavena na třech deskriptorech, které se podíl�
     \item \textit{File Entry} (FE)
     \item \textit{File Identifier Descriptor} (FID)
 \end{itemize}
+Ty jsou podporovány celou řadou dalších deskriptorů. Z nich je potřeba některé popsat:
+\begin{itemize}
+    \item \textit{Information Control Block} (ICB) -- deskriptor popisující umístění samotných dat. Jedná se o nadřazené označení pro \textit{File Entry} a \textit{Extended File Entry}. Tuto funkci doplňuje ICB tag, který popisuje metadata ICB.
+    \item \textit{Allocation Descriptor} (AD) -- deskriptory popisující umístění v rámci logického svazku. Existují tři varianty: \textit{Short} (ukazauje v rámci logického svazku), \textit{Long} (ukazuje na libovolný logický svazek) a \textit{Extended} (ukazuje na libovolný logický svazek a nese navíc informaci o skutečné délce obsahu, ostatní nesou pouze informaci o počtu použitých bloků.)
+\end{itemize}
+S touto sadou deskriptorů je již možné popsat strukturu souborového stromu.
 
 \subsection{Deskriptor File Set Descriptor}
 \label{subsec:fsd}
@@ -392,14 +398,9 @@ Posledním faktem, který je nutno zdůraznit u deskriptoru FE, je existence nov
 
 \subsection{Deskriptor File Identifier Descriptor}
 \label{subsec:fid}
-\textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4 a v tabulce \ref{tab:fid}.
-
-Účelem FID je zrychlení přístupu k metadatům souborů na sekvenčních médiích, kde přesun na jiné místo trvá delší dobu než u zařízení s náhodným přístupem (\textit{Random Access}). Takto jsou základní údaje o souboru (adresáři) shluknuty dohromady v rámci rodičovského adresáře a není potřeba je hledat na jiných místech média.
-
-Z deskriptoru FID stojí za zvýraznění \textit{File Identifier}, který udržuje jméno záznamu. Dále se jedná o \textit{File Characteristics}, které popisují vlastnsti záznamu z hlediska práce s ním. Kompletní výčet možností je v tabulce \ref{tab:file-characteristics}. Položka, kterou je také vhodné zmínit, je \textit{Unique ID}. To by mělo být shodné s hodnotou, která je uložená v FE, na které ukazuje. Nejdůležitějším údajem je samozřejmě pozice samotného FE (nebo EFE). Ta je uložena v položce \textit{ICB}. 
-\begin{table}[]
+\begin{table}[t]
     \centering
-    \begin{tabular}{ | l | l | p{3.7cm} | p{1.8cm} | p{4.2cm} | }
+    \begin{tabular}{ | l | l | p{3.2cm} | p{1.8cm} | p{4.4cm} | }
         \hline
         Adresa  & Délka [B]   & Jméno položky & Datový typ    & Popis \\ \hline\hline
         0   &16               & Descriptor Tag                    & tag           & Identifikátor deskriptoru \\ \hline
@@ -412,10 +413,10 @@ Z deskriptoru FID stojí za zvýraznění \textit{File Identifier}, který udrž
         L\_IU$+38$&L\_FI      & \textbf{File Identifier}          & d-characters  & \textbf{Jméno v Unicode} \\ \hline
         L\_FI$+$L\_IU$+38$&*  & Padding                           & bytes         & Zarovnání délky na $N \mod 4$ \\ \hline
     \end{tabular}
-    \caption{File Identifier Descriptor\label{tab:fid}}
+    \caption{File Identifier Descriptor. Tučně zvýrazněné části jsou kritické pro činnost nástroje pro detekci a korekci chyb.\label{tab:fid}}
 \end{table}
 \begin{table}
-    \centering
+    \centering\label{tab:file-characteristics}
     \begin{tabular}{ | l | l |}
         \hline
         Bit & Význam \\ \hline\hline
@@ -426,8 +427,13 @@ Z deskriptoru FID stojí za zvýraznění \textit{File Identifier}, který udrž
         4   & \textbf{Metadata} -- Pokud je nastavený a je ve \textit{Stream directory}, záznam obsahuje metadata.\\\hline
         5   & Rezervováno, mělo by být rovno 0.\\\hline
     \end{tabular}
-    \caption{File Characteristics\label{tab:file-characteristics}}
+    \caption{Význam jednotlivých bitů položky File Characteristics deskriptoru FID \ref{tab:fid}}
 \end{table}
+\textit{File Identifier Descriptor} (FID) je struktura, která udržuje informace o souboru na úrovni mateřského adresáře. Je popsaný v \cite{osta-udf-0201} v kapitole 2.3.4 a v tabulce \ref{tab:fid}.
+
+Účelem FID je zrychlení přístupu k metadatům souborů na sekvenčních médiích, kde přesun na jiné místo trvá delší dobu než u zařízení s náhodným přístupem (\textit{Random Access}). Takto jsou základní údaje o souboru (adresáři) shluknuty dohromady v rámci rodičovského adresáře a není potřeba je hledat na jiných místech média.
+
+Z deskriptoru FID stojí za zvýraznění \textit{File Identifier}, který udržuje jméno záznamu. Dále se jedná o \textit{File Characteristics}, které popisují vlastnsti záznamu z hlediska práce s ním. Kompletní výčet možností je v tabulce \ref{tab:file-characteristics}. Položka, kterou je také vhodné zmínit, je \textit{Unique ID}. To by mělo být shodné s hodnotou, která je uložená v FE, na které ukazuje. Nejdůležitějším údajem je samozřejmě pozice samotného FE (nebo EFE). Ta je uložena v položce \textit{ICB}. 
 
 \section{Zhodnocení kapitoly}
 V této kapitole byly nastíněny základní principy UDF, jeho strukutra a vlastnosti. Protože není cílem popsat existující dokumenty, není výčet kompletní a jedná se pouze o přehledovou část, ve které jsou zvýrazněny části důležité pro kontrolu a opravu konzistence souborového systému.
@@ -634,14 +640,19 @@ Důležitým detailem, který není v obrázku pro jednoduchost naznačen, je sk
 
 \section{Implementace nástroje pro detekci a korekci chyb}
 \label{sec:implementace}
-Implementace nástroje \texttt{udffsck} je provedena v rámci balíčku \texttt{udftools}. Navazuje tak na existující sdílenou knihovnu, která obsahuje sdílené hlavičky s definicemi deskriptorů podle standardu ECMA-167.
+Implementace nástroje \texttt{udffsck} bude provedena v rámci balíčku \texttt{udftools}. Bude tak navazovat na existující sdílenou knihovnu, která obsahuje sdílené hlavičky s definicemi deskriptorů podle standardu ECMA-167.
 
-Struktura nástroje je rozdělena do třech částí. V první části probíhá načtení média a parsování vstupních parametrů. Druhá část detekuje přítomnost UDF, načítá deskriptory souborového systému a strom souborů a detekuje chyby v nich. Třetí část opravuje chyby na základě výsledků z předchozí části. Návrh samotný je popsán v předchozí kapitole \ref{sec:navrh}.
+Struktura nástroje bude rozdělena do třech částí. V první části bude probíhat načtení média a parsování vstupních parametrů. Druhá část bude detekovat přítomnost UDF, načítat deskriptory souborového systému a strom souborů a bude detekovat chyby v nich. Třetí část bude opravovat nalezené chyby na základě výsledků z předchozí části. Návrh jednotlivých částí je popsán v předchozí kapitole \ref{sec:navrh}.
 
-Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých kroků implementace. Ta postupovala podle algoritmu popsaném v předchozí kapitole, viz obrázek \ref{fig:steps-korekce}.
-Závěrem implementační fáze je začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. Tento krok předpokládal funkční a v rámci možností otestovaný nástroj s vytvořenou manuálovou stránkou a testovacím nástrojem pro automatické zachování funkčnosti po začlenění. Více o publikaci nástroje je v kapitole \ref{ch:publikace}.
+Pokud rozebereme implementaci na menší části, dostaneme se již na úroveň jednotlivých kroků implementace. Ta bude postupovat podle algoritmu popsaném v předchozí kapitole, viz obrázek \ref{fig:steps-korekce}. Bude vytvořena struktura pro přenos chybové informace mezi detekčními a korekčními algoritmy, stejně tak strkuktura nesoucí pracovní informace o médiu. 
 
-Jednotlivé části implementace jsou popsány v následujících podkapitolách.
+Nástroj bude vytvořen v jazyce C podle standardu C99 a bude využívat funkce poskytnuté prostředním GNU/Linux. Bude přeložitelný pomocí GCC pro ostré nasazení a pomocí LLVM CLANG pro vývoj. Důvodem je integrovaná funkce překladače LLVM CLANG \textit{Address Sanitizer}, který poskytuje užitečné informace o správě paměti, respektive při jejím porušení. Díky tomu je snažší odhalit neodalokovanou paměť, přetečení mezi paměťovými oblastmi a v případě havárie programu vypíše užitečné informace kde v paměti k chybě došlo včetně zásobníku volání funkcí které k tomu vedlo. Dále potřeba použít debugger, zde bude použit GDB. K vytvoření testů bude použita knihovna CMocka, ve které vzniknou v první řadě provozní testy celého programu, případně může být použita k tvorbě Unit Testů. Dokumentace k programu bude vytvořena pomocí nástroje Doxygen, který je určený k automatickému generování přehledné dokumentace z komentářů ve zdrojových kódech. Jako editor bude použitý Vim.
+
+Vzhledem k závislostem zbytku balíčku (hlavně sdílené knihovny) je k překladu potřeba použít GNU Autotools spolu s knihovnou LibTool a Readline, která závisí na knihovně Ncurses. Tímto by měly být splněny požadavky pro implementaci.
+
+Závěrem implementační fáze bude začlenění výsledného \texttt{udffsck} zpět do balíčku \texttt{udftools}, ze kterého je rozvětven. Tento krok předpokládá funkční a otestovaný nástroj s vytvořenou manuálovou stránkou. K tomu, pro budoucí udržovatelnost, je nutné přiložit skupinu testů, které mohou probíhat automaticky bez účasti vývojáře a vracejí binární výsledek pokud test uspěl nebo selhal. Více o publikaci nástroje je v kapitole \ref{ch:publikace}.
+
+Jednotlivé části implementace jsou detailněji popsány v následujících podkapitolách.
 
 \section{Realizace detekce chyb v deskriptoru}
 \label{sec:realizace-detekce}
@@ -892,21 +903,18 @@ Důvodem vynechání dat z detekce a korekce na úrovni \texttt{fsck} je skuteč
 
 Ústředními deskriptory u stromu souborů jsou deskriptory \textit{(Extended) File Entry} (FE/EFE), který je popsaný v kapitole \ref{subsec:fe} a \textit{File Identifier Descriptor} (FID), který je popsaný v kapitole \ref{subsec:fid}.
  
-\begin{figure}[] 
+\begin{figure}[!b] 
     \centering
-    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
     \includegraphics[scale=0.36]{obrazky/get-file.eps}
-    \caption{Algoritmus načítání descriptorů FE}
+    \caption{Algoritmus načítání descriptorů FE (funkce \textit{Get File}). Tečkovaně naznačený blok odkazuje na obrázek \ref{fig:fid}.}
     \label{fig:files}
-\end{figure}Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře, která je předána algoritmu. Od tohoto bodu probíhá algoritmus zachycený na obrázku. Předpokladem úspěšného průchodu je správnost všech kontrolních mechanismů. Ty není možné opravit, pouze je možné detekovat chybu. Ovšem pokud je deskriptor identifikován a selhala kontrola CRC, je uživateli v interaktivním režimu poskytnuta možnost tuto chybu ignorovat. Opravitelné chyby jsou chyby týkající se \textit{Unique ID} a časových značek. Po fázi detekce chyb následuje fáze hledání následující části stromu. Existuje několik druhů alokačních deskriptorů. Liší se způsobem jakým udržují informaci a kam mohou ukazovat. Povolené varianty jsou \textit{Long Allocation Descriptor} (LongAD), který ukazuje na logický blok v libovolném oddílu. \textit{Short Allocation Descriptor} (ShortAD) naopak může ukazovat na logický blok pouze ve svém oddílu. Poslední variantou je uložení deskriptorů FID přímo v FE (varianta ADinICB). Tato větev využívá volného místa, které vzniká za většinou deskriptorů, takže jsou FID uloženy přímo. Je zde použit deskriptor \textit{Extended Attribute Header Descriptor}, který v sobě nese buď nějaká implemenetační data, nebo sekvenci deskriptorů FID. Deskriptory FID jsou v obou případech procházeny iterativně dokud neskončí jeho načtení chybou (ať už protože je poškozený, tudíž není možné strom dále projít, nebo proto že sekvence skončila.) Zpracování samotných deskriptorů FID je popsáno ve vlastním algoritmu, který je na obrázku \ref{fig:fid}.
-
-\begin{figure}[] 
-    \centering
-    %\resizebox{0.5\textwidth}{!}{\input{obrazky/avdp.tex}}}
     \includegraphics[scale=0.36]{obrazky/inspect-fid.eps}
-    \caption{Algoritmus načítání descriptorů FID}
+    \caption{Algoritmus načítání descriptorů FID (funkce \textit{Inpspect FID}). Tečkovaně naznačený blok odkazuje na obrázek \ref{fig:files}.}
     \label{fig:fid}
 \end{figure}
+
+Algoritmus načtení adresářové struktury je zachycen na obrázku \ref{fig:files}. Tento algoritmus začíná po úspěšném načtení FSD, odkud je získána pozice FE kořenového adresáře, která je předána algoritmu. Od tohoto bodu probíhá algoritmus zachycený na obrázku. Předpokladem úspěšného průchodu je správnost všech kontrolních mechanismů. Ty není možné opravit, pouze je možné detekovat chybu. Ovšem pokud je deskriptor identifikován a selhala kontrola CRC, je uživateli v interaktivním režimu poskytnuta možnost tuto chybu ignorovat. Opravitelné chyby jsou chyby týkající se \textit{Unique ID} a časových značek. Po fázi detekce chyb následuje fáze hledání následující části stromu. Existuje několik druhů alokačních deskriptorů. Liší se způsobem jakým udržují informaci a kam mohou ukazovat. Povolené varianty jsou \textit{Long Allocation Descriptor} (LongAD), který ukazuje na logický blok v libovolném oddílu. \textit{Short Allocation Descriptor} (ShortAD) naopak může ukazovat na logický blok pouze ve svém oddílu. Poslední variantou je uložení deskriptorů FID přímo v FE (varianta ADinICB). Tato větev využívá volného místa, které vzniká za většinou deskriptorů, takže jsou FID uloženy přímo. Je zde použit deskriptor \textit{Extended Attribute Header Descriptor}, který v sobě nese buď nějaká implemenetační data, nebo sekvenci deskriptorů FID. Deskriptory FID jsou v obou případech procházeny iterativně dokud neskončí jeho načtení chybou (ať už protože je poškozený, tudíž není možné strom dále projít, nebo proto že sekvence skončila.) Zpracování samotných deskriptorů FID je popsáno ve vlastním algoritmu, který je na obrázku \ref{fig:fid}.
+
 Algoritmus pro načítání deskriptorů FID je přímější. Začátek algoritmu je stejný jako v předchozím případě. Poté následuje sekvence dotazů, kdy nemá význam FID sledovat. Jedná se o příznak smazání, referenci na rodičovský adresář, sebe sama a kořenový adresář. Vzhledem k faktu, že chceme postupovat do hloubky, tyto reference nás nezajímají a proto algoritmus v tomto bodě končí (t.j. v algoritmu na obrázku \ref{fig:files} se přejde ke kontrole dalšího FID). Pokud touto částí algoritmus projde, přistoupí se k uložení aktuálního \textit{Unique ID} pro porovnání s FE a jeho kontrola na nulovost. Ta je případně opravena. Poté už následuje načtení pozice nového deskriptoru FE a jeho zpracování. Tím se algoritmus vrací opět k předchozímu algoritmu na obrázku \ref{fig:files}.
 
 Během průchodu se sleduje několik parametrů, které jsou nutné ať už pro kontrolu a opravu stromu nebo pro opravu metadat v LVID \ref{sec:nacteni-a-oprava-lvid} a SBD \ref{sec:nacteni-a-oprava-sbd}. Jedná se o tyto:
