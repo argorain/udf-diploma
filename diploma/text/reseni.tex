@@ -193,7 +193,7 @@ Poslední položkou je \textit{Version} která obsahuje informaci o verzi deskri
 
 Aby mohlo být prohlášeno, že médium obsahuje UDF, musí být nalezen deskriptor obsahující \textit{Identifier} s hodnotou \texttt{NSR01}, \texttt{NSR02} nebo \texttt{NSR03}. V opačném případě se nejedná o UDF.
 
-\subsection{Deskriptor Anchor Volume Descriptor Pointer}
+\subsection{Anchor Volume Descriptor Pointer}
 \label{subsec:avdp}
 \textit{Anchor Volume Descriptor Pointer} (AVDP) je klíčová část souborového systému. Tato struktura udržuje adresu VDS a jeho délku a to jak pro hlavní, tak pro záložní VDS. Právě AVDP je první deskriptor, který se čte po identifikaci souborového systému, proto je umístěn na předem známém místě. V případě uzavřených souborových systémů (více o \textit{Finalization} v kapiole \ref{sec:udf-struktura}) to je na sektoru 256, posledním sektoru média a nezřídka také na 256. sektoru od konce média. Podmínkou je, že AVDP musí být uloženo alespoň dvakrát. V případě otevřených souborových systémů je zde výjimka, protože AVDP je dočasně umístěno na sektoru 512 nebo 256 až do uzavření média, kdy je dopsáno na svá místa a opět alespoň ve dvou exemplářích, přičemž AVDP na adrese 512 se do tohoto počtu nezapočítává.
 
@@ -228,7 +228,7 @@ Samotné deskriptory jsou popsány ve standardu \cite{osta-udf-0201}, kapitola 2
 \end{itemize}
 Z nich je ovšem vhodné některé vyzdvihnout a popsat hlouběji kvůli přímému vlivu na funkci \texttt{fsck}.
 
-\subsubsection{Deskriptor Logical Volume Descriptor}
+\subsubsection{Logical Volume Descriptor}
 \label{subsec:lvd}
 \textit{Logical Volume Descriptor} (LVD) popisuje logický svazek jako celek. Pro použití ve \texttt{udfffsck} jsou důležité tyto:
 \begin{itemize}
@@ -260,7 +260,7 @@ Struktura deskriptoru je popsána v tabulce \ref{tab:lvd}.
     \caption{Logical Volume Descriptor. Tučně zvýrazněné části jsou kritické pro činnost nástroje pro detekci a korekci chyb.\label{tab:lvd}}
 \end{table}
 
-\subsubsection{Deskriptory Partition Descriptor a Space Bitmap Descriptor}
+\subsubsection{Partition Descriptor a Space Bitmap Descriptor}
 \label{subsec:pd-sbd}
 \textit{Partition Descriptor} (PD) popisuje vlastnosti logického svazku. Důležitým údajem je položka \textit{Partition Contents Use}, která popisuje jak se má zacházet s obsahem logického svazku. Obsah logického svazku je definován položkou \textit{Partition Contents}, která může nabývat hodnot uvedených v tabulce \ref{tab:pd-partition-contents}. Další důležitý údaj je v položce \textit{Access Type}, který určuje filozofii přístupu k zápisu na logický svazek (více v kapitole \ref{sec:udf-struktura}.)
 
@@ -372,7 +372,7 @@ Ty jsou podporovány celou řadou dalších deskriptorů. Z nich je potřeba ně
 \end{itemize}
 S touto sadou deskriptorů je již možné popsat strukturu souborového stromu.
 
-\subsection{Deskriptor File Set Descriptor}
+\subsection{File Set Descriptor}
 \label{subsec:fsd}
 \textit{File Set Descriptor} (FSD) je výchozím bodem pro čtení dat. Jeho pozice je opět uložena v LVD (více v kapitole \ref{subsec:lvd}). Jeho struktura je popsána v \cite{osta-udf-0201}, kapitola 2.3.2. Tento deskriptor obsahuje hlavně umístění kořenového adresáře a název svazku, na kterém je uložený. Další údaje uložené v tomto deskriptoru jsou umístění souborů obsahující copyright nebo abstrakt. Ty stojí mimo adresářovou strukturu a jsou využívány například na DVD s filmy.
 
@@ -396,7 +396,7 @@ Zde je opět výjimka týkající se kořenového adresáře. Tou je reference n
 
 Posledním faktem, který je nutno zdůraznit u deskriptoru FE, je existence novější verze \textit{File Entry} a tou je \textit{Extended File Entry} (EFE). Ta přišla s verzí UDF 2.00 a je doporučené je používat místo FE. Ovšem pro zachování zpětné kompatibility je možné nechat FE na médiu a nadále je používat a nové soubory ukládat pomocí EFE. To s sebou nese nutnost rozlišovat mezi FE a EFE v rámci média, protože EFE pouze nerozšiřuje FE, ale mění i jeho strukturu, takže původní položky jsou sice shodně pojmenované a nesou stejnou informaci, ale mají jiné umístění. 
 
-\subsection{Deskriptor File Identifier Descriptor}
+\subsection{File Identifier Descriptor}
 \label{subsec:fid}
 \begin{table}[t]
     \centering
@@ -964,7 +964,7 @@ Testovací sada obsahuje média všech povolených velikostí sektorů (t.j od 5
 Syntetické poškození média probíhalo ručním přepsáním některých vybraných částí média pro vytvoření chyby v daném deskriptoru. Takto byly testovány kontrolní součty a CRC a posléze opravy takto poškozených deskriptorů.
 Nahodilé poškození média bylo vytvořeno záměrným přerušením zápisu na médium odebráním zařízení. Nahodilé proto, že není předem jasné, co bude poškozeno a jak. Tyto testy cílí na obnovu stromu souborů a opravu a uzavření LVID.
 
-Tímto způsobem bylo vytvořeno přes 14~GB testovacích dat ve 29 vzorcích.
+Tímto způsobem bylo vytvořeno přes 20~GB testovacích dat ve 32 vzorcích.
 
 Pro zjištění chyb na médiích a pro zjištění úspěšnosti detekce a následné korekce byl použit nástroj společnosti Philips \texttt{udfct} \cite{wayback} určený ke kontrole dodržování standardu UDF.
 
