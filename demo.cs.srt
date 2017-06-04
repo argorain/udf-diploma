@@ -1,0 +1,59 @@
+﻿1
+00:00:07,005 --> 00:00:10,005
+Začneme ověřením bezchybnosti vloženého média nástrojem udffsck.
+
+2
+00:00:10,488 --> 00:00:13,488
+Jak je vidět, nástroj neodhalil žádné poruchy.
+
+3
+00:00:13,720 --> 00:00:16,720
+Nyní vložíme médium do MS Windows 7.
+
+4
+00:00:17,648 --> 00:00:20,648
+Pokusíme se nakopírovat data na médium.
+
+5
+00:00:24,504 --> 00:00:32,504
+Záměrně přerušíme kopírování fyzickým odebráním média, čímž vytvoříme poruchu.
+
+6
+00:00:33,184 --> 00:00:38,184
+Nyní je médium poškozeno a není možné na něj nahrávat žádná další data.
+
+7
+00:00:40,332 --> 00:00:47,132
+Vrátíme se zpět do OS Linux a médium zkontrolujeme nástrojem udffsck
+
+8
+00:00:47,301 --> 00:00:51,301
+Jak je vidět na červených řádcích, byla nalezena celá řada chyb.
+
+9
+00:00:51,941 --> 00:00:54,941
+Nyní je zkusíme opravit.
+
+10
+00:00:56,373 --> 00:00:59,373
+Nástroj znovu prošel médium a zelené řádky popisují provedené opravy.
+
+11
+00:01:01,086 --> 00:01:04,086
+Pro kontrolu byl nástroj po opravě spuštěn a nenalezl žádné chyby.
+
+12
+00:01:04,230 --> 00:01:07,730
+Ověříme úspěch opravy nahráním dat z MS Windows 7 na médium.
+
+13
+00:01:07,774 --> 00:01:10,774
+Data se podařilo nahrát, oprava byla úspěšná.
+
+14
+00:01:11,574 --> 00:01:17,574
+Pokud nyní zkontrolujeme médium, je vidět, že se nový soubor korektně zařadil do adresářové struktury.
+
+15
+00:01:24,694 --> 00:01:27,694
+Děkuji za pozornost.

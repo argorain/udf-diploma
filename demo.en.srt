@@ -1,0 +1,59 @@
+﻿1
+00:00:07,005 --> 00:00:10,005
+We begin with the file system consistency check with udffsck tool.
+
+2
+00:00:10,488 --> 00:00:13,488
+As you can see, the tool didn't discovered any errors.
+
+3
+00:00:13,720 --> 00:00:16,720
+Now we insert the medium to MS Windows 7.
+
+4
+00:00:17,648 --> 00:00:20,648
+We try to copy some data to the medium.
+
+5
+00:00:24,504 --> 00:00:32,504
+We interrupt the copying during the process by physically removing the medium.
+
+6
+00:00:33,184 --> 00:00:38,184
+The medium is now broken and it's impossible to store any other data.
+
+7
+00:00:40,332 --> 00:00:47,132
+In OS Linux we use udffsck tool to check the medium for errors.
+
+8
+00:00:47,301 --> 00:00:51,301
+As you can see on the red lines, there are plenty of errors.
+
+9
+00:00:51,941 --> 00:00:54,941
+We will try to fix them.
+
+10
+00:00:56,373 --> 00:00:59,373
+We check the medium again with the tool, and as we see, the green lines indicate, what corrections were made.
+
+11
+00:01:01,086 --> 00:01:04,086
+Just for verification, we run the tool once again to ensure that it was fixed.
+
+12
+00:01:04,230 --> 00:01:07,730
+We can verify the success from MS Windows 7 by copying some data to the medium.
+
+13
+00:01:07,774 --> 00:01:10,774
+Data was successfully stored. The repair was successful.
+
+14
+00:01:11,574 --> 00:01:17,574
+If we now check the medium by the udffsck tool again, we can see that a new file was correctly added to the file tree.
+
+15
+00:01:24,694 --> 00:01:27,694
+Thank you for your attention.
